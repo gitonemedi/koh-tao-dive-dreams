@@ -1,6 +1,6 @@
-
 import React from 'react';
-import { GraduationCap, Clock, Users, Star } from 'lucide-react';
+import { Clock, Star } from 'lucide-react';
+import CourseRecommender from './CourseRecommender';
 
 const Courses = () => {
   const courses = [
@@ -67,6 +67,8 @@ const Courses = () => {
             From beginner to professional, we offer comprehensive PADI certification courses with experienced instructors in small groups
           </p>
         </div>
+
+        <CourseRecommender />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           {courses.map((course, index) => (
