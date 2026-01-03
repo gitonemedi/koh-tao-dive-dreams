@@ -1,12 +1,8 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import { Clock, Star } from 'lucide-react';
 import CourseRecommender from './CourseRecommender';
-import BookingModal from './BookingModal';
 
 const Courses = () => {
-  const [selectedCourse, setSelectedCourse] = useState<{ title: string; level: string } | null>(null);
-
   const courses = [
     {
       title: "Open Water Diver",
@@ -118,10 +114,7 @@ const Courses = () => {
                 </ul>
               </div>
 
-              <button 
-                onClick={() => setSelectedCourse({ title: course.title, level: course.level })}
-                className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold"
-              >
+              <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold">
                 Book This Course
               </button>
             </div>
@@ -147,15 +140,6 @@ const Courses = () => {
           </div>
         </div>
       </div>
-
-      {selectedCourse && (
-        <BookingModal
-          isOpen={!!selectedCourse}
-          onClose={() => setSelectedCourse(null)}
-          courseTitle={selectedCourse.title}
-          courseLevel={selectedCourse.level}
-        />
-      )}
     </section>
   );
 };
