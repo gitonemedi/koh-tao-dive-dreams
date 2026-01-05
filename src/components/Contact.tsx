@@ -1,8 +1,56 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Facebook, Instagram, MessageCircle } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    subject: 'Course Information',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('http://localhost:3001/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error('Failed to send message');
+
+      toast.success('Message sent successfully! We\'ll get back to you soon.');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        subject: 'Course Information',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Contact form error:', error);
+      toast.error('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <section id="contact" className="py-20 bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,12 +124,16 @@ const Contact = () => {
           <div className="bg-gray-800 rounded-lg p-8">
             <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
             
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">First Name</label>
                   <input
                     type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    required
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
                     placeholder="John"
                   />
@@ -90,6 +142,10 @@ const Contact = () => {
                   <label className="block text-sm font-medium text-gray-300 mb-2">Last Name</label>
                   <input
                     type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    required
                     className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
                     placeholder="Doe"
                   />
@@ -100,6 +156,10 @@ const Contact = () => {
                 <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
                   className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
                   placeholder="john@example.com"
                 />
@@ -107,7 +167,12 @@ const Contact = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Subject</label>
-                <select className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white">
+                <select
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+                >
                   <option>Course Information</option>
                   <option>Dive Trip Booking</option>
                   <option>Equipment Rental</option>
@@ -118,6 +183,10 @@ const Contact = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
                   rows={4}
                   className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
                   placeholder="Tell us about your diving experience and what you're looking for..."
@@ -126,9 +195,10 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold"
+                disabled={isSubmitting}
+                className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 font-semibold"
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>

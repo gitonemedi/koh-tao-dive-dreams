@@ -1,68 +1,73 @@
 import React, { useState } from 'react';
 import { Eye } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import BookingForm from './BookingForm';
 
 const DiveSites = () => {
+  const { t } = useTranslation();
   const [selectedSite, setSelectedSite] = useState<string | null>(null);
-  
+
   const sites = [
     {
-      name: "Sail Rock",
-      depth: "8-40m",
-      level: "Advanced",
-      highlights: ["Whale sharks", "Bull sharks", "Vertical swim-through"],
-      description: "The pinnacle dive site in the Gulf of Thailand, famous for whale shark encounters.",
+      name: t('diveSites.sites.sailRock.name'),
+      depth: t('diveSites.sites.sailRock.depth'),
+      level: t('diveSites.sites.sailRock.level'),
+      highlights: t('diveSites.sites.sailRock.highlights', { returnObjects: true }),
+      description: t('diveSites.sites.sailRock.description'),
       image: "https://images.unsplash.com/photo-1441057206919-63d19fac2369?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
-      name: "Chumphon Pinnacle",
-      depth: "14-32m",
-      level: "Intermediate",
-      highlights: ["Barracudas", "Trevally", "Coral gardens"],
-      description: "Underwater seamount covered in colorful soft corals and bustling with marine life.",
+      name: t('diveSites.sites.chumphon.name'),
+      depth: t('diveSites.sites.chumphon.depth'),
+      level: t('diveSites.sites.chumphon.level'),
+      highlights: t('diveSites.sites.chumphon.highlights', { returnObjects: true }),
+      description: t('diveSites.sites.chumphon.description'),
       image: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
-      name: "Southwest Pinnacle",
-      depth: "14-33m",
-      level: "Intermediate",
-      highlights: ["Whale sharks", "Giant groupers", "Coral formations"],
-      description: "A submerged pinnacle offering excellent chances of big fish encounters.",
+      name: t('diveSites.sites.southwest.name'),
+      depth: t('diveSites.sites.southwest.depth'),
+      level: t('diveSites.sites.southwest.level'),
+      highlights: t('diveSites.sites.southwest.highlights', { returnObjects: true }),
+      description: t('diveSites.sites.southwest.description'),
       image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
-      name: "Shark Island",
-      depth: "5-18m",
-      level: "Beginner",
-      highlights: ["Reef sharks", "Moray eels", "Easy diving"],
-      description: "Perfect for beginners with gentle currents and abundant marine life.",
+      name: t('diveSites.sites.sharkIsland.name'),
+      depth: t('diveSites.sites.sharkIsland.depth'),
+      level: t('diveSites.sites.sharkIsland.level'),
+      highlights: t('diveSites.sites.sharkIsland.highlights', { returnObjects: true }),
+      description: t('diveSites.sites.sharkIsland.description'),
       image: "https://images.unsplash.com/photo-1546518718-033ad80ba69c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
-      name: "White Rock",
-      depth: "8-22m",
-      level: "Beginner",
-      highlights: ["Coral gardens", "Tropical fish", "Photography"],
-      description: "Beautiful coral formations and diverse marine life in shallow, calm waters.",
+      name: t('diveSites.sites.whiteRock.name'),
+      depth: t('diveSites.sites.whiteRock.depth'),
+      level: t('diveSites.sites.whiteRock.level'),
+      highlights: t('diveSites.sites.whiteRock.highlights', { returnObjects: true }),
+      description: t('diveSites.sites.whiteRock.description'),
       image: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
-      name: "Green Rock",
-      depth: "6-18m",
-      level: "Beginner",
-      highlights: ["Sea turtles", "Angelfish", "Butterflyfish"],
-      description: "Known for frequent turtle sightings and vibrant reef fish communities.",
+      name: t('diveSites.sites.greenRock.name'),
+      depth: t('diveSites.sites.greenRock.depth'),
+      level: t('diveSites.sites.greenRock.level'),
+      highlights: t('diveSites.sites.greenRock.highlights', { returnObjects: true }),
+      description: t('diveSites.sites.greenRock.description'),
       image: "https://images.unsplash.com/photo-1615731502155-e3a6b35fbb86?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     }
   ];
 
   const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'Beginner': return 'bg-green-100 text-green-800';
-      case 'Intermediate': return 'bg-yellow-100 text-yellow-800';
-      case 'Advanced': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
+    const levelColors: { [key: string]: string } = {
+      [t('diveSites.sites.sailRock.level')]: 'bg-red-100 text-red-800',
+      [t('diveSites.sites.chumphon.level')]: 'bg-yellow-100 text-yellow-800',
+      [t('diveSites.sites.southwest.level')]: 'bg-yellow-100 text-yellow-800',
+      [t('diveSites.sites.sharkIsland.level')]: 'bg-green-100 text-green-800',
+      [t('diveSites.sites.whiteRock.level')]: 'bg-green-100 text-green-800',
+      [t('diveSites.sites.greenRock.level')]: 'bg-green-100 text-green-800',
+    };
+    return levelColors[level] || 'bg-gray-100 text-gray-800';
   };
 
   return (
@@ -70,10 +75,10 @@ const DiveSites = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            World-Class Dive Sites
+            {t('diveSites.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Explore Koh Tao's most spectacular underwater locations, each offering unique marine encounters and breathtaking coral formations
+            {t('diveSites.subtitle')}
           </p>
         </div>
 
@@ -92,32 +97,32 @@ const DiveSites = () => {
                   </span>
                 </div>
               </div>
-              
+
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{site.name}</h3>
                 <p className="text-gray-600 mb-4 text-sm leading-relaxed">{site.description}</p>
-                
+
                 <div className="flex items-center text-sm text-gray-500 mb-3">
                   <Eye className="h-4 w-4 mr-1" />
-                  <span className="mr-4">Depth: {site.depth}</span>
+                  <span className="mr-4">{t('diveSites.depth')}: {site.depth}</span>
                 </div>
-                
+
                 <div className="mb-4">
-                  <p className="text-sm font-medium text-gray-700 mb-2">Highlights:</p>
+                  <p className="text-sm font-medium text-gray-700 mb-2">{t('diveSites.highlights')}:</p>
                   <div className="flex flex-wrap gap-1">
-                    {site.highlights.map((highlight, idx) => (
+                    {site.highlights.map((highlight: string, idx: number) => (
                       <span key={idx} className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
                         {highlight}
                       </span>
                     ))}
                   </div>
                 </div>
-                
-                <button 
+
+                <button
                   onClick={() => setSelectedSite(site.name)}
                   className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors duration-200"
                 >
-                  Book This Dive
+                  {t('diveSites.bookButton')}
                 </button>
               </div>
             </div>

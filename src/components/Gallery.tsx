@@ -1,8 +1,10 @@
 
 import React, { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Gallery = () => {
+  const { t } = useTranslation();
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const images = [

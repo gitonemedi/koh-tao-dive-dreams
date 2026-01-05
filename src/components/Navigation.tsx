@@ -1,17 +1,19 @@
 
 import React, { useState } from 'react';
 import { Menu, X, Waves } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Dive Sites', href: '#dive-sites' },
-    { name: 'Courses', href: '#courses' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'Contact', href: '#contact' },
+    { name: t('nav.home'), href: '#home' },
+    { name: t('nav.courses'), href: '#courses' },
+    { name: t('nav.diveSites'), href: '#dive-sites' },
+    { name: t('nav.gallery'), href: '#gallery' },
+    { name: t('nav.contact'), href: '#contact' },
   ];
 
   return (
@@ -22,22 +24,22 @@ const Navigation = () => {
             <Waves className="h-8 w-8 text-blue-600" />
             <span className="text-xl font-bold text-gray-900">Koh Tao Diving</span>
           </div>
-          
-          <div className="hidden md:block">
-            <div className="flex items-center space-x-8">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
+
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+              >
+                {item.name}
+              </a>
+            ))}
+            <LanguageSwitcher />
           </div>
 
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-2">
+            <LanguageSwitcher />
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-700 hover:text-blue-600"

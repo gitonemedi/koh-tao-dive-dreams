@@ -1,0 +1,194 @@
+{
+  "nav": {
+    "home": "Home",
+    "courses": "Cursussen",
+    "diveSites": "Duiklocaties",
+    "gallery": "Galerij",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "hero": {
+    "title": "Ontdek de Magie van Koh Tao",
+    "subtitle": "Ervaar wereldklasse duiken op Thailand's premier eilandbestemming",
+    "cta": "Boek Je Avontuur"
+  },
+  "about": {
+    "title": "Waarom Koh Tao kiezen voor duiken?",
+    "subtitle": "Bekend als de duikhoofdstad van Thailand, Koh Tao biedt enkele van 's werelds meest toegankelijke en diverse onderwater ervaringen",
+    "sectionTitle": "Onderwater Paradijs Wacht",
+    "description1": "Koh Tao, wat \"Schildpadeiland\" betekent, is een klein eiland in de Golf van Thailand dat beroemd is om zijn ongelooflijke duikmogelijkheden. Met warm water het hele jaar door, uitstekende zichtbaarheid en overvloedig zeeleven, is het de perfecte plek voor zowel beginners als ervaren duikers.",
+    "description2": "Onze kristalheldere wateren herbergen levendige koraalriffen, scholen tropische vissen, walvishaaien en als je geluk hebt, groene zeeschildpadden. De compacte grootte van het eiland betekent korte boottochten naar meerdere duiklocaties, waardoor je onderwatertijd wordt gemaximaliseerd.",
+    "features": [
+      "Watertemperatuur: 26-29°C het hele jaar door",
+      "Zichtbaarheid: 15-25 meter",
+      "Geschikt voor alle certificeringsniveaus",
+      "Beschermde mariene gebieden"
+    ],
+    "stats": {
+      "certifications": "PADI Certificeringen",
+      "divers": "Gelukkige Duikers",
+      "sites": "Duiklocaties",
+      "experience": "Jaren Ervaring"
+    }
+  },
+  "courses": {
+    "title": "PADI Duikcursussen",
+    "subtitle": "Van beginner tot professional, we bieden uitgebreide PADI certificeringscursussen met ervaren instructeurs in kleine groepen",
+    "openWater": {
+      "title": "Open Water Diver",
+      "level": "Beginner",
+      "duration": "3-4 dagen",
+      "maxDepth": "18m",
+      "price": "฿9,500",
+      "description": "Je eerste stap in de onderwaterwereld. Leer basis duikvaardigheden en theorie.",
+      "includes": ["4 open water duiken", "Theorie & zwembadsessies", "PADI certificering", "Materiaal verhuur"]
+    },
+    "advanced": {
+      "title": "Advanced Open Water",
+      "level": "Gevorderd",
+      "duration": "2 dagen",
+      "maxDepth": "30m",
+      "price": "฿8,500",
+      "description": "Vergroot je duikvaardigheden met 5 avontuurlijke duiken inclusief diep en navigatie.",
+      "includes": ["5 avontuurlijke duiken", "Diep duik training", "Navigatie vaardigheden", "Specialiteit previews"]
+    },
+    "rescue": {
+      "title": "Rescue Diver",
+      "level": "Expert",
+      "duration": "2-3 dagen",
+      "maxDepth": "30m",
+      "price": "฿9,500",
+      "description": "Leer problemen in het water te voorkomen en beheren, en word een zelfverzekerdere duiker.",
+      "includes": ["Redding scenario's", "Nood training", "Probleemoplossing", "Leiderschapsvaardigheden"]
+    },
+    "divemaster": {
+      "title": "Divemaster",
+      "level": "Professioneel",
+      "duration": "4-6 weken",
+      "maxDepth": "40m",
+      "price": "฿32,000",
+      "description": "Word een duikprofessional en begin je carrière in de duikindustrie.",
+      "includes": ["Leiderschapstraining", "Onderwijsassistentie", "Duikgids vaardigheden", "Professionele certificering"]
+    },
+    "specialOffers": {
+      "title": "Speciale Aanbiedingen",
+      "combo": {
+        "title": "Open Water + Advanced",
+        "description": "Voltooi beide cursussen en bespaar!",
+        "price": "฿16,500",
+        "originalPrice": "฿18,000"
+      },
+      "group": {
+        "title": "Groepskortingen",
+        "description": "Groepen van 4+ besparen 10% op alle cursussen",
+        "discount": "10% KORTING"
+      }
+    },
+    "bookButton": "Boek Deze Cursus",
+    "perPerson": "per persoon",
+    "duration": "Duur",
+    "maxDepth": "Max diepte",
+    "courseIncludes": "Cursus omvat"
+  },
+  "diveSites": {
+    "title": "Wereldklasse Duiklocaties",
+    "subtitle": "Verken Koh Tao's meest spectaculaire onderwaterlocaties, elk met unieke mariene ontmoetingen en adembenemende koraalformaties",
+    "sites": {
+      "sailRock": {
+        "name": "Sail Rock",
+        "depth": "8-40m",
+        "level": "Expert",
+        "highlights": ["Walvishaaien", "Stierenhaaien", "Verticale doorgang"],
+        "description": "De top duiklocatie in de Golf van Thailand, beroemd om walvishaai ontmoetingen."
+      },
+      "chumphon": {
+        "name": "Chumphon Pinnacle",
+        "depth": "14-32m",
+        "level": "Gevorderd",
+        "highlights": ["Barracuda's", "Trevally", "Koraaltuinen"],
+        "description": "Onderwater berg bedekt met kleurrijke zachte koralen en vol met zeeleven."
+      },
+      "southwest": {
+        "name": "Southwest Pinnacle",
+        "depth": "14-33m",
+        "level": "Gevorderd",
+        "highlights": ["Walvishaaien", "Reuzen grovers", "Koraalformaties"],
+        "description": "Een ondergedompelde pinakel die uitstekende kansen biedt voor grote vis ontmoetingen."
+      },
+      "sharkIsland": {
+        "name": "Shark Island",
+        "depth": "5-18m",
+        "level": "Beginner",
+        "highlights": ["Rifhaaien", "Murenealen", "Makkelijk duiken"],
+        "description": "Perfect voor beginners met zachte stromingen en overvloedig zeeleven."
+      },
+      "whiteRock": {
+        "name": "White Rock",
+        "depth": "8-22m",
+        "level": "Beginner",
+        "highlights": ["Koraaltuinen", "Tropische vissen", "Fotografie"],
+        "description": "Mooie koraalformaties en divers zeeleven in ondiep, kalm water."
+      },
+      "greenRock": {
+        "name": "Green Rock",
+        "depth": "6-18m",
+        "level": "Beginner",
+        "highlights": ["Zeeschildpadden", "Engelenvissen", "Koraalvlinders"],
+        "description": "Bekend om frequente schildpad waarnemingen en levendige rifvis gemeenschappen."
+      }
+    },
+    "bookButton": "Boek Deze Duik",
+    "depth": "Diepte",
+    "highlights": "Highlights"
+  },
+  "gallery": {
+    "title": "Fotogalerij",
+    "subtitle": "Ervaar de schoonheid van Koh Tao onderwater"
+  },
+  "contact": {
+    "title": "Neem Contact Op",
+    "subtitle": "Klaar om je duikavontuur te beginnen?",
+    "form": {
+      "firstName": "Voornaam",
+      "lastName": "Achternaam",
+      "email": "E-mail",
+      "subject": "Onderwerp",
+      "message": "Bericht",
+      "submit": "Verstuur Bericht"
+    },
+    "info": {
+      "title": "Neem Contact Op",
+      "address": "Koh Tao, Thailand",
+      "email": "info@kohtoadivedreams.com",
+      "phone": "+66 XX XXX XXXX"
+    }
+  },
+  "booking": {
+    "title": "Boek Je Cursus",
+    "form": {
+      "name": "Volledige Naam",
+      "email": "E-mail",
+      "phone": "Telefoon",
+      "course": "Selecteer Cursus",
+      "date": "Voorkeursdatum",
+      "experience": "Ervaringsniveau",
+      "message": "Extra Bericht",
+      "submit": "Verstuur Boeking"
+    },
+    "experienceLevels": {
+      "beginner": "Beginner",
+      "intermediate": "Gevorderd",
+      "advanced": "Expert"
+    }
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "bookings": "Boekingsaanvragen",
+    "noBookings": "Nog geen boekingsaanvragen.",
+    "delete": "Verwijderen",
+    "confirmDelete": "Weet je zeker dat je deze boeking wilt verwijderen?"
+  },
+  "footer": {
+    "copyright": "© 2024 Koh Tao Dive Dreams. Alle rechten voorbehouden."
+  }
+}

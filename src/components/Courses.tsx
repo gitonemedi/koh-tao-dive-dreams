@@ -1,61 +1,64 @@
 import React, { useState } from 'react';
 import { Clock, Star } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import CourseRecommender from './CourseRecommender';
 import BookingForm from './BookingForm';
 
 const Courses = () => {
+  const { t } = useTranslation();
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
+
   const courses = [
     {
-      title: "Open Water Diver",
-      level: "Beginner",
-      duration: "3-4 days",
-      maxDepth: "18m",
-      price: "฿9,500",
-      description: "Your first step into the underwater world. Learn basic diving skills and theory.",
-      includes: ["4 open water dives", "Theory & pool sessions", "PADI certification", "Equipment rental"],
+      title: t('courses.openWater.title'),
+      level: t('courses.openWater.level'),
+      duration: t('courses.openWater.duration'),
+      maxDepth: t('courses.openWater.maxDepth'),
+      price: t('courses.openWater.price'),
+      description: t('courses.openWater.description'),
+      includes: t('courses.openWater.includes', { returnObjects: true }),
       icon: "🤿"
     },
     {
-      title: "Advanced Open Water",
-      level: "Intermediate", 
-      duration: "2 days",
-      maxDepth: "30m",
-      price: "฿8,500",
-      description: "Expand your diving skills with 5 adventure dives including deep and navigation.",
-      includes: ["5 adventure dives", "Deep dive training", "Navigation skills", "Specialty previews"],
+      title: t('courses.advanced.title'),
+      level: t('courses.advanced.level'),
+      duration: t('courses.advanced.duration'),
+      maxDepth: t('courses.advanced.maxDepth'),
+      price: t('courses.advanced.price'),
+      description: t('courses.advanced.description'),
+      includes: t('courses.advanced.includes', { returnObjects: true }),
       icon: "🌊"
     },
     {
-      title: "Rescue Diver",
-      level: "Advanced",
-      duration: "2-3 days", 
-      maxDepth: "30m",
-      price: "฿9,500",
-      description: "Learn to prevent and manage problems in the water, and become a more confident diver.",
-      includes: ["Rescue scenarios", "Emergency training", "Problem solving", "Leadership skills"],
+      title: t('courses.rescue.title'),
+      level: t('courses.rescue.level'),
+      duration: t('courses.rescue.duration'),
+      maxDepth: t('courses.rescue.maxDepth'),
+      price: t('courses.rescue.price'),
+      description: t('courses.rescue.description'),
+      includes: t('courses.rescue.includes', { returnObjects: true }),
       icon: "🚨"
     },
     {
-      title: "Divemaster",
-      level: "Professional",
-      duration: "4-6 weeks",
-      maxDepth: "40m", 
-      price: "฿32,000",
-      description: "Become a diving professional and start your career in the diving industry.",
-      includes: ["Leadership training", "Teaching assistance", "Dive guide skills", "Professional certification"],
+      title: t('courses.divemaster.title'),
+      level: t('courses.divemaster.level'),
+      duration: t('courses.divemaster.duration'),
+      maxDepth: t('courses.divemaster.maxDepth'),
+      price: t('courses.divemaster.price'),
+      description: t('courses.divemaster.description'),
+      includes: t('courses.divemaster.includes', { returnObjects: true }),
       icon: "👨‍🏫"
     }
   ];
 
   const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'Beginner': return 'bg-green-100 text-green-800 border-green-200';
-      case 'Intermediate': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'Advanced': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'Professional': return 'bg-purple-100 text-purple-800 border-purple-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
+    const levelColors: { [key: string]: string } = {
+      [t('courses.openWater.level')]: 'bg-green-100 text-green-800 border-green-200',
+      [t('courses.advanced.level')]: 'bg-blue-100 text-blue-800 border-blue-200',
+      [t('courses.rescue.level')]: 'bg-orange-100 text-orange-800 border-orange-200',
+      [t('courses.divemaster.level')]: 'bg-purple-100 text-purple-800 border-purple-200',
+    };
+    return levelColors[level] || 'bg-gray-100 text-gray-800 border-gray-200';
   };
 
   return (
@@ -63,10 +66,10 @@ const Courses = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            PADI Dive Courses
+            {t('courses.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            From beginner to professional, we offer comprehensive PADI certification courses with experienced instructors in small groups
+            {t('courses.subtitle')}
           </p>
         </div>
 
@@ -87,7 +90,7 @@ const Courses = () => {
                 </div>
                 <div className="text-right">
                   <div className="text-3xl font-bold text-blue-600">{course.price}</div>
-                  <div className="text-sm text-gray-500">per person</div>
+                  <div className="text-sm text-gray-500">{t('courses.perPerson')}</div>
                 </div>
               </div>
 
@@ -96,18 +99,18 @@ const Courses = () => {
               <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
                 <div className="flex items-center text-gray-600">
                   <Clock className="h-4 w-4 mr-2 text-blue-600" />
-                  Duration: {course.duration}
+                  {t('courses.duration')}: {course.duration}
                 </div>
                 <div className="flex items-center text-gray-600">
                   <div className="h-4 w-4 mr-2 text-blue-600 font-bold">📏</div>
-                  Max depth: {course.maxDepth}
+                  {t('courses.maxDepth')}: {course.maxDepth}
                 </div>
               </div>
 
               <div className="mb-6">
-                <h4 className="font-semibold text-gray-900 mb-3">Course includes:</h4>
+                <h4 className="font-semibold text-gray-900 mb-3">{t('courses.courseIncludes')}:</h4>
                 <ul className="space-y-2">
-                  {course.includes.map((item, idx) => (
+                  {course.includes.map((item: string, idx: number) => (
                     <li key={idx} className="flex items-center text-gray-600">
                       <Star className="h-4 w-4 mr-2 text-blue-600" />
                       {item}
@@ -116,31 +119,31 @@ const Courses = () => {
                 </ul>
               </div>
 
-              <button 
+              <button
                 onClick={() => setSelectedCourse(course.title)}
                 className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold"
               >
-                Book This Course
+                {t('courses.bookButton')}
               </button>
             </div>
           ))}
         </div>
 
         <div className="bg-blue-600 rounded-xl p-8 text-white text-center">
-          <h3 className="text-2xl font-bold mb-4">Special Offers</h3>
+          <h3 className="text-2xl font-bold mb-4">{t('courses.specialOffers.title')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
             <div className="bg-blue-700 rounded-lg p-6">
-              <h4 className="font-bold text-xl mb-2">Open Water + Advanced</h4>
-              <p className="text-blue-200 mb-3">Complete both courses and save!</p>
+              <h4 className="font-bold text-xl mb-2">{t('courses.specialOffers.combo.title')}</h4>
+              <p className="text-blue-200 mb-3">{t('courses.specialOffers.combo.description')}</p>
               <div className="flex items-center justify-between">
-                <span className="text-2xl font-bold">฿16,500</span>
-                <span className="text-blue-300 line-through">฿18,000</span>
+                <span className="text-2xl font-bold">{t('courses.specialOffers.combo.price')}</span>
+                <span className="text-blue-300 line-through">{t('courses.specialOffers.combo.originalPrice')}</span>
               </div>
             </div>
             <div className="bg-blue-700 rounded-lg p-6">
-              <h4 className="font-bold text-xl mb-2">Group Discounts</h4>
-              <p className="text-blue-200 mb-3">Groups of 4+ save 10% on all courses</p>
-              <div className="text-2xl font-bold">10% OFF</div>
+              <h4 className="font-bold text-xl mb-2">{t('courses.specialOffers.group.title')}</h4>
+              <p className="text-blue-200 mb-3">{t('courses.specialOffers.group.description')}</p>
+              <div className="text-2xl font-bold">{t('courses.specialOffers.group.discount')}</div>
             </div>
           </div>
         </div>

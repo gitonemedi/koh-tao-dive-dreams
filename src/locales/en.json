@@ -1,0 +1,194 @@
+{
+  "nav": {
+    "home": "Home",
+    "courses": "Courses",
+    "diveSites": "Dive Sites",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "hero": {
+    "title": "Discover the Magic of Koh Tao",
+    "subtitle": "Experience world-class diving in Thailand's premier island destination",
+    "cta": "Book Your Adventure"
+  },
+  "about": {
+    "title": "Why Choose Koh Tao for Diving?",
+    "subtitle": "Known as the diving capital of Thailand, Koh Tao offers some of the world's most accessible and diverse underwater experiences",
+    "sectionTitle": "Underwater Paradise Awaits",
+    "description1": "Koh Tao, meaning \"Turtle Island,\" is a small island in the Gulf of Thailand renowned for its incredible diving opportunities. With warm waters year-round, excellent visibility, and abundant marine life, it's the perfect place for both beginners and experienced divers.",
+    "description2": "Our crystal-clear waters host vibrant coral reefs, schools of tropical fish, whale sharks, and if you're lucky, green sea turtles. The island's compact size means short boat rides to multiple dive sites, maximizing your underwater time.",
+    "features": [
+      "Water temperature: 26-29°C year-round",
+      "Visibility: 15-25 meters",
+      "Suitable for all certification levels",
+      "Marine protected areas"
+    ],
+    "stats": {
+      "certifications": "PADI Certifications",
+      "divers": "Happy Divers",
+      "sites": "Dive Sites",
+      "experience": "Years Experience"
+    }
+  },
+  "courses": {
+    "title": "PADI Dive Courses",
+    "subtitle": "From beginner to professional, we offer comprehensive PADI certification courses with experienced instructors in small groups",
+    "openWater": {
+      "title": "Open Water Diver",
+      "level": "Beginner",
+      "duration": "3-4 days",
+      "maxDepth": "18m",
+      "price": "฿9,500",
+      "description": "Your first step into the underwater world. Learn basic diving skills and theory.",
+      "includes": ["4 open water dives", "Theory & pool sessions", "PADI certification", "Equipment rental"]
+    },
+    "advanced": {
+      "title": "Advanced Open Water",
+      "level": "Intermediate",
+      "duration": "2 days",
+      "maxDepth": "30m",
+      "price": "฿8,500",
+      "description": "Expand your diving skills with 5 adventure dives including deep and navigation.",
+      "includes": ["5 adventure dives", "Deep dive training", "Navigation skills", "Specialty previews"]
+    },
+    "rescue": {
+      "title": "Rescue Diver",
+      "level": "Advanced",
+      "duration": "2-3 days",
+      "maxDepth": "30m",
+      "price": "฿9,500",
+      "description": "Learn to prevent and manage problems in the water, and become a more confident diver.",
+      "includes": ["Rescue scenarios", "Emergency training", "Problem solving", "Leadership skills"]
+    },
+    "divemaster": {
+      "title": "Divemaster",
+      "level": "Professional",
+      "duration": "4-6 weeks",
+      "maxDepth": "40m",
+      "price": "฿32,000",
+      "description": "Become a diving professional and start your career in the diving industry.",
+      "includes": ["Leadership training", "Teaching assistance", "Dive guide skills", "Professional certification"]
+    },
+    "specialOffers": {
+      "title": "Special Offers",
+      "combo": {
+        "title": "Open Water + Advanced",
+        "description": "Complete both courses and save!",
+        "price": "฿16,500",
+        "originalPrice": "฿18,000"
+      },
+      "group": {
+        "title": "Group Discounts",
+        "description": "Groups of 4+ save 10% on all courses",
+        "discount": "10% OFF"
+      }
+    },
+    "bookButton": "Book This Course",
+    "perPerson": "per person",
+    "duration": "Duration",
+    "maxDepth": "Max depth",
+    "courseIncludes": "Course includes"
+  },
+  "diveSites": {
+    "title": "World-Class Dive Sites",
+    "subtitle": "Explore Koh Tao's most spectacular underwater locations, each offering unique marine encounters and breathtaking coral formations",
+    "sites": {
+      "sailRock": {
+        "name": "Sail Rock",
+        "depth": "8-40m",
+        "level": "Advanced",
+        "highlights": ["Whale sharks", "Bull sharks", "Vertical swim-through"],
+        "description": "The pinnacle dive site in the Gulf of Thailand, famous for whale shark encounters."
+      },
+      "chumphon": {
+        "name": "Chumphon Pinnacle",
+        "depth": "14-32m",
+        "level": "Intermediate",
+        "highlights": ["Barracudas", "Trevally", "Coral gardens"],
+        "description": "Underwater seamount covered in colorful soft corals and bustling with marine life."
+      },
+      "southwest": {
+        "name": "Southwest Pinnacle",
+        "depth": "14-33m",
+        "level": "Intermediate",
+        "highlights": ["Whale sharks", "Giant groupers", "Coral formations"],
+        "description": "A submerged pinnacle offering excellent chances of big fish encounters."
+      },
+      "sharkIsland": {
+        "name": "Shark Island",
+        "depth": "5-18m",
+        "level": "Beginner",
+        "highlights": ["Reef sharks", "Moray eels", "Easy diving"],
+        "description": "Perfect for beginners with gentle currents and abundant marine life."
+      },
+      "whiteRock": {
+        "name": "White Rock",
+        "depth": "8-22m",
+        "level": "Beginner",
+        "highlights": ["Coral gardens", "Tropical fish", "Photography"],
+        "description": "Beautiful coral formations and diverse marine life in shallow, calm waters."
+      },
+      "greenRock": {
+        "name": "Green Rock",
+        "depth": "6-18m",
+        "level": "Beginner",
+        "highlights": ["Sea turtles", "Angelfish", "Butterflyfish"],
+        "description": "Known for frequent turtle sightings and vibrant reef fish communities."
+      }
+    },
+    "bookButton": "Book This Dive",
+    "depth": "Depth",
+    "highlights": "Highlights"
+  },
+  "gallery": {
+    "title": "Photo Gallery",
+    "subtitle": "Experience the beauty of Koh Tao underwater"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Ready to start your diving adventure?",
+    "form": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message"
+    },
+    "info": {
+      "title": "Get In Touch",
+      "address": "Koh Tao, Thailand",
+      "email": "info@kohtoadivedreams.com",
+      "phone": "+66 XX XXX XXXX"
+    }
+  },
+  "booking": {
+    "title": "Book Your Course",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "course": "Select Course",
+      "date": "Preferred Date",
+      "experience": "Experience Level",
+      "message": "Additional Message",
+      "submit": "Submit Booking"
+    },
+    "experienceLevels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    }
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "bookings": "Booking Inquiries",
+    "noBookings": "No booking inquiries yet.",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this booking?"
+  },
+  "footer": {
+    "copyright": "© 2024 Koh Tao Dive Dreams. All rights reserved."
+  }
+}

@@ -1,13 +1,16 @@
 
 import React from 'react';
 import { Award, Users, MapPin, Clock } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const About = () => {
+  const { t } = useTranslation();
+
   const stats = [
-    { icon: Award, label: 'PADI Certifications', value: '500+' },
-    { icon: Users, label: 'Happy Divers', value: '2000+' },
-    { icon: MapPin, label: 'Dive Sites', value: '25+' },
-    { icon: Clock, label: 'Years Experience', value: '15+' },
+    { icon: Award, label: t('about.stats.certifications'), value: '500+' },
+    { icon: Users, label: t('about.stats.divers'), value: '2000+' },
+    { icon: MapPin, label: t('about.stats.sites'), value: '25+' },
+    { icon: Clock, label: t('about.stats.experience'), value: '15+' },
   ];
 
   return (
@@ -15,29 +18,28 @@ const About = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Why Choose Koh Tao for Diving?
+            {t('about.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Known as the diving capital of Thailand, Koh Tao offers some of the world's most accessible and diverse underwater experiences
+            {t('about.subtitle')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <div>
             <h3 className="text-3xl font-bold text-gray-900 mb-6">
-              Underwater Paradise Awaits
+              {t('about.sectionTitle')}
             </h3>
             <p className="text-lg text-gray-600 mb-6">
-              Koh Tao, meaning "Turtle Island," is a small island in the Gulf of Thailand renowned for its incredible diving opportunities. With warm waters year-round, excellent visibility, and abundant marine life, it's the perfect place for both beginners and experienced divers.
+              {t('about.description1')}
             </p>
             <p className="text-lg text-gray-600 mb-6">
-              Our crystal-clear waters host vibrant coral reefs, schools of tropical fish, whale sharks, and if you're lucky, green sea turtles. The island's compact size means short boat rides to multiple dive sites, maximizing your underwater time.
+              {t('about.description2')}
             </p>
             <ul className="text-lg text-gray-600 space-y-2">
-              <li>• Water temperature: 26-29°C year-round</li>
-              <li>• Visibility: 15-25 meters</li>
-              <li>• Suitable for all certification levels</li>
-              <li>• Marine protected areas</li>
+              {t('about.features', { returnObjects: true }).map((feature: string, index: number) => (
+                <li key={index}>• {feature}</li>
+              ))}
             </ul>
           </div>
           <div className="relative">

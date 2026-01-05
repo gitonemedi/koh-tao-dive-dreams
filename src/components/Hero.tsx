@@ -1,11 +1,14 @@
 
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
+  const { t } = useTranslation();
+
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80')`,
@@ -13,21 +16,21 @@ const Hero = () => {
       >
         <div className="absolute inset-0 bg-blue-900/40"></div>
       </div>
-      
+
       <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-          Discover the Magic
-          <span className="block text-blue-300">of Koh Tao</span>
+          {t('hero.title').split(' ').slice(0, 3).join(' ')}
+          <span className="block text-blue-300">{t('hero.title').split(' ').slice(3).join(' ')}</span>
         </h1>
         <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-2xl mx-auto">
-          Dive into crystal-clear waters and explore vibrant coral reefs in Thailand's premier diving destination
+          {t('hero.subtitle')}
         </p>
         <div className="space-x-4">
           <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
-            Book Your Dive
+            {t('hero.cta')}
           </button>
           <button className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-3 rounded-full font-semibold transition-all duration-300">
-            View Courses
+            {t('nav.courses')}
           </button>
         </div>
       </div>

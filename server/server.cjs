@@ -1,38 +1,38 @@
-import express from 'express';
-import cors from 'cors';
-import Database from 'better-sqlite3';
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-import { randomUUID } from 'node:crypto';
+const express = require('express');
+const cors = require('cors');
+const Database = require('better-sqlite3');
+const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+const { randomUUID } = require('node:crypto');
 
-// dotenv.config();
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 // Initialize SQLite database
-// console.log('Initializing database...');
-// const db = new Database('./bookings.db');
+console.log('Initializing database...');
+const db = new Database('./bookings.db');
 
-// console.log('Creating table...');
-// db.exec(`
-//   CREATE TABLE IF NOT EXISTS booking_inquiries (
-//     id TEXT PRIMARY KEY,
-//     name TEXT NOT NULL,
-//     email TEXT NOT NULL,
-//     phone TEXT,
-//     course_title TEXT NOT NULL,
-//     preferred_date TEXT,
-//     experience_level TEXT,
-//     message TEXT,
-//     created_at TEXT NOT NULL
-//   )
-// `);
-// console.log('Database initialized successfully');
+console.log('Creating table...');
+db.exec(`
+  CREATE TABLE IF NOT EXISTS booking_inquiries (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT,
+    course_title TEXT NOT NULL,
+    preferred_date TEXT,
+    experience_level TEXT,
+    message TEXT,
+    created_at TEXT NOT NULL
+  )
+`);
+console.log('Database initialized successfully');
 
 // Email transporter
 const transporter = nodemailer.createTransport({
@@ -40,20 +40,10 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: process.env.SMTP_USER || 'bookingbas@onemedia.asia',
-    pass: process.env.SMTP_PASS || 'Fd~6BQj?#6I',
+    user: process.env.SMTP_USER || 'your_correct_smtp_username@onemedia.asia',
+    pass: process.env.SMTP_PASS || 'your_correct_smtp_password',
   },
 });
-
-// Test email connection on startup
-// transporter.verify((error, success) => {
-//   if (error) {
-//     console.log('Email transporter error:', error.message);
-//     console.log('Email functionality will not work until SMTP credentials are fixed');
-//   } else {
-//     console.log('Email transporter is ready to send messages');
-//   }
-// });
 
 // API Routes
 
@@ -76,6 +66,32 @@ app.post('/api/bookings', (req, res) => {
     `);
     const result = stmt.run(id, name, email, phone, course_title, preferred_date, experience_level, message, created_at);
     console.log('Database insert result:', result);
+
+    // Send email notification
+    const mailOptions = {
+      from: process.env.SMTP_USER || 'your_correct_smtp_username@onemedia.asia',
+      to: 'peter@onemedia.asia',
+      subject: 'New Booking Inquiry',
+      html: `
+        <h2>New Booking Inquiry</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+        <p><strong>Course/Dive:</strong> ${course_title}</p>
+        <p><strong>Preferred Date:</strong> ${preferred_date || 'N/A'}</p>
+        <p><strong>Experience Level:</strong> ${experience_level || 'N/A'}</p>
+        <p><strong>Message:</strong> ${message || 'N/A'}</p>
+      `,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Email send error:', error);
+        // Don't fail the request if email fails
+      } else {
+        console.log('Email sent:', info.response);
+      }
+    });
 
     res.status(201).json({ success: true });
   } catch (error) {
@@ -115,11 +131,9 @@ app.post('/api/contact', (req, res) => {
   try {
     const { firstName, lastName, email, subject, message } = req.body;
 
-    console.log('Sending email with transporter...');
-
     // Send email notification
     const mailOptions = {
-      from: 'noreply@koh-tao-dive-dreams.com',
+      from: process.env.SMTP_USER || 'your_correct_smtp_username@onemedia.asia',
       to: 'peter@onemedia.asia',
       subject: `Contact Form: ${subject}`,
       html: `
