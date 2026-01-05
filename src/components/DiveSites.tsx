@@ -14,7 +14,7 @@ const DiveSites = () => {
       level: t('diveSites.sites.sailRock.level'),
       highlights: t('diveSites.sites.sailRock.highlights', { returnObjects: true }),
       description: t('diveSites.sites.sailRock.description'),
-      image: "https://images.unsplash.com/photo-1441057206919-63d19fac2369?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      image: "https://images.unsplash.com/photo-1571625094817-d73d4fe5b4b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       name: t('diveSites.sites.chumphon.name'),
