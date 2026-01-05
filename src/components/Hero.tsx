@@ -26,12 +26,12 @@ const Hero = () => {
           {t('hero.subtitle')}
         </p>
         <div className="space-x-4">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
+          <a href="#contact" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
             {t('hero.cta')}
-          </button>
-          <button className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-3 rounded-full font-semibold transition-all duration-300">
+          </a>
+          <a href="#courses" className="inline-block border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-3 rounded-full font-semibold transition-all duration-300">
             {t('nav.courses')}
-          </button>
+          </a>
         </div>
       </div>
 
