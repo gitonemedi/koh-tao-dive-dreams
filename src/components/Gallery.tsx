@@ -19,7 +19,7 @@ const Gallery = () => {
       category: "Marine Life"
     },
     {
-      src: "https://images.unsplash.com/photo-1568661658028-d6cfc5a9b494?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      src: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       alt: "Whale shark encounter",
       category: "Big Fish"
     },
@@ -29,7 +29,7 @@ const Gallery = () => {
       category: "Marine Life"
     },
     {
-      src: "https://images.unsplash.com/photo-1439405326854-014604888752?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      src: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       alt: "Underwater cave exploration",
       category: "Dive Sites"
     },
