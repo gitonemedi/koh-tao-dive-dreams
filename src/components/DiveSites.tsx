@@ -14,7 +14,7 @@ const DiveSites = () => {
       level: t('diveSites.sites.sailRock.level'),
       highlights: t('diveSites.sites.sailRock.highlights', { returnObjects: true }),
       description: t('diveSites.sites.sailRock.description'),
-      image: "https://images.unsplash.com/photo-1441057206919-63d19fac2369?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      image: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       name: t('diveSites.sites.chumphon.name'),
@@ -38,7 +38,7 @@ const DiveSites = () => {
       level: t('diveSites.sites.sharkIsland.level'),
       highlights: t('diveSites.sites.sharkIsland.highlights', { returnObjects: true }),
       description: t('diveSites.sites.sharkIsland.description'),
-      image: "https://images.unsplash.com/photo-1546518718-033ad80ba69c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
     },
     {
       name: t('diveSites.sites.whiteRock.name'),
@@ -54,7 +54,7 @@ const DiveSites = () => {
       level: t('diveSites.sites.greenRock.level'),
       highlights: t('diveSites.sites.greenRock.highlights', { returnObjects: true }),
       description: t('diveSites.sites.greenRock.description'),
-      image: "https://images.unsplash.com/photo-1615731502155-e3a6b35fbb86?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      image: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     }
   ];
 

@@ -19,7 +19,7 @@ const Gallery = () => {
       category: "Marine Life"
     },
     {
-      src: "https://images.unsplash.com/photo-1546518718-033ad80ba69c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      src: "https://images.unsplash.com/photo-1568661658028-d6cfc5a9b494?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       alt: "Whale shark encounter",
       category: "Big Fish"
     },
@@ -29,12 +29,12 @@ const Gallery = () => {
       category: "Marine Life"
     },
     {
-      src: "https://images.unsplash.com/photo-1615731502155-e3a6b35fbb86?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      src: "https://images.unsplash.com/photo-1439405326854-014604888752?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       alt: "Underwater cave exploration",
       category: "Dive Sites"
     },
     {
-      src: "https://images.unsplash.com/photo-1571625094817-d73d4fe5b4b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       alt: "Diving boat in crystal clear water",
       category: "Boats"
     },
