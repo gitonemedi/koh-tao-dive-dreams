@@ -49,7 +49,7 @@ const Admin = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/bookings');
+      const response = await fetch('/api/bookings');
       if (!response.ok) throw new Error('Failed to fetch bookings');
       const data = await response.json();
       setBookings(data);
@@ -63,7 +63,7 @@ const Admin = () => {
 
   const handleStatusChange = async (bookingId: string, newStatus: string) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/bookings/${bookingId}/status`, {
+      const response = await fetch(`/api/bookings/${bookingId}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
@@ -82,7 +82,7 @@ const Admin = () => {
     if (!deleteId) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/bookings/${deleteId}`, {
+      const response = await fetch(`/api/bookings/${deleteId}`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Failed to delete booking');
