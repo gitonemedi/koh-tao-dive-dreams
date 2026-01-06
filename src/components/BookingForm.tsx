@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Calendar, User, Mail, Phone, MessageSquare } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -58,21 +57,18 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, itemType, it
         message: data.message || null,
       };
 
-      // Save to database
-      const { error: dbError } = await supabase
-        .from('booking_inquiries')
-        .insert(bookingData);
-
-      if (dbError) throw dbError;
-
-      // Send notification email
-      await supabase.functions.invoke('send-booking-notification', {
-        body: {
-          ...bookingData,
-          itemType,
-          itemTitle,
+      // Submit to server
+      const response = await fetch('http://localhost:3001/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify(bookingData),
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit booking');
+      }
 
       toast.success('Booking inquiry submitted successfully! We\'ll get back to you soon.');
       form.reset();

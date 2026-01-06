@@ -130,6 +130,16 @@ app.post('/api/contact', (req, res) => {
   console.log('Contact form request received:', req.body);
   try {
     const { firstName, lastName, email, subject, message } = req.body;
+    const id = randomUUID();
+    const created_at = new Date().toISOString();
+
+    console.log('Inserting contact into database...');
+    const stmt = db.prepare(`
+      INSERT INTO booking_inquiries (id, name, email, phone, course_title, preferred_date, experience_level, message, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+    const result = stmt.run(id, `${firstName} ${lastName}`, email, null, `Contact: ${subject}`, null, null, message, created_at);
+    console.log('Database insert result:', result);
 
     // Send email notification
     const mailOptions = {
@@ -149,12 +159,13 @@ app.post('/api/contact', (req, res) => {
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error('Email send error:', error);
-        res.status(500).json({ error: 'Failed to send email', details: error.message });
+        // Don't fail the request if email fails
       } else {
         console.log('Contact email sent:', info.response);
-        res.status(200).json({ success: true });
       }
     });
+
+    res.status(200).json({ success: true });
   } catch (error) {
     console.error('Contact form error:', error);
     res.status(500).json({ error: 'Failed to submit contact form', details: error.message });
