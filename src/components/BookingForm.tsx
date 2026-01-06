@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const bookingSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -57,17 +58,13 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, itemType, it
         message: data.message || null,
       };
 
-      // Submit to server
-      const response = await fetch('/api/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(bookingData),
+      // Submit to Supabase function
+      const { data, error } = await supabase.functions.invoke('bookings', {
+        body: bookingData,
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to submit booking');
+      if (error) {
+        throw new Error(error.message || 'Failed to submit booking');
       }
 
       toast.success('Booking inquiry submitted successfully! We\'ll get back to you soon.');
