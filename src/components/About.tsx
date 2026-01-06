@@ -37,7 +37,7 @@ const About = () => {
               {t('about.description2')}
             </p>
             <ul className="text-lg text-gray-600 space-y-2">
-              {t('about.features', { returnObjects: true }).map((feature: string, index: number) => (
+              {(t('about.features', { returnObjects: true }) as string[]).map((feature: string, index: number) => (
                 <li key={index}>• {feature}</li>
               ))}
             </ul>
