@@ -110,7 +110,7 @@ const DiveSites = () => {
                 <div className="mb-4">
                   <p className="text-sm font-medium text-gray-700 mb-2">{t('diveSites.highlights')}:</p>
                   <div className="flex flex-wrap gap-1">
-                    {site.highlights.map((highlight: string, idx: number) => (
+                    {(site.highlights as string[]).map((highlight: string, idx: number) => (
                       <span key={idx} className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
                         {highlight}
                       </span>

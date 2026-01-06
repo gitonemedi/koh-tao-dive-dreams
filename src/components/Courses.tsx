@@ -110,7 +110,7 @@ const Courses = () => {
               <div className="mb-6">
                 <h4 className="font-semibold text-gray-900 mb-3">{t('courses.courseIncludes')}:</h4>
                 <ul className="space-y-2">
-                  {course.includes.map((item: string, idx: number) => (
+                  {(course.includes as string[]).map((item: string, idx: number) => (
                     <li key={idx} className="flex items-center text-gray-600">
                       <Star className="h-4 w-4 mr-2 text-blue-600" />
                       {item}
