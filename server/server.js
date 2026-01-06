@@ -158,7 +158,7 @@ app.get('/api/bookings', (req, res) => {
 });
 
 // Update booking status
-app.patch('/api/bookings/:id/status', (req, res) => {
+app.patch('/api/bookings/:id/status', async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
@@ -168,12 +168,97 @@ app.patch('/api/bookings/:id/status', (req, res) => {
       return res.status(400).json({ error: 'Invalid status' });
     }
 
+    // Get booking details for email
+    const getStmt = db.prepare('SELECT * FROM booking_inquiries WHERE id = ?');
+    const booking = getStmt.get(id);
+
     const stmt = db.prepare('UPDATE booking_inquiries SET status = ? WHERE id = ?');
     stmt.run(status, id);
+
+    // Send status change email to customer
+    if (booking && booking.email) {
+      const statusMessages = {
+        confirmed: {
+          subject: 'Booking Confirmed! 🎉',
+          heading: 'Great News! Your Booking is Confirmed',
+          message: 'We are excited to confirm your booking. Our team is looking forward to seeing you!',
+          color: '#22c55e'
+        },
+        completed: {
+          subject: 'Thank You for Diving With Us! 🌊',
+          heading: 'Your Dive Experience is Complete',
+          message: 'Thank you for choosing us for your diving adventure. We hope you had an amazing experience!',
+          color: '#3b82f6'
+        },
+        cancelled: {
+          subject: 'Booking Cancelled',
+          heading: 'Your Booking Has Been Cancelled',
+          message: 'Your booking has been cancelled. If you have any questions or would like to rebook, please contact us.',
+          color: '#ef4444'
+        },
+        pending: {
+          subject: 'Booking Status Update',
+          heading: 'Your Booking is Pending Review',
+          message: 'Your booking is currently under review. We will get back to you shortly.',
+          color: '#eab308'
+        }
+      };
+
+      const statusInfo = statusMessages[status];
+      
+      try {
+        await transporter.sendMail({
+          from: 'bookingbas@onemedia.asia',
+          to: booking.email,
+          subject: `${statusInfo.subject} - ${booking.course_title}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="background-color: ${statusInfo.color}; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
+                <h1 style="margin: 0;">${statusInfo.heading}</h1>
+              </div>
+              <div style="background-color: #f9fafb; padding: 20px; border: 1px solid #e5e7eb; border-top: none;">
+                <p style="font-size: 16px; color: #374151;">Dear ${booking.name},</p>
+                <p style="font-size: 16px; color: #374151;">${statusInfo.message}</p>
+                
+                <div style="background-color: white; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                  <h3 style="margin-top: 0; color: #1f2937;">Booking Details</h3>
+                  <p><strong>Course/Dive:</strong> ${booking.course_title}</p>
+                  ${booking.preferred_date ? `<p><strong>Preferred Date:</strong> ${booking.preferred_date}</p>` : ''}
+                  <p><strong>Status:</strong> <span style="color: ${statusInfo.color}; font-weight: bold;">${status.charAt(0).toUpperCase() + status.slice(1)}</span></p>
+                </div>
+                
+                <p style="color: #6b7280; font-size: 14px;">If you have any questions, feel free to reply to this email or contact us directly.</p>
+                
+                <p style="color: #374151;">Best regards,<br><strong>The Dive School Team</strong></p>
+              </div>
+              <div style="background-color: #1f2937; color: #9ca3af; padding: 15px; border-radius: 0 0 8px 8px; text-align: center; font-size: 12px;">
+                <p style="margin: 0;">Koh Tao Dive School | Thailand</p>
+              </div>
+            </div>
+          `,
+        });
+        console.log(`Status change email sent to ${booking.email} for status: ${status}`);
+      } catch (emailError) {
+        console.error('Failed to send status change email:', emailError);
+      }
+    }
+
     res.json({ success: true });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to update booking status' });
+  }
+});
+
+// Admin login
+app.post('/api/admin/login', (req, res) => {
+  const { username, password } = req.body;
+  
+  // Simple hardcoded admin credentials
+  if (username === 'admin' && password === 'admin') {
+    res.json({ success: true, token: 'admin-session-token' });
+  } else {
+    res.status(401).json({ error: 'Invalid credentials' });
   }
 });
 

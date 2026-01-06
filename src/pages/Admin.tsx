@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
-import { Trash2, RefreshCw, Users, CheckCircle, Clock, XCircle } from 'lucide-react';
+import { Trash2, RefreshCw, Users, CheckCircle, Clock, XCircle, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 
 interface BookingInquiry {
@@ -31,14 +31,21 @@ const statusConfig = {
 };
 
 const Admin = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [bookings, setBookings] = useState<BookingInquiry[]>([]);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
   useEffect(() => {
+    // Check if logged in
+    const token = sessionStorage.getItem('adminToken');
+    if (!token) {
+      navigate('/admin/login');
+      return;
+    }
     fetchBookings();
-  }, []);
+  }, [navigate]);
 
   const fetchBookings = async () => {
     try {
@@ -113,14 +120,25 @@ const Admin = () => {
     );
   }
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('adminToken');
+    navigate('/admin/login');
+    toast.success('Logged out successfully');
+  };
+
   return (
     <div className="min-h-screen bg-muted">
       <header className="bg-background border-b sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-          <Button onClick={fetchBookings} variant="outline" size="sm">
-            <RefreshCw className="h-4 w-4 mr-2" /> Refresh
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={fetchBookings} variant="outline" size="sm">
+              <RefreshCw className="h-4 w-4 mr-2" /> Refresh
+            </Button>
+            <Button onClick={handleLogout} variant="outline" size="sm">
+              <LogOut className="h-4 w-4 mr-2" /> Logout
+            </Button>
+          </div>
         </div>
       </header>
 
