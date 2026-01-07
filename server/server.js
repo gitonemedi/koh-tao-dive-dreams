@@ -90,9 +90,15 @@ app.post('/api/bookings', async (req, res) => {
     // Send admin notification email
     try {
       const adminMailOptions = {
-        from: 'bookingbas@onemedia.asia',
+        from: '"Dive School Bookings" <bookingbas@onemedia.asia>',
         to: 'peter@onemedia.asia',
-        subject: `New Booking Inquiry: ${course_title}`,
+        subject: `🆕 New Booking Inquiry: ${course_title}`,
+        priority: 'high',
+        headers: {
+          'X-Priority': '1',
+          'X-MSMail-Priority': 'High',
+          'Importance': 'high'
+        },
         html: `
           <h2>New Booking Inquiry</h2>
           <p><strong>Course/Dive:</strong> ${course_title}</p>
@@ -149,7 +155,7 @@ app.post('/api/bookings', async (req, res) => {
 app.get('/api/bookings', (req, res) => {
   try {
     const stmt = db.prepare('SELECT * FROM booking_inquiries ORDER BY created_at DESC');
-    const this ibookings = stmt.all();
+    const bookings = stmt.all();
     res.json(bookings);
   } catch (error) {
     console.error(error);
@@ -293,9 +299,15 @@ app.post('/api/contact', async (req, res) => {
 
     // Send email notification
     const mailOptions = {
-      from: 'bookingbas@onemedia.asia',
+      from: '"Dive School Contact" <bookingbas@onemedia.asia>',
       to: 'peter@onemedia.asia',
-      subject: `Contact Form: ${subject}`,
+      subject: `📩 Contact Form: ${subject}`,
+      priority: 'high',
+      headers: {
+        'X-Priority': '1',
+        'X-MSMail-Priority': 'High',
+        'Importance': 'high'
+      },
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${firstName} ${lastName}</p>

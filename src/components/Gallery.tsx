@@ -1,13 +1,32 @@
-
 import React, { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+
+// Import local images
+import reefImage from '@/assets/reef.png';
+import boatImage from '@/assets/boat.png';
+import turtleImage from '@/assets/turtle.png';
 
 const Gallery = () => {
   const { t } = useTranslation();
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const images = [
+    {
+      src: turtleImage,
+      alt: "Sea turtle swimming in Koh Tao",
+      category: "Marine Life"
+    },
+    {
+      src: boatImage,
+      alt: "Divers on boat preparing for dive",
+      category: "Diving"
+    },
+    {
+      src: reefImage,
+      alt: "Colorful coral reef with tropical fish",
+      category: "Coral Reefs"
+    },
     {
       src: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       alt: "Colorful coral reef in Koh Tao",
@@ -24,16 +43,6 @@ const Gallery = () => {
       category: "Big Fish"
     },
     {
-      src: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      alt: "Sea turtle swimming",
-      category: "Marine Life"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      alt: "Underwater cave exploration",
-      category: "Dive Sites"
-    },
-    {
       src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       alt: "Diving boat in crystal clear water",
       category: "Boats"
@@ -42,11 +51,6 @@ const Gallery = () => {
       src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       alt: "Underwater photographer",
       category: "Diving"
-    },
-    {
-      src: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      alt: "Barracuda school",
-      category: "Big Fish"
     }
   ];
 
