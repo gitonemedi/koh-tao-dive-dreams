@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Menu, X, Waves } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -20,9 +20,8 @@ const Navigation = () => {
     <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
-            <Waves className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold text-gray-900">Pro Diving Asia</span>
+          <div className="flex items-center">
+            <img src="/images/logo.avif" alt="Pro Diving Asia Logo" className="h-10 w-auto" />
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
