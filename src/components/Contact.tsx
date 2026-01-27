@@ -102,13 +102,13 @@ const Contact = () => {
             <div className="mt-8">
               <h4 className="font-semibold text-lg mb-4">Follow Us</h4>
               <div className="flex space-x-4">
-                <a href="#" className="text-blue-400 hover:text-blue-300 transition-colors">
+                <a href="https://www.facebook.com/profile.php?id=61553713498498" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">
                   <Facebook className="h-6 w-6" />
                 </a>
-                <a href="#" className="text-blue-400 hover:text-blue-300 transition-colors">
+                <a href="https://www.instagram.com/pro_diving_asia/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">
                   <Instagram className="h-6 w-6" />
                 </a>
-                <a href="#" className="text-green-400 hover:text-green-300 transition-colors">
+                <a href="https://wa.me/66612345678" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 transition-colors">
                   <MessageCircle className="h-6 w-6" />
                 </a>
               </div>
