@@ -51,6 +51,15 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Verify email transporter connection
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('Email transporter verification failed:', error);
+  } else {
+    console.log('Email transporter is ready to send messages');
+  }
+});
+
 // API Routes
 
 app.get('/api/test', (req, res) => {
@@ -76,7 +85,7 @@ app.post('/api/bookings', (req, res) => {
     // Send email notification
     const mailOptions = {
       from: process.env.SMTP_USER || 'your_correct_smtp_username@onemedia.asia',
-      to: 'bas@divinginasia.com',
+      to: 'bas@prodiving.asia',
       subject: 'New Booking Inquiry',
       html: `
         <h2>New Booking Inquiry</h2>
@@ -164,7 +173,7 @@ app.post('/api/contact', (req, res) => {
     // Send email notification
     const mailOptions = {
       from: process.env.SMTP_USER || 'peter@onemedia.asia',
-      to: 'bas@divinginasia.com',
+      to: 'bas@prodiving.asia',
       subject: `Contact Form: ${subject}`,
       html: `
         <h2>New Contact Form Submission</h2>
