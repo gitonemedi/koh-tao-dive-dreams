@@ -29,19 +29,21 @@ const Contact = () => {
     setIsSubmitting(true);
     try {
       const templateParams = {
-        to_email: 'bas@divinginasia.com',
+        to_email: 'contact@divinginasia.com',
         from_email: formData.email,
         customer_name: `${formData.firstName} ${formData.lastName}`,
         subject: formData.subject,
         message: formData.message,
       };
 
-      await emailjs.send(
+      const result = await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         templateParams,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
+
+      console.log('EmailJS send result:', result);
 
       toast.success('Message sent successfully! We\'ll get back to you soon.');
       setFormData({
@@ -94,7 +96,7 @@ const Contact = () => {
                 <Mail className="h-6 w-6 text-blue-400 mt-1" />
                 <div>
                   <h4 className="font-semibold text-lg">Email</h4>
-                  <p className="text-gray-300">bas@divinginasia.com</p>
+                  <p className="text-gray-300">contact@divinginasia.com</p>
                 </div>
               </div>
 
