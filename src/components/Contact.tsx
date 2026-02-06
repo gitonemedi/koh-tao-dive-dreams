@@ -28,25 +28,25 @@ const Contact = () => {
     setIsSubmitting(true);
     try {
       const payload = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
+        access_key: 'e4c4edf6-6e35-456a-87da-b32b961b449a',
         subject: formData.subject,
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
         message: formData.message,
       };
 
-      console.log('Sending contact payload to /api/contact', payload);
+      console.log('Sending contact payload to Web3Forms', payload);
 
-      const res = await fetch('/api/contact', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
       const data = await res.json().catch(() => ({}));
-      console.log('Server response for /api/contact:', res.status, data);
+      console.log('Web3Forms response:', res.status, data);
 
-      if (res.ok) {
+      if (res.ok && data.success) {
         toast.success("Message sent successfully! We'll get back to you soon.");
         setFormData({
           firstName: '',
@@ -56,8 +56,8 @@ const Contact = () => {
           message: ''
         });
       } else {
-        const errMsg = data?.error || data?.message || `HTTP ${res.status}`;
-        console.error('Contact API error:', errMsg);
+        const errMsg = data?.message || data?.error || `HTTP ${res.status}`;
+        console.error('Web3Forms error:', errMsg, data);
         toast.error(`Failed to send message: ${errMsg}. Please try again.`);
       }
     } catch (error) {
