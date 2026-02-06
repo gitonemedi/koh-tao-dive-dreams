@@ -28,7 +28,7 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <div className="relative">
             <img
-              src="/src/aamapkohtao.gif"
+              src="/aamapkohtao.gif"
               alt="Koh Tao map and dive sites"
               className="rounded-lg shadow-2xl"
             />
