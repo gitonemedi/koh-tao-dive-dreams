@@ -10,10 +10,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { toast } from 'sonner';
-import emailjs from '@emailjs/browser';
-
-// Initialize EmailJS
-emailjs.init(import.meta.env.VITE_EMAILJS_SERVICE_ID);
 
 const bookingSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
@@ -49,12 +45,44 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, itemType, it
   });
 
   const onSubmit = async (data: BookingFormData) => {
-    // Booking functionality is temporarily disabled.
     setIsSubmitting(true);
-    toast.info('Bookings are temporarily disabled. Please use the contact form or email contact@divinginasia.com');
-    form.reset();
-    onClose();
-    setIsSubmitting(false);
+    try {
+      const messageBody = `Phone: ${data.phone || 'N/A'}\nPreferred Date: ${data.preferred_date || 'N/A'}\nExperience Level: ${data.experience_level || 'N/A'}\n\nMessage:\n${data.message || 'N/A'}`;
+
+      const payload = {
+        access_key: 'e4c4edf6-6e35-456a-87da-b32b961b449a',
+        subject: `Booking Inquiry: ${itemTitle}`,
+        name: data.name,
+        email: data.email,
+        message: messageBody,
+      };
+
+      console.log('Sending booking payload to Web3Forms', payload);
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const resp = await res.json().catch(() => ({}));
+      console.log('Web3Forms booking response:', res.status, resp);
+
+      if (res.ok && resp.success) {
+        toast.success("Booking inquiry sent! We'll contact you soon.");
+        form.reset();
+        onClose();
+      } else {
+        const errMsg = resp?.message || resp?.error || `HTTP ${res.status}`;
+        console.error('Web3Forms booking error:', errMsg, resp);
+        toast.error(`Failed to send booking: ${errMsg}. Please try again.`);
+      }
+    } catch (error) {
+      console.error('Booking submission failed:', error);
+      toast.error(`Failed to send booking: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
