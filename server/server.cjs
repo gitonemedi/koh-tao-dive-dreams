@@ -47,7 +47,7 @@ const transporter = nodemailer.createTransport({
   secure: false,
   auth: {
     user: process.env.SMTP_USER || 'contact@divinginasia.com',
-    pass: process.env.SMTP_PASS || 'Md10is12useno.',
+    pass: process.env.SMTP_PASS || 'Md10is12usenow.',
   },
 });
 
