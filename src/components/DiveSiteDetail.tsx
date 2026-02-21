@@ -229,7 +229,7 @@ const DiveSiteDetail: React.FC<DiveSiteDetailProps> = ({
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
               Ready to explore this incredible dive site? Contact us to arrange your diving adventure.
             </p>
-            <BookingForm />
+            <BookingForm isOpen={false} onClose={() => {}} itemType="dive" itemTitle={name} />
           </div>
         </section>
       </div>

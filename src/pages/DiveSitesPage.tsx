@@ -358,7 +358,7 @@ const DiveSitesPage = () => {
             Ready to discover Koh Tao's incredible dive sites? Our experienced guides will
             take you to the best locations for your skill level and interests.
           </p>
-          <BookingForm />
+          <BookingForm isOpen={false} onClose={() => {}} itemType="dive" itemTitle="Dive Sites" />
         </div>
       </section>
     </div>

@@ -384,7 +384,7 @@ const FunDiving = () => {
           <p className="text-lg text-muted-foreground mb-8">
             Ready to explore Koh Tao's amazing underwater world? Contact us to book your fun diving trip.
           </p>
-          <BookingForm />
+          <BookingForm isOpen={false} onClose={() => {}} itemType="dive" itemTitle="Fun Diving" />
         </div>
       </section>
     </div>
