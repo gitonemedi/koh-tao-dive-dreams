@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 // Import local images
 import reefImage from '@/assets/reef.png';
 import boatImage from '@/assets/boat.png';
-import turtleImage from '@/assets/turtle.png';
 
 const Gallery = () => {
   const { t } = useTranslation();
@@ -13,8 +12,8 @@ const Gallery = () => {
 
   const images = [
     {
-      src: turtleImage,
-      alt: "Sea turtle swimming in Koh Tao",
+      src: reefImage,
+      alt: "Underwater scene in Koh Tao",
       category: "Marine Life"
     },
     {

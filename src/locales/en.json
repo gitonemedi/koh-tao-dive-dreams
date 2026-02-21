@@ -16,8 +16,8 @@
     "title": "Why Choose Koh Tao for Diving?",
     "subtitle": "Known as the diving capital of Thailand, Koh Tao offers some of the world's most accessible and diverse underwater experiences",
     "sectionTitle": "Underwater Paradise Awaits",
-    "description1": "Koh Tao, meaning \"Turtle Island,\" is a small island in the Gulf of Thailand renowned for its incredible diving opportunities. With warm waters year-round, excellent visibility, and abundant marine life, it's the perfect place for both beginners and experienced divers.",
-    "description2": "Our crystal-clear waters host vibrant coral reefs, schools of tropical fish, whale sharks, and if you're lucky, green sea turtles. The island's compact size means short boat rides to multiple dive sites, maximizing your underwater time.",
+    "description1": "Koh Tao is a small island in the Gulf of Thailand renowned for its incredible diving opportunities. With warm waters year-round, excellent visibility, and abundant marine life, it's the perfect place for both beginners and experienced divers.",
+    "description2": "Our crystal-clear waters host vibrant coral reefs, schools of tropical fish, and a wide variety of marine life. The island's compact size means short boat rides to multiple dive sites, maximizing your underwater time.",
     "features": [
       "Water temperature: 26-29°C year-round",
       "Visibility: 15-25 meters",
@@ -167,8 +167,8 @@
         "name": "Green Rock",
         "depth": "6-18m",
         "level": "Beginner",
-        "highlights": ["Sea turtles", "Angelfish", "Butterflyfish"],
-        "description": "Known for frequent turtle sightings and vibrant reef fish communities."
+        "highlights": ["Angelfish", "Butterflyfish", "Colorful reef"],
+        "description": "Known for vibrant reef fish communities and colorful coral formations."
       }
     },
     "bookButton": "Book This Dive",
