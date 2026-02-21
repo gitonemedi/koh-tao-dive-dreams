@@ -264,7 +264,15 @@ const Courses = () => {
         </div>
       </div>
 
-      {/* Booking handled on dedicated /booking page */}
+      <BookingForm
+        isOpen={!!selectedCourse}
+        onClose={() => setSelectedCourse(null)}
+        itemType="course"
+        itemTitle={selectedCourse ? selectedCourse.title : ''}
+        depositMajor={selectedCourse ? selectedCourse.depositMajor : undefined}
+        depositCurrency={selectedCourse ? selectedCourse.depositCurrency : undefined}
+      />
+        {/* Booking now handled on dedicated /booking page */}
     </section>
   );
 };

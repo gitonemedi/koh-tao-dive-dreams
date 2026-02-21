@@ -100,24 +100,6 @@ const       BookingPage: React.FC = () => {
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
         <div className="flex items-start justify-between gap-4">
           <h1 className="text-2xl font-bold mb-2">Book: {itemTitle}</h1>
-          {rezdyBase ? (
-            <div className="ml-4 flex gap-2">
-              <a href={rezdyBase} target="_blank" rel="noreferrer" className="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
-                Book on Rezdy
-              </a>
-              <button
-                type="button"
-                onClick={() => {
-                  const values = form.getValues();
-                  const url = buildRezdyPrefill(values);
-                  if (url) window.open(url, '_blank');
-                }}
-                className="inline-block bg-emerald-50 text-emerald-800 border border-emerald-200 px-4 py-2 rounded"
-              >
-                Prefill & Book on Rezdy
-              </button>
-            </div>
-          ) : null}
         </div>
         <p className="text-sm text-muted-foreground mb-6">Select options and submit your booking or inquiry.</p>
 
