@@ -129,7 +129,7 @@ const Courses = () => {
   };
 
   return (
-    <section id="courses" className="py-20 bg-gray-50">
+    <section id="courses" className="py-20 bg-gray-50 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 lg:px-8 sm:px-[24px]">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
