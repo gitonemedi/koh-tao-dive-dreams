@@ -30,6 +30,12 @@ const ProLevelCourses: React.FC = () => {
     { title: 'MSDT Instructor Specialty courses Koh Tao - Sidemount' },
   ];
 
+  const slugify = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+
   return (
     <div className="min-h-screen bg-background">
       <section className="py-20">
@@ -51,7 +57,9 @@ const ProLevelCourses: React.FC = () => {
                         <Button variant="outline" className="w-full">View</Button>
                       </Link>
                     ) : (
-                      <Button variant="outline" className="w-full" disabled>Details</Button>
+                      <Link to={`/courses/specialties/${slugify(c.title)}`} className="flex-1">
+                        <Button variant="outline" className="w-full">View</Button>
+                      </Link>
                     )}
 
                     <a href="#booking" className="flex-1">

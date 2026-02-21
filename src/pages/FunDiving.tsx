@@ -6,6 +6,8 @@ import BookingForm from '../components/BookingForm';
 import { Fish, Waves, MapPin, Clock, DollarSign, Users } from 'lucide-react';
 
 const FunDiving = () => {
+  const [selectedTrip, setSelectedTrip] = React.useState<any | null>(null);
+  const [bookingOpen, setBookingOpen] = React.useState(false);
   const diveSites = [
     {
       name: "Sail Rock",

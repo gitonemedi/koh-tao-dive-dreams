@@ -119,48 +119,12 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, itemType, it
       console.log('Web3Forms booking response:', res.status, resp);
 
       if (res.ok && resp.success) {
-        toast.success("Booking inquiry sent! Preparing payment...");
-        // After recording the inquiry, create a Stripe Checkout session for a fixed deposit
-        try {
-          const body: any = {
-            itemTitle,
-            itemType,
-            name: data.name,
-            email: data.email,
-          };
-
-          if (typeof depositMajor === 'number' && depositMajor > 0) {
-            body.amountMajor = depositMajor;
-          }
-
-          if (depositCurrency) {
-            body.currency = depositCurrency;
-          }
-
-          const checkoutRes = await fetch('/api/create-checkout-session', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body),
-          });
-
-          const json = await checkoutRes.json().catch(() => ({}));
-          if (checkoutRes.ok && json.url) {
-            // redirect user to Stripe Checkout
-            window.location.href = json.url;
-            return;
-          } else {
-            const errMsg = json?.error || `HTTP ${checkoutRes.status}`;
-            console.error('Checkout creation failed:', errMsg, json);
-            toast.error('Payment initialization failed. Inquiry was still submitted.');
-            form.reset();
-            onClose();
-          }
-        } catch (err) {
-          console.error('Checkout call failed:', err);
-          toast.error('Payment initialization failed. Inquiry was still submitted.');
-          form.reset();
-          onClose();
-        }
+        // Inquiry saved. If we already created a payment link above (paymentChoice === 'link'),
+        // it's been included in the message sent via Web3Forms. If user chose to pay now we already
+        // redirected earlier. Otherwise just acknowledge the inquiry.
+        toast.success('Booking inquiry sent. We will contact you shortly.');
+        form.reset();
+        onClose();
       } else {
         const errMsg = resp?.message || resp?.error || `HTTP ${res.status}`;
         console.error('Web3Forms booking error:', errMsg, resp);
@@ -272,6 +236,50 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, itemType, it
                       <SelectItem value="professional">Professional diver</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="paymentChoice"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Payment option</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          value="now"
+                          checked={field.value === 'now'}
+                          onChange={() => field.onChange('now')}
+                        />
+                        <span className="ml-2">Pay deposit now</span>
+                      </label>
+
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          value="link"
+                          checked={field.value === 'link'}
+                          onChange={() => field.onChange('link')}
+                        />
+                        <span className="ml-2">Send payment link to my email</span>
+                      </label>
+
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          value="none"
+                          checked={field.value === 'none'}
+                          onChange={() => field.onChange('none')}
+                        />
+                        <span className="ml-2">Just an inquiry (no deposit)</span>
+                      </label>
+                    </div>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
