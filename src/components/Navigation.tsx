@@ -52,9 +52,9 @@ const Navigation = () => {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="/" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium">
+            <Link to="/" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium">
               {t('nav.home')}
-            </a>
+            </Link>
 
             {/* Courses mega dropdown */}
             <div className="relative group">
@@ -258,9 +258,9 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <a href="/" className="block px-3 py-2 text-gray-700 hover:text-blue-600" onClick={() => setIsOpen(false)}>
+              <Link to="/" className="block px-3 py-2 text-gray-700 hover:text-blue-600" onClick={() => setIsOpen(false)}>
                 {t('nav.home')}
-              </a>
+              </Link>
 
               <div>
                 <button
