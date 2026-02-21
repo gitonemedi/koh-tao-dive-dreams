@@ -9,7 +9,7 @@ const Footer: React.FC = () => (
         <a href="/" className="hover:text-blue-600">Home</a>
         <a href="/courses" className="hover:text-blue-600">Courses</a>
         <a href="/koh-tao-dive-sites" className="hover:text-blue-600">Dive Sites</a>
-        <a href="/contact" className="hover:text-blue-600">Contact</a>
+        <a href="https://www.divinginasia.com/#contact" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">Contact</a>
       </div>
     </div>
   </footer>
