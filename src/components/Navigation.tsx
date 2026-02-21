@@ -33,6 +33,12 @@ const Navigation = () => {
         { name: t('courses.instructor.title'), to: '/courses/instructor' },
       ],
     },
+    {
+      label: 'Internships',
+      items: [
+        { name: 'Black Turtle — Divemaster Internship', to: 'https://www.blackturtledive.com/scuba-diving-internship/divemaster-internship/' },
+      ],
+    },
   ];
 
   const navItems = [
@@ -74,12 +80,23 @@ const Navigation = () => {
                       <ul className="space-y-1">
                         {cat.items.map((item) => (
                           <li key={item.to}>
-                            <Link
-                              to={item.to}
-                              className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150 uppercase tracking-wide"
-                            >
-                              {item.name}
-                            </Link>
+                            {item.to && item.to.startsWith('http') ? (
+                              <a
+                                href={item.to}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150 uppercase tracking-wide"
+                              >
+                                {item.name}
+                              </a>
+                            ) : (
+                              <Link
+                                to={item.to}
+                                className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150 uppercase tracking-wide"
+                              >
+                                {item.name}
+                              </Link>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -264,9 +281,15 @@ const Navigation = () => {
                       <div key={cat.label} className="mb-2">
                         <span className="block px-3 py-1 text-xs font-bold text-blue-600 uppercase tracking-wider">{cat.label}</span>
                         {cat.items.map((item) => (
-                          <a key={item.href} href={item.href} className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                          item.to && item.to.startsWith('http') ? (
+                            <a key={item.to} href={item.to} className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)} target="_blank" rel="noopener noreferrer">
                             {item.name}
                           </a>
+                          ) : (
+                            <Link key={item.to} to={item.to} className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                              {item.name}
+                            </Link>
+                          )
                         ))}
                       </div>
                     ))}
