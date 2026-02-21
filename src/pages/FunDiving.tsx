@@ -452,11 +452,13 @@ const FunDiving = () => {
           <p className="text-lg text-muted-foreground mb-8">
             Ready to explore Koh Tao's amazing underwater world? You can get in touch for a booking enquiry or use the form below to book directly.
           </p>
-          <div className="mb-4">
-            <a href="/#contact" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold mb-2">Get in touch to book/enquire</a>
-            <div className="text-muted-foreground text-sm mb-4">Or use the form below to send a booking request directly.</div>
-          </div>
-          <Button size="lg" onClick={() => navigate('/booking')}>Send Booking Request</Button>
+            <div className="mb-4 flex flex-col items-center gap-2">
+              <a href="/#where" className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold">Fun Dive Info</a>
+              <a href="/#padi-dive-courses" className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded font-semibold">Book Course (PADI)</a>
+              <a href="/#contact" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold mb-2">Get in touch to book/enquire</a>
+              <div className="text-muted-foreground text-sm mb-4">Or use the form below to send a booking request directly.</div>
+            </div>
+            <Button size="lg" onClick={() => navigate('/booking')}>Send Booking Request</Button>
         </div>
       </section>
     </div>
