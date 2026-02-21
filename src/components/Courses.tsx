@@ -14,7 +14,7 @@ import {
 
 const Courses = () => {
   const { t } = useTranslation();
-  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<any | null>(null);
 
   const courses = [
     {
@@ -30,7 +30,9 @@ const Courses = () => {
       includes: t('courses.openWater.includes', { returnObjects: true }),
       whatsNext: t('courses.openWater.whatsNext'),
       courseImages: t('courses.openWater.courseImages', { returnObjects: true }),
-      icon: "🤿"
+      icon: "🤿",
+      depositMajor: 2000,
+      depositCurrency: 'THB'
     },
     {
       key: 'advanced',
@@ -44,7 +46,9 @@ const Courses = () => {
       fullDescription: t('courses.advanced.fullDescription'),
       includes: t('courses.advanced.includes', { returnObjects: true }),
       courseImages: t('courses.advanced.courseImages', { returnObjects: true }),
-      icon: "🌊"
+      icon: "🌊",
+      depositMajor: 2500,
+      depositCurrency: 'THB'
     },
     {
       key: 'efr',
@@ -58,7 +62,9 @@ const Courses = () => {
       fullDescription: t('courses.efr.fullDescription'),
       includes: t('courses.efr.includes', { returnObjects: true }),
       courseImages: t('courses.efr.courseImages', { returnObjects: true }),
-      icon: "🏥"
+      icon: "🏥",
+      depositMajor: 500,
+      depositCurrency: 'THB'
     },
     {
       key: 'rescue',
@@ -72,7 +78,9 @@ const Courses = () => {
       fullDescription: t('courses.rescue.fullDescription'),
       includes: t('courses.rescue.includes', { returnObjects: true }),
       courseImages: t('courses.rescue.courseImages', { returnObjects: true }),
-      icon: "🚨"
+      icon: "🚨",
+      depositMajor: 3000,
+      depositCurrency: 'THB'
     },
     {
       key: 'divemaster',
@@ -86,7 +94,9 @@ const Courses = () => {
       fullDescription: t('courses.divemaster.fullDescription'),
       includes: t('courses.divemaster.includes', { returnObjects: true }),
       courseImages: t('courses.divemaster.courseImages', { returnObjects: true }),
-      icon: "👨‍🏫"
+      icon: "👨‍🏫",
+      depositMajor: 5000,
+      depositCurrency: 'THB'
     },
     {
       key: 'instructor',
@@ -100,7 +110,9 @@ const Courses = () => {
       fullDescription: t('courses.instructor.fullDescription'),
       includes: t('courses.instructor.includes', { returnObjects: true }),
       courseImages: t('courses.instructor.courseImages', { returnObjects: true }),
-      icon: "🎓"
+      icon: "🎓",
+      depositMajor: 10000,
+      depositCurrency: 'THB'
     }
   ];
 
@@ -221,7 +233,7 @@ const Courses = () => {
                     <Button variant="outline" className="w-full">{t('courses.viewCourse', 'View course')}</Button>
                   </Link>
                   <button
-                    onClick={() => setSelectedCourse(course.title)}
+                    onClick={() => setSelectedCourse(course)}
                     className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold"
                   >
                     {t('courses.bookButton')}
@@ -256,7 +268,9 @@ const Courses = () => {
         isOpen={!!selectedCourse}
         onClose={() => setSelectedCourse(null)}
         itemType="course"
-        itemTitle={selectedCourse || ''}
+        itemTitle={selectedCourse ? selectedCourse.title : ''}
+        depositMajor={selectedCourse ? selectedCourse.depositMajor : undefined}
+        depositCurrency={selectedCourse ? selectedCourse.depositCurrency : undefined}
       />
     </section>
   );

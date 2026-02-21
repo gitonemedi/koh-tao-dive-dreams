@@ -27,9 +27,11 @@ interface BookingFormProps {
   onClose: () => void;
   itemType: 'course' | 'dive';
   itemTitle: string;
+  depositMajor?: number;
+  depositCurrency?: string;
 }
 
-const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, itemType, itemTitle }) => {
+const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, itemType, itemTitle, depositMajor, depositCurrency }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<BookingFormData>({
@@ -73,15 +75,25 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, itemType, it
         toast.success("Booking inquiry sent! Preparing payment...");
         // After recording the inquiry, create a Stripe Checkout session for a fixed deposit
         try {
+          const body: any = {
+            itemTitle,
+            itemType,
+            name: data.name,
+            email: data.email,
+          };
+
+          if (typeof depositMajor === 'number' && depositMajor > 0) {
+            body.amountMajor = depositMajor;
+          }
+
+          if (depositCurrency) {
+            body.currency = depositCurrency;
+          }
+
           const checkoutRes = await fetch('/api/create-checkout-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              itemTitle,
-              itemType,
-              name: data.name,
-              email: data.email,
-            }),
+            body: JSON.stringify(body),
           });
 
           const json = await checkoutRes.json().catch(() => ({}));
