@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -47,6 +47,21 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, itemType, it
       paymentChoice: 'now',
     },
   });
+
+  // Reset form whenever dialog opens with a new course/item selection
+  useEffect(() => {
+    if (isOpen) {
+      form.reset({
+        name: '',
+        email: '',
+        phone: '',
+        preferred_date: '',
+        experience_level: '',
+        message: '',
+        paymentChoice: 'now',
+      });
+    }
+  }, [isOpen, itemTitle, form]);
 
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
@@ -222,7 +237,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, itemType, it
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Experience Level</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value || ''}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select your experience level" />
