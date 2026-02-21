@@ -1,4 +1,5 @@
 import React from 'react';
+import BookingForm from '../components/BookingForm';
 
 const Rescue = () => (
   <div className="max-w-3xl mx-auto py-16 px-4">
@@ -10,7 +11,16 @@ const Rescue = () => (
       <li>All equipment included</li>
       <li>Prerequisite: EFR</li>
     </ul>
-    <p>Contact us to book your Rescue course and become a safer diver!</p>
+    <h2 className="text-2xl font-semibold mt-8 mb-4">Course Includes</h2>
+    <ul className="list-disc pl-6 mb-6">
+      <li>Rescue skills practice</li>
+      <li>PADI Rescue materials</li>
+      <li>Certification card</li>
+      <li>Free tea, coffee, water</li>
+    </ul>
+    <h2 className="text-2xl font-semibold mt-8 mb-4">What's Next?</h2>
+    <p className="mb-6">Rescue Diver is a prerequisite for Divemaster and recommended for all divers.</p>
+    <BookingForm />
   </div>
 );
 
