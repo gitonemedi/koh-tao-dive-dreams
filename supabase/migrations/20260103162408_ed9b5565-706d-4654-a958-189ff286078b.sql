@@ -21,4 +21,4 @@ FOR INSERT
 WITH CHECK (true);
 
 -- Only authenticated admins should read bookings (for now, allow service role only)
--- This keeps customer data private
+-- This keeps customer data private]

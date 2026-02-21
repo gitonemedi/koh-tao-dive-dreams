@@ -42,9 +42,16 @@ const FunDiving = () => {
     { name: "Diverse Reef Fish", description: "Colorful schools and unique reef species" }
   ];
 
+  // Helper for smooth scroll
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
-
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center bg-gradient-to-r from-blue-900 to-teal-600">
         <div className="absolute inset-0 bg-black/50" />
@@ -54,14 +61,15 @@ const FunDiving = () => {
             Experience the best of Koh Tao's underwater world with our expertly guided fun diving trips.
             Discover vibrant coral reefs, encounter amazing marine life, and create unforgettable memories.
           </p>
-          <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg">
-            Book Your Fun Dive
-          </Button>
+          <div className="flex flex-col md:flex-row gap-4 justify-center mb-4">
+            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg" onClick={() => scrollToSection('fun-dive-main')}>Go Fun Diving Koh Tao</Button>
+            <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg" onClick={() => scrollToSection('courses-section')}>Book a Course</Button>
+          </div>
         </div>
       </section>
 
       {/* Introduction */}
-      <section className="py-16 px-4">
+      <section id="fun-dive-main" className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-6">Where to Go Fun Diving in Thailand</h2>
@@ -453,8 +461,8 @@ const FunDiving = () => {
             Ready to explore Koh Tao's amazing underwater world? You can get in touch for a booking enquiry or use the form below to book directly.
           </p>
             <div className="mb-4 flex flex-col items-center gap-2">
-              <a href="/#where" className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold">Fun Dive Info</a>
-              <a href="/#padi-dive-courses" className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded font-semibold">Book Course (PADI)</a>
+              <a href="#fun-dive-main" className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold">Fun Dive Info</a>
+              <a href="#courses-section" className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded font-semibold">Book Course (PADI)</a>
               <a href="/#contact" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold mb-2">Get in touch to book/enquire</a>
               <div className="text-muted-foreground text-sm mb-4">Or use the form below to send a booking request directly.</div>
             </div>
