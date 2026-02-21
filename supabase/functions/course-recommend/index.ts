@@ -17,7 +17,7 @@ serve(async (req) => {
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
-
+[]
     console.log("Generating course recommendation for:", { experience, interests, goals });
 
     const systemPrompt = `You are a PADI dive instructor at a dive school in Koh Tao, Thailand. You help recommend the best dive certification course based on a person's experience level, interests, and goals.
