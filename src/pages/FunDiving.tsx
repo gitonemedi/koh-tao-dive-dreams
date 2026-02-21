@@ -456,7 +456,7 @@ const FunDiving = () => {
             <a href="/#contact" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold mb-2">Get in touch to book/enquire</a>
             <div className="text-muted-foreground text-sm mb-4">Or use the form below to send a booking request directly.</div>
           </div>
-          <BookingForm isOpen={true} onClose={() => {}} itemType="dive" itemTitle="Fun Dive" />
+          <Button size="lg" onClick={() => navigate('/booking')}>Send Booking Request</Button>
         </div>
       </section>
     </div>
