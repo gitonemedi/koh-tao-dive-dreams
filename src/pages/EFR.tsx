@@ -79,9 +79,7 @@ const EFR: React.FC = () => {
         </section>
 
         <section className="mt-8">
-          <div className="prose">
-            <Button onClick={() => navigate('/booking')}>Go to booking page</Button>
-          </div>
+          <BookingForm isOpen={true} onClose={() => {}} itemType="course" itemTitle="EFR" />
         </section>
       </main>
     </div>

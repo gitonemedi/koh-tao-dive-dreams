@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -451,7 +450,7 @@ const FunDiving = () => {
           <p className="text-lg text-muted-foreground mb-8">
             Ready to explore Koh Tao's amazing underwater world? Contact us to book your fun diving trip.
           </p>
-          {/* Booking moved to dedicated /booking page */}
+          <BookingForm isOpen={true} onClose={() => {}} itemType="dive" itemTitle="Fun Dive" />
         </div>
       </section>
     </div>
