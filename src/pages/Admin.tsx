@@ -96,6 +96,37 @@ const Admin = () => {
     }
   };
 
+  const handleSendInvoice = async (booking: BookingInquiry) => {
+    try {
+      const amount = booking.message || booking.course_title || '';
+      const payload = {
+        access_key: 'e4c4edf6-6e35-456a-87da-b32b961b449a',
+        to: booking.email,
+        subject: `Invoice: ${booking.course_title}`,
+        name: booking.name,
+        message: `Hello ${booking.name},\n\nThis is your invoice for ${booking.course_title}.\nAmount: ${booking.message || 'TBD'}\n\nIf you have paid, please reply with confirmation.\n\nThanks,\nDiving In Asia`,
+        cc: 'payments@divinginasia.com',
+      } as any;
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.success) {
+        toast.success('Invoice sent via Web3Forms');
+      } else {
+        console.error('Web3Forms invoice error', res.status, json);
+        toast.error('Failed to send invoice via Web3Forms');
+      }
+    } catch (err) {
+      console.error('Send invoice error', err);
+      toast.error('Failed to send invoice');
+    }
+  };
+
   const filteredBookings = statusFilter === 'all' 
     ? bookings 
     : bookings.filter(b => b.status === statusFilter);
@@ -268,14 +299,19 @@ const Admin = () => {
                             {booking.message || '-'}
                           </TableCell>
                           <TableCell>
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => setDeleteId(booking.id)}
-                              className="text-destructive hover:text-destructive"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
+                            <div className="flex items-center gap-2">
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => setDeleteId(booking.id)}
+                                className="text-destructive hover:text-destructive"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                              <Button variant="ghost" size="sm" onClick={() => handleSendInvoice(booking)}>
+                                Send Invoice
+                              </Button>
+                            </div>
                           </TableCell>
                         </TableRow>
                       );

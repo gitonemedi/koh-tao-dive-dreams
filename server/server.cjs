@@ -154,6 +154,38 @@ app.patch('/api/bookings/:id/status', (req, res) => {
   }
 });
 
+// Send invoice for booking (local dev helper)
+app.post('/api/bookings/:id/invoice', (req, res) => {
+  try {
+    const { id } = req.params;
+    const stmt = db.prepare('SELECT * FROM booking_inquiries WHERE id = ?');
+    const booking = stmt.get(id);
+    if (!booking) return res.status(404).json({ error: 'Not found' });
+
+    const subject = `Invoice for booking: ${booking.course_title || 'Booking'}`;
+    const text = `Hello ${booking.name || ''},\n\nPlease find your invoice details below:\n\nItem: ${booking.course_title || ''}\nStatus: ${booking.status || ''}\n\nRegards,\nDiving In Asia`;
+
+    const mailOptions = {
+      from: process.env.SMTP_USER || 'contact@divinginasia.com',
+      to: booking.email,
+      cc: process.env.SMTP_USER || 'contact@divinginasia.com',
+      subject,
+      text,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Invoice email error:', error);
+        return res.status(500).json({ error: 'Failed to send invoice' });
+      }
+      res.json({ success: true, info: info.response });
+    });
+  } catch (err) {
+    console.error('Invoice endpoint error', err);
+    res.status(500).json({ error: err.message || 'Internal error' });
+  }
+});
+
 // Submit contact form
 app.post('/api/contact', (req, res) => {
   console.log('Contact form request received:', req.body);

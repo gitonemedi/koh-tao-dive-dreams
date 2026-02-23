@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
@@ -26,21 +27,12 @@ const AdminLogin = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Invalid credentials');
-      }
-
-      const data = await response.json();
-      sessionStorage.setItem('adminToken', data.token);
+      const { data, error } = await supabase.auth.signInWithPassword({ email: username, password });
+      if (error || !data.session) throw error || new Error('Login failed');
       toast.success('Login successful');
       navigate('/admin');
     } catch (error) {
+      console.error('Supabase login error', error);
       toast.error('Invalid username or password');
     } finally {
       setIsLoading(false);

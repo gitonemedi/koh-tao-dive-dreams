@@ -116,6 +116,45 @@ const       BookingPage: React.FC = () => {
         } catch (e) {
           console.warn('Failed to call server notify endpoint', e);
         }
+        // Persist booking to admin storage
+        try {
+          fetch('/api/admin/bookings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: data.name,
+              email: data.email,
+              phone: data.phone,
+              preferred_date: data.preferred_date,
+              experience_level: data.experience_level,
+              message: data.message,
+              item_title: itemTitle,
+              deposit_amount: `฿${amountMajor}`,
+              payment_choice: data.paymentChoice,
+              paypal_link: data.paymentChoice === 'now' ? `${PAYPAL_LINK}/${amountMajor}THB` : null,
+            }),
+          }).then(r => r.json()).then(j => console.log('persisted booking', j)).catch(e => console.warn('persist failed', e));
+        } catch (e) {
+          console.warn('Failed to persist booking', e);
+        }
+        // Also persist to local server endpoint (Express) for dev environment
+        try {
+          fetch('/api/bookings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: data.name,
+              email: data.email,
+              phone: data.phone,
+              course_title: itemTitle,
+              preferred_date: data.preferred_date,
+              experience_level: data.experience_level,
+              message: data.message,
+            }),
+          }).then(r => r.json()).then(j => console.log('server bookings response', j)).catch(e => console.warn('server bookings failed', e));
+        } catch (e) {
+          console.warn('Failed to persist to server bookings', e);
+        }
         if (data.paymentChoice === 'now' && amountMajor > 0) {
           console.log('Showing payment links');
           setShowPaymentLinks(true);
