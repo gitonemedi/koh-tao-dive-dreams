@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 interface BookingInquiry {
   id: string;
@@ -38,16 +39,27 @@ const Admin = () => {
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
   useEffect(() => {
-    // Check if logged in - for now, just fetch bookings (no auth for local testing)
-    fetchBookings();
-  }, []);
+    // Check if logged in
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        navigate('/admin/login');
+        return;
+      }
+      fetchBookings();
+    };
+    checkAuth();
+  }, [navigate]);
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch('/api/bookings');
-      if (!response.ok) throw new Error('Failed to fetch bookings');
-      const data = await response.json();
-      setBookings(data);
+      const { data, error } = await supabase
+        .from('booking_inquiries')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setBookings(data || []);
     } catch (error) {
       console.error('Error fetching bookings:', error);
       toast.error('Failed to load bookings');
@@ -58,15 +70,14 @@ const Admin = () => {
 
   const handleStatusChange = async (bookingId: string, newStatus: string) => {
     try {
-      const response = await fetch(`/api/bookings/${bookingId}/status`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      if (!response.ok) throw new Error('Failed to update status');
+      const { error } = await supabase
+        .from('booking_inquiries')
+        .update({ status: newStatus })
+        .eq('id', bookingId);
 
-      // Refetch bookings to ensure UI is up to date
-      await fetchBookings();
+      if (error) throw error;
+
+      setBookings(bookings.map(b => b.id === bookingId ? { ...b, status: newStatus } : b));
       toast.success(`Status updated to ${statusConfig[newStatus as keyof typeof statusConfig]?.label || newStatus}`);
     } catch (error) {
       console.error('Error updating status:', error);
@@ -78,13 +89,14 @@ const Admin = () => {
     if (!deleteId) return;
 
     try {
-      const response = await fetch(`/api/bookings/${deleteId}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) throw new Error('Failed to delete booking');
+      const { error } = await supabase
+        .from('booking_inquiries')
+        .delete()
+        .eq('id', deleteId);
 
-      // Refetch bookings to ensure UI is up to date
-      await fetchBookings();
+      if (error) throw error;
+
+      setBookings(bookings.filter(b => b.id !== deleteId));
       setDeleteId(null);
       toast.success('Booking deleted successfully');
     } catch (error) {
@@ -95,18 +107,32 @@ const Admin = () => {
 
   const handleSendInvoice = async (booking: BookingInquiry) => {
     try {
-      // For now, use mailto link since Web3Forms has issues
-      const subject = encodeURIComponent(`Invoice: ${booking.course_title}`);
-      const body = encodeURIComponent(`Hello ${booking.name},\n\nThis is your invoice for ${booking.course_title}.\nAmount: ${booking.message || 'TBD'}\n\nIf you have paid, please reply with confirmation.\n\nThanks,\nDiving In Asia`);
-      const mailtoLink = `mailto:${booking.email}?subject=${subject}&body=${body}&cc=payments@divinginasia.com`;
+      const amount = booking.message || booking.course_title || '';
+      const payload = {
+        access_key: 'e4c4edf6-6e35-456a-87da-b32b961b449a',
+        to: booking.email,
+        subject: `Invoice: ${booking.course_title}`,
+        name: booking.name,
+        message: `Hello ${booking.name},\n\nThis is your invoice for ${booking.course_title}.\nAmount: ${booking.message || 'TBD'}\n\nIf you have paid, please reply with confirmation.\n\nThanks,\nDiving In Asia`,
+        cc: 'payments@divinginasia.com',
+      } as any;
 
-      // Open mailto link
-      window.open(mailtoLink, '_blank');
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
 
-      toast.success('Invoice email opened in your email client');
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.success) {
+        toast.success('Invoice sent via Web3Forms');
+      } else {
+        console.error('Web3Forms invoice error', res.status, json);
+        toast.error('Failed to send invoice via Web3Forms');
+      }
     } catch (err) {
       console.error('Send invoice error', err);
-      toast.error('Failed to open invoice email');
+      toast.error('Failed to send invoice');
     }
   };
 
@@ -135,6 +161,7 @@ const Admin = () => {
   }
 
   const handleLogout = async () => {
+    await supabase.auth.signOut();
     navigate('/admin/login');
     toast.success('Logged out successfully');
   };
