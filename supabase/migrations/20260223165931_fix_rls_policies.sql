@@ -22,5 +22,4 @@ CREATE POLICY "Allow authenticated users to delete bookings" ON booking_inquirie
   FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Temporary policy to check if data exists (remove after testing)
-CREATE POLICY "Allow public read for testing" ON booking_inquiries
-  FOR SELECT USING (true);
+-- (temporary public policies removed) -- use authenticated policies only

@@ -116,32 +116,38 @@ const       BookingPage: React.FC = () => {
         } catch (e) {
           console.warn('Failed to call server notify endpoint', e);
         }
-        // Persist booking to Supabase
+        // Persist booking via Supabase Edge Function (service_role) for secure inserts
         try {
           const bookingId = crypto.randomUUID();
+          const functionUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/bookings`;
 
-          const { error } = await supabase
-            .from('booking_inquiries')
-            .insert({
-              id: bookingId,
-              name: data.name,
-              email: data.email,
-              phone: data.phone,
-              course_title: itemTitle,
-              preferred_date: data.preferred_date,
-              experience_level: data.experience_level,
-              message: data.message,
-              status: 'pending',
-              created_at: new Date().toISOString(),
-            });
+          const body = {
+            id: bookingId,
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            course_title: itemTitle,
+            preferred_date: data.preferred_date,
+            experience_level: data.experience_level,
+            message: data.message,
+            status: 'pending',
+            created_at: new Date().toISOString(),
+          };
 
-          if (error) {
-            console.warn('Supabase persist failed', error);
+          const fnRes = await fetch(functionUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+          });
+
+          if (!fnRes.ok) {
+            const errText = await fnRes.text().catch(() => 'unknown');
+            console.warn('Edge function persist failed', fnRes.status, errText);
           } else {
-            console.log('Booking persisted to Supabase', bookingId);
+            console.log('Booking persisted via Edge Function', bookingId);
           }
         } catch (e) {
-          console.warn('Failed to persist booking to Supabase', e);
+          console.warn('Failed to persist booking via Edge Function', e);
         }
         if (data.paymentChoice === 'now' && amountMajor > 0) {
           console.log('Showing payment links');
