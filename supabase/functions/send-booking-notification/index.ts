@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { name, email, phone, preferred_date, experience_level, message, item_title, deposit_amount } = await req.json();
+    const { name, email, phone, preferred_date, experience_level, message, item_title, deposit_amount, payment_choice, paypal_link } = await req.json();
 
     const client = new SMTPClient({
       connection: {
@@ -35,6 +35,8 @@ Phone: ${phone || 'N/A'}
 Preferred Date: ${preferred_date || 'N/A'}
 Experience Level: ${experience_level || 'N/A'}
 Deposit Amount: ฿${deposit_amount || 0}
+Payment Choice: ${payment_choice === 'now' ? 'Pay deposit now via PayPal' : payment_choice === 'none' ? 'Pay later (inquire only)' : 'N/A'}
+${paypal_link ? `PayPal Link: ${paypal_link}` : ''}
 
 Message:
 ${message || 'No message'}`;

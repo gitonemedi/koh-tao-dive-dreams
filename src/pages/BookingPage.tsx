@@ -87,6 +87,8 @@ const       BookingPage: React.FC = () => {
           message: `Add-ons: ${addonsText}\n\n${data.message || ''}`,
           item_title: itemTitle,
           deposit_amount: amountMajor,
+          payment_choice: data.paymentChoice,
+          paypal_link: data.paymentChoice === 'now' ? `${PAYPAL_LINK}/${depositMajor + totalAddons}THB` : null,
         },
       });
 
@@ -238,15 +240,27 @@ const       BookingPage: React.FC = () => {
           <div className="mt-8 p-6 border rounded-xl bg-muted/50 text-center space-y-4">
             <h2 className="text-xl font-bold">Pay Your Deposit</h2>
             <p className="text-muted-foreground">Your inquiry has been sent! To secure your booking, pay the deposit of <strong>฿{depositMajor + totalAddons}</strong> via PayPal:</p>
-            <a
-              href={`${PAYPAL_LINK}/${depositMajor + totalAddons}THB`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button className="bg-[#0070ba] hover:bg-[#005ea6] text-white px-8 py-3 text-lg">
-                Pay ฿{depositMajor + totalAddons} with PayPal
-              </Button>
-            </a>
+            <div className="space-y-3">
+              <a
+                href={`${PAYPAL_LINK}/${depositMajor + totalAddons}THB`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="bg-[#0070ba] hover:bg-[#005ea6] text-white px-8 py-3 text-lg w-full">
+                  Pay ฿{depositMajor + totalAddons} with PayPal
+                </Button>
+              </a>
+              <p className="text-sm text-muted-foreground">or</p>
+              <a
+                href={PAYPAL_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="outline" className="px-8 py-3 text-lg w-full">
+                  Open PayPal.me/divinginasia
+                </Button>
+              </a>
+            </div>
             <p className="text-sm text-muted-foreground">Or <button className="underline" onClick={() => { form.reset(); setShowPaymentLinks(false); navigate('/'); }}>skip payment for now</button></p>
           </div>
         )}
