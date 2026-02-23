@@ -253,13 +253,13 @@ const Navigation = () => {
 
             {/* Fun Dive Trips dropdown */}
             <div className="relative group">
-              <a
-                href="/#courses"
+              <Link
+                to="/fun-diving-koh-tao"
                 className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium flex items-center gap-1"
               >
                 Fun Dive Trips
                 <ChevronRight className="h-4 w-4 transition-transform duration-200 group-hover:rotate-90" />
-              </a>
+              </Link>
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="bg-[#0b1e3d] rounded-lg shadow-2xl border border-[#1a3a5c] min-w-[250px] p-5">
                   <h4 className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">
@@ -461,8 +461,8 @@ const Navigation = () => {
 
               {/* Mobile fun dive trips accordion */}
               <div>
-                <a
-                  href="/#courses"
+                <Link
+                  to="/fun-diving-koh-tao"
                   onClick={() => setIsOpen(false)}
                   className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-blue-600"
                 >
@@ -475,7 +475,7 @@ const Navigation = () => {
                       setFunDivingOpen(!funDivingOpen);
                     }}
                   />
-                </a>
+                </Link>
                 {funDivingOpen && (
                   <div className="pl-4 space-y-1 bg-gray-50 rounded-lg mx-2 py-2">
                     <Link to="/fun-diving-koh-tao" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>

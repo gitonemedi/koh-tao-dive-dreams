@@ -67,7 +67,10 @@ const FunDiving = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center bg-gradient-to-r from-blue-900 to-teal-600">
+      <section
+        className="relative h-screen flex items-center justify-center bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/photo-1682687982423-295485af248a.avif')" }}
+      >
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">Fun Diving Koh Tao</h1>

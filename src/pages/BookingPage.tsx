@@ -95,6 +95,27 @@ const       BookingPage: React.FC = () => {
       if (res.ok && responseData.success) {
         console.log('Form submission successful');
         toast.success('Inquiry sent! You can now pay your deposit via PayPal below.');
+        // Also send to our server endpoint to ensure delivery to payments@divinginasia.com
+        try {
+          fetch('/api/send-booking-notification', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: data.name,
+              email: data.email,
+              phone: data.phone,
+              preferred_date: data.preferred_date,
+              experience_level: data.experience_level,
+              message: data.message,
+              item_title: itemTitle,
+              deposit_amount: `฿${amountMajor}`,
+              payment_choice: data.paymentChoice,
+              paypal_link: data.paymentChoice === 'now' ? `${PAYPAL_LINK}/${amountMajor}THB` : null,
+            }),
+          }).then(r => r.json()).then(j => console.log('server notify response', j)).catch(e => console.warn('server notify failed', e));
+        } catch (e) {
+          console.warn('Failed to call server notify endpoint', e);
+        }
         if (data.paymentChoice === 'now' && amountMajor > 0) {
           console.log('Showing payment links');
           setShowPaymentLinks(true);
