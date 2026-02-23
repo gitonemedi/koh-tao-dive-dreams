@@ -17,6 +17,15 @@ export default function SidemountDiver() {
           </p>
         </div>
 
+        {/* Image */}
+        <div className="mb-8">
+          <img
+            src="/images/photo-1618865181016-a80ad83a06d3.avif"
+            alt="Sidemount diving configuration"
+            className="w-full h-64 object-cover rounded-lg shadow-lg"
+          />
+        </div>
+
         <Card className="mb-8 p-6">
           <h2 className="text-2xl font-bold mb-4">Course Overview</h2>
           <p className="text-gray-700 mb-4">

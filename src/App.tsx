@@ -43,6 +43,7 @@ import BandedSeaKrait from "./pages/BandedSeaKrait";
 import BeardedScorpionFish from "./pages/BeardedScorpionFish";
 import Nudibranchs from "./pages/Nudibranchs";
 import AccommodationsPage from "./pages/AccommodationsPage";
+import ScubaReview from "./pages/ScubaReview";
 
 // Specialty Courses
 import DeepDiver from "./pages/specialty/DeepDiver";
@@ -61,6 +62,11 @@ import DPVDiver from "./pages/specialty/DPVDiver";
 import SharkConservation from "./pages/specialty/SharkConservation";
 import SeaTurtleAwareness from "./pages/specialty/SeaTurtleAwareness";
 import WhaleSharkAwareness from "./pages/specialty/WhaleSharkAwareness";
+import AdaptiveSupportDiver from "./pages/specialty/AdaptiveSupportDiver";
+import BoatDiver from "./pages/specialty/BoatDiver";
+import EmergencyO2Provider from "./pages/specialty/EmergencyO2Provider";
+import EquipmentSpecialist from "./pages/specialty/EquipmentSpecialist";
+import UnderwaterNaturalist from "./pages/specialty/UnderwaterNaturalist";
 
 // Internship Programs
 import DivemasterInternship from "./pages/internship/Divemaster";
@@ -116,6 +122,7 @@ const App = () => (
           <Route path="/courses/rescue" element={<Rescue />} />
           <Route path="/courses/divemaster" element={<Divemaster />} />
           <Route path="/courses/instructor" element={<Instructor />} />
+          <Route path="/courses/scuba-review" element={<ScubaReview />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
@@ -140,6 +147,11 @@ const App = () => (
           <Route path="/specialty/shark-conservation" element={<SharkConservation />} />
           <Route path="/specialty/sea-turtle-awareness" element={<SeaTurtleAwareness />} />
           <Route path="/specialty/whaleshark-awareness" element={<WhaleSharkAwareness />} />
+          <Route path="/specialty/adaptive-support" element={<AdaptiveSupportDiver />} />
+          <Route path="/specialty/boat-diver" element={<BoatDiver />} />
+          <Route path="/specialty/emergency-o2" element={<EmergencyO2Provider />} />
+          <Route path="/specialty/equipment-specialist" element={<EquipmentSpecialist />} />
+          <Route path="/specialty/underwater-naturalist" element={<UnderwaterNaturalist />} />
 
           {/* Internship Program Routes */}
           <Route path="/internship/divemaster" element={<DivemasterInternship />} />
