@@ -53,15 +53,18 @@ app.post('/api/bookings', (req, res) => {
 app.put('/api/bookings/:id/status', (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
+  console.log('PUT /api/bookings/:id/status', id, status);
   try {
     const stmt = db.prepare('UPDATE bookings SET status = ? WHERE id = ?');
     const result = stmt.run(status, id);
+    console.log('Update result:', result);
     if (result.changes > 0) {
       res.json({ message: 'Status updated' });
     } else {
       res.status(404).json({ error: 'Booking not found' });
     }
   } catch (err) {
+    console.error('Status update error:', err);
     res.status(500).json({ error: err.message });
   }
 });

@@ -65,7 +65,8 @@ const Admin = () => {
       });
       if (!response.ok) throw new Error('Failed to update status');
 
-      setBookings(bookings.map(b => b.id === bookingId ? { ...b, status: newStatus } : b));
+      // Refetch bookings to ensure UI is up to date
+      await fetchBookings();
       toast.success(`Status updated to ${statusConfig[newStatus as keyof typeof statusConfig]?.label || newStatus}`);
     } catch (error) {
       console.error('Error updating status:', error);
@@ -82,7 +83,8 @@ const Admin = () => {
       });
       if (!response.ok) throw new Error('Failed to delete booking');
 
-      setBookings(bookings.filter(b => b.id !== deleteId));
+      // Refetch bookings to ensure UI is up to date
+      await fetchBookings();
       setDeleteId(null);
       toast.success('Booking deleted successfully');
     } catch (error) {
@@ -93,32 +95,18 @@ const Admin = () => {
 
   const handleSendInvoice = async (booking: BookingInquiry) => {
     try {
-      const amount = booking.message || booking.course_title || '';
-      const payload = {
-        access_key: 'e4c4edf6-6e35-456a-87da-b32b961b449a',
-        to: booking.email,
-        subject: `Invoice: ${booking.course_title}`,
-        name: booking.name,
-        message: `Hello ${booking.name},\n\nThis is your invoice for ${booking.course_title}.\nAmount: ${booking.message || 'TBD'}\n\nIf you have paid, please reply with confirmation.\n\nThanks,\nDiving In Asia`,
-        cc: 'payments@divinginasia.com',
-      } as any;
+      // For now, use mailto link since Web3Forms has issues
+      const subject = encodeURIComponent(`Invoice: ${booking.course_title}`);
+      const body = encodeURIComponent(`Hello ${booking.name},\n\nThis is your invoice for ${booking.course_title}.\nAmount: ${booking.message || 'TBD'}\n\nIf you have paid, please reply with confirmation.\n\nThanks,\nDiving In Asia`);
+      const mailtoLink = `mailto:${booking.email}?subject=${subject}&body=${body}&cc=payments@divinginasia.com`;
 
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+      // Open mailto link
+      window.open(mailtoLink, '_blank');
 
-      const json = await res.json().catch(() => ({}));
-      if (res.ok && json.success) {
-        toast.success('Invoice sent via Web3Forms');
-      } else {
-        console.error('Web3Forms invoice error', res.status, json);
-        toast.error('Failed to send invoice via Web3Forms');
-      }
+      toast.success('Invoice email opened in your email client');
     } catch (err) {
       console.error('Send invoice error', err);
-      toast.error('Failed to send invoice');
+      toast.error('Failed to open invoice email');
     }
   };
 
