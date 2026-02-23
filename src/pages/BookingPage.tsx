@@ -92,11 +92,9 @@ const       BookingPage: React.FC = () => {
       const responseData = await res.json().catch(() => ({}));
       console.log('Web3Forms response:', res.status, responseData);
 
-      // Persist booking via Supabase Edge Function regardless of Web3Forms outcome
+      // Persist booking via local API (SQLite)
       try {
         const bookingId = crypto.randomUUID();
-        const functionUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/bookings`;
-
         const body = {
           id: bookingId,
           name: data.name,
@@ -110,25 +108,20 @@ const       BookingPage: React.FC = () => {
           created_at: new Date().toISOString(),
         };
 
-          const PUBLIC_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-          const fnRes = await fetch(functionUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'apikey': PUBLIC_KEY,
-              'Authorization': `Bearer ${PUBLIC_KEY}`,
-            },
-            body: JSON.stringify(body),
-          });
+        const fnRes = await fetch('/api/bookings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
 
         if (!fnRes.ok) {
           const errText = await fnRes.text().catch(() => 'unknown');
-          console.warn('Edge function persist failed', fnRes.status, errText);
+          console.warn('Local API persist failed', fnRes.status, errText);
         } else {
-          console.log('Booking persisted via Edge Function', bookingId);
+          console.log('Booking persisted via local API', bookingId);
         }
       } catch (e) {
-        console.warn('Failed to persist booking via Edge Function', e);
+        console.warn('Failed to persist booking via local API', e);
       }
 
       // Notify user based on Web3Forms result, but booking is already persisted

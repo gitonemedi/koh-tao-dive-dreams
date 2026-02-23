@@ -9,7 +9,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
 
 interface BookingInquiry {
   id: string;
@@ -39,27 +38,16 @@ const Admin = () => {
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
   useEffect(() => {
-    // Check if logged in
-    const checkAuth = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        navigate('/admin/login');
-        return;
-      }
-      fetchBookings();
-    };
-    checkAuth();
-  }, [navigate]);
+    // Check if logged in - for now, just fetch bookings (no auth for local testing)
+    fetchBookings();
+  }, []);
 
   const fetchBookings = async () => {
     try {
-      const { data, error } = await supabase
-        .from('booking_inquiries')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setBookings(data || []);
+      const response = await fetch('/api/bookings');
+      if (!response.ok) throw new Error('Failed to fetch bookings');
+      const data = await response.json();
+      setBookings(data);
     } catch (error) {
       console.error('Error fetching bookings:', error);
       toast.error('Failed to load bookings');
@@ -70,12 +58,12 @@ const Admin = () => {
 
   const handleStatusChange = async (bookingId: string, newStatus: string) => {
     try {
-      const { error } = await supabase
-        .from('booking_inquiries')
-        .update({ status: newStatus })
-        .eq('id', bookingId);
-
-      if (error) throw error;
+      const response = await fetch(`/api/bookings/${bookingId}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      if (!response.ok) throw new Error('Failed to update status');
 
       setBookings(bookings.map(b => b.id === bookingId ? { ...b, status: newStatus } : b));
       toast.success(`Status updated to ${statusConfig[newStatus as keyof typeof statusConfig]?.label || newStatus}`);
@@ -89,16 +77,14 @@ const Admin = () => {
     if (!deleteId) return;
 
     try {
-      const { error } = await supabase
-        .from('booking_inquiries')
-        .delete()
-        .eq('id', deleteId);
-
-      if (error) throw error;
+      const response = await fetch(`/api/bookings/${deleteId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Failed to delete booking');
 
       setBookings(bookings.filter(b => b.id !== deleteId));
       setDeleteId(null);
-      toast.success('Booking deleted');
+      toast.success('Booking deleted successfully');
     } catch (error) {
       console.error('Error deleting booking:', error);
       toast.error('Failed to delete booking');
@@ -161,7 +147,6 @@ const Admin = () => {
   }
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
     navigate('/admin/login');
     toast.success('Logged out successfully');
   };
