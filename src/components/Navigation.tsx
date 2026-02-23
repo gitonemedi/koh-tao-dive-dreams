@@ -84,11 +84,6 @@ const Navigation = () => {
       items: [
         { name: t('courses.divemaster.title'), to: '/courses/divemaster' },
         { name: t('courses.instructor.title'), to: '/courses/instructor' },
-      ],
-    },
-    {
-      label: 'INTERNSHIPS',
-      items: [
         { name: 'Divemaster Internship', to: '/internship/divemaster' },
         { name: 'Instructor Internship', to: '/internship/instructor' },
       ],
