@@ -53,10 +53,13 @@ const Admin = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch('/api/bookings');
-      if (!response.ok) throw new Error('Failed to fetch bookings');
-      const data = await response.json();
-      setBookings(data);
+      const { data, error } = await supabase
+        .from('booking_inquiries')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setBookings(data || []);
     } catch (error) {
       console.error('Error fetching bookings:', error);
       toast.error('Failed to load bookings');
@@ -67,13 +70,13 @@ const Admin = () => {
 
   const handleStatusChange = async (bookingId: string, newStatus: string) => {
     try {
-      const response = await fetch(`/api/bookings/${bookingId}/status`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      if (!response.ok) throw new Error('Failed to update status');
-      
+      const { error } = await supabase
+        .from('booking_inquiries')
+        .update({ status: newStatus })
+        .eq('id', bookingId);
+
+      if (error) throw error;
+
       setBookings(bookings.map(b => b.id === bookingId ? { ...b, status: newStatus } : b));
       toast.success(`Status updated to ${statusConfig[newStatus as keyof typeof statusConfig]?.label || newStatus}`);
     } catch (error) {
@@ -86,11 +89,13 @@ const Admin = () => {
     if (!deleteId) return;
 
     try {
-      const response = await fetch(`/api/bookings/${deleteId}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) throw new Error('Failed to delete booking');
-      
+      const { error } = await supabase
+        .from('booking_inquiries')
+        .delete()
+        .eq('id', deleteId);
+
+      if (error) throw error;
+
       setBookings(bookings.filter(b => b.id !== deleteId));
       setDeleteId(null);
       toast.success('Booking deleted');

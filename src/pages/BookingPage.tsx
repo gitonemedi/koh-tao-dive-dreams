@@ -116,33 +116,14 @@ const       BookingPage: React.FC = () => {
         } catch (e) {
           console.warn('Failed to call server notify endpoint', e);
         }
-        // Persist booking to admin storage
+        // Persist booking to Supabase
         try {
-          fetch('/api/admin/bookings', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name: data.name,
-              email: data.email,
-              phone: data.phone,
-              preferred_date: data.preferred_date,
-              experience_level: data.experience_level,
-              message: data.message,
-              item_title: itemTitle,
-              deposit_amount: `฿${amountMajor}`,
-              payment_choice: data.paymentChoice,
-              paypal_link: data.paymentChoice === 'now' ? `${PAYPAL_LINK}/${amountMajor}THB` : null,
-            }),
-          }).then(r => r.json()).then(j => console.log('persisted booking', j)).catch(e => console.warn('persist failed', e));
-        } catch (e) {
-          console.warn('Failed to persist booking', e);
-        }
-        // Also persist to local server endpoint (Express) for dev environment
-        try {
-          fetch('/api/bookings', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+          const bookingId = crypto.randomUUID();
+
+          const { error } = await supabase
+            .from('booking_inquiries')
+            .insert({
+              id: bookingId,
               name: data.name,
               email: data.email,
               phone: data.phone,
@@ -150,10 +131,17 @@ const       BookingPage: React.FC = () => {
               preferred_date: data.preferred_date,
               experience_level: data.experience_level,
               message: data.message,
-            }),
-          }).then(r => r.json()).then(j => console.log('server bookings response', j)).catch(e => console.warn('server bookings failed', e));
+              status: 'pending',
+              created_at: new Date().toISOString(),
+            });
+
+          if (error) {
+            console.warn('Supabase persist failed', error);
+          } else {
+            console.log('Booking persisted to Supabase', bookingId);
+          }
         } catch (e) {
-          console.warn('Failed to persist to server bookings', e);
+          console.warn('Failed to persist booking to Supabase', e);
         }
         if (data.paymentChoice === 'now' && amountMajor > 0) {
           console.log('Showing payment links');
