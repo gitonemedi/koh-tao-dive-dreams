@@ -1,6 +1,7 @@
 // Rezdy integration removed — use internal booking flow
 import React, { useMemo, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -55,23 +56,47 @@ const       BookingPage: React.FC = () => {
   const onSubmit = async (data: BookingFormData) => {
     try {
       const amountMajor = depositMajor + totalAddons;
+      const addonsText = ADDONS.filter(a => selectedAddons[a.id]).map(a => a.label).join(', ') || 'None';
 
-      const messageBase = `Preferred Date: ${data.preferred_date || 'N/A'}\nExperience: ${data.experience_level || 'N/A'}\nAdd-ons: ${ADDONS.filter(a=>selectedAddons[a.id]).map(a=>a.label).join(', ') || 'None'}\nDeposit amount: ฿${amountMajor}`;
+      // Save to database
+      const { error: dbError } = await supabase.from('booking_inquiries').insert({
+        course_title: itemTitle,
+        name: data.name,
+        email: data.email,
+        phone: data.phone || null,
+        preferred_date: data.preferred_date || null,
+        experience_level: data.experience_level || null,
+        message: `Add-ons: ${addonsText}\nDeposit: ฿${amountMajor}\n\n${data.message || ''}`,
+      });
 
-      const payload = { access_key: 'e4c4edf6-6e35-456a-87da-b32b961b449a', subject: `Booking Inquiry: ${itemTitle}`, name: data.name, email: data.email, message: `${messageBase}\n\n${data.message || ''}` };
+      if (dbError) {
+        console.error('DB error:', dbError);
+        toast.error('Failed to save inquiry. Please try again.');
+        return;
+      }
 
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-      const resp = await res.json().catch(() => ({}));
-      if (res.ok && resp.success) {
-        toast.success('Inquiry sent! You can now pay your deposit via PayPal below.');
-        if (amountMajor > 0) {
-          setShowPaymentLinks(true);
-        } else {
-          form.reset();
-          navigate('/');
-        }
+      // Send email notification via edge function
+      const { error: fnError } = await supabase.functions.invoke('send-booking-notification', {
+        body: {
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          preferred_date: data.preferred_date,
+          experience_level: data.experience_level,
+          message: `Add-ons: ${addonsText}\n\n${data.message || ''}`,
+          item_title: itemTitle,
+          deposit_amount: amountMajor,
+        },
+      });
+
+      if (fnError) console.warn('Email notification failed:', fnError);
+
+      toast.success('Inquiry sent! You can now pay your deposit via PayPal below.');
+      if (amountMajor > 0) {
+        setShowPaymentLinks(true);
       } else {
-        toast.error('Failed to send inquiry. Please try again.');
+        form.reset();
+        navigate('/');
       }
     } catch (err) {
       console.error(err);
