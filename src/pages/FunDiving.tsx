@@ -111,38 +111,6 @@ const FunDiving = () => {
               bespoke, relaxed and enjoyable fun diving experience tailored to your skill level.
             </p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card className="text-center">
-              <CardHeader>
-                <Waves className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-                <CardTitle>25+ Dive Sites</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>From shallow bays to deep pinnacles, something for every diver</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <Fish className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-                <CardTitle>Abundant Marine Life</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>Whalesharks, rays, and colorful tropical fish</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <Users className="w-12 h-12 mx-auto mb-4 text-blue-600" />
-                <CardTitle>Expert Guides</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>PADI professionals with deep knowledge of local reefs</p>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </section>
 

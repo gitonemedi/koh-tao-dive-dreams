@@ -1,16 +1,37 @@
 import Contact from '../components/Contact';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
 
+const imageList = [
+  '/images/photo-1613853250147-2f73e55c1561.avif',
+  '/images/photo-1618865181016-a80ad83a06d3.avif',
+  '/images/photo-1647825194145-2d94e259c745.avif',
+  '/images/photo-1659518893171-b15e20a8e201.avif',
+  '/images/photo-1682686580849-3e7f67df4015.avif',
+  '/images/photo-1682687982423-295485af248a.avif',
+  '/images/turtle.avif',
+];
+
 const Divemaster: React.FC = () => {
   const navigate = useNavigate();
+  const randomImage = useMemo(() => {
+    return imageList[Math.floor(Math.random() * imageList.length)];
+  }, []);
   return (
     <div className="min-h-screen bg-background">
-      <section className="relative h-72 md:h-96 flex items-center" style={{backgroundImage: "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('/images/photo-1659518893171-b15e20a8e201.avif')", backgroundSize: 'cover', backgroundPosition: 'center'}}>
+      <div className="w-full h-64 md:h-80 overflow-hidden mb-6 rounded-lg shadow-lg">
+        <img
+          src={randomImage}
+          alt="Scuba diving scene"
+          className="w-full h-full object-cover object-center"
+          loading="lazy"
+        />
+      </div>
+      <section className="relative h-72 md:h-96 flex items-center" style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('${randomImage}')`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
         <div className="container mx-auto px-4 text-white z-10">
           <h1 className="text-4xl md:text-5xl font-bold">PADI Divemaster Course</h1>
           <p className="mt-4 max-w-2xl">Begin your professional diving career — learn leadership, supervision, and dive management skills to work as a dive professional worldwide.</p>
