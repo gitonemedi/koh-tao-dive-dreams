@@ -16,10 +16,13 @@ const AdminLogin = () => {
 
   useEffect(() => {
     // Check if already logged in
-    const token = sessionStorage.getItem('adminToken');
-    if (token) {
-      navigate('/admin');
-    }
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        navigate('/admin');
+      }
+    };
+    checkUser();
   }, [navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {

@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 interface BookingInquiry {
   id: string;
@@ -39,12 +40,15 @@ const Admin = () => {
 
   useEffect(() => {
     // Check if logged in
-    const token = sessionStorage.getItem('adminToken');
-    if (!token) {
-      navigate('/admin/login');
-      return;
-    }
-    fetchBookings();
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        navigate('/admin/login');
+        return;
+      }
+      fetchBookings();
+    };
+    checkAuth();
   }, [navigate]);
 
   const fetchBookings = async () => {
@@ -151,8 +155,8 @@ const Admin = () => {
     );
   }
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('adminToken');
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     navigate('/admin/login');
     toast.success('Logged out successfully');
   };
