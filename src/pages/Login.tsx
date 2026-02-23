@@ -42,12 +42,12 @@ const Login: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
-            <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" />
+            <Input name="email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" />
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-1">Password</label>
-            <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" />
+            <Input name="password" value={password} onChange={(e) => setPassword(e.target.value)} type="password" />
           </div>
 
           <Button type="submit" disabled={isLoading} className="w-full">

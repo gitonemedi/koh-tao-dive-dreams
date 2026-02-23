@@ -53,57 +53,65 @@ const       BookingPage: React.FC = () => {
   });
 
   const [showPaymentLinks, setShowPaymentLinks] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (data: BookingFormData) => {
+    console.log('Form submitted with data:', data);
+    console.log('Form validation errors:', form.formState.errors);
+    setIsSubmitting(true);
     try {
       const amountMajor = depositMajor + totalAddons;
       const addonsText = ADDONS.filter(a => selectedAddons[a.id]).map(a => a.label).join(', ') || 'None';
 
-      // Save to database
-      const { error: dbError } = await supabase.from('booking_inquiries').insert({
-        course_title: itemTitle,
+      // Prepare Web3Forms payload
+      const payload = {
+        access_key: 'e4c4edf6-6e35-456a-87da-b32b961b449a',
+        subject: `Booking Inquiry: ${itemTitle}`,
         name: data.name,
         email: data.email,
-        phone: data.phone || null,
-        preferred_date: data.preferred_date || null,
-        experience_level: data.experience_level || null,
-        message: `Add-ons: ${addonsText}\nDeposit: ฿${amountMajor}\n\n${data.message || ''}`,
+        phone: data.phone || 'N/A',
+        preferred_date: data.preferred_date || 'N/A',
+        experience_level: data.experience_level || 'N/A',
+        payment_choice: data.paymentChoice === 'now' ? 'Pay deposit now via PayPal' : 'Pay later (inquire only)',
+        paypal_link: data.paymentChoice === 'now' ? `${PAYPAL_LINK}/${amountMajor}THB` : null,
+        item_title: itemTitle,
+        deposit_amount: `฿${amountMajor}`,
+        addons: addonsText,
+        message: data.message || 'No additional message',
+      };
+
+      console.log('Sending booking payload to Web3Forms', payload);
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
 
-      if (dbError) {
-        console.error('DB error:', dbError);
-        toast.error('Failed to save inquiry. Please try again.');
-        return;
-      }
+      const responseData = await res.json().catch(() => ({}));
+      console.log('Web3Forms response:', res.status, responseData);
 
-      // Send email notification via edge function
-      const { error: fnError } = await supabase.functions.invoke('send-booking-notification', {
-        body: {
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          preferred_date: data.preferred_date,
-          experience_level: data.experience_level,
-          message: `Add-ons: ${addonsText}\n\n${data.message || ''}`,
-          item_title: itemTitle,
-          deposit_amount: amountMajor,
-          payment_choice: data.paymentChoice,
-          paypal_link: data.paymentChoice === 'now' ? `${PAYPAL_LINK}/${depositMajor + totalAddons}THB` : null,
-        },
-      });
-
-      if (fnError) console.warn('Email notification failed:', fnError);
-
-      toast.success('Inquiry sent! You can now pay your deposit via PayPal below.');
-      if (data.paymentChoice === 'now' && amountMajor > 0) {
-        setShowPaymentLinks(true);
+      if (res.ok && responseData.success) {
+        console.log('Form submission successful');
+        toast.success('Inquiry sent! You can now pay your deposit via PayPal below.');
+        if (data.paymentChoice === 'now' && amountMajor > 0) {
+          console.log('Showing payment links');
+          setShowPaymentLinks(true);
+        } else {
+          console.log('Redirecting to home');
+          form.reset();
+          navigate('/');
+        }
       } else {
-        form.reset();
-        navigate('/');
+        const errMsg = responseData?.message || responseData?.error || `HTTP ${res.status}`;
+        console.error('Web3Forms error:', errMsg, responseData);
+        toast.error(`Failed to send inquiry: ${errMsg}. Please try again.`);
       }
     } catch (err) {
-      console.error(err);
-      toast.error('Submission failed.');
+      console.error('Form submission error:', err);
+      toast.error('Submission failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -216,11 +224,25 @@ const       BookingPage: React.FC = () => {
                 <FormControl>
                   <div className="space-y-2">
                     <label className="flex items-center gap-2">
-                      <input type="radio" value="none" checked={field.value === 'none'} onChange={() => field.onChange('none')} />
+                      <input
+                        type="radio"
+                        id="payment-none"
+                        name="paymentChoice"
+                        value="none"
+                        checked={field.value === 'none'}
+                        onChange={() => field.onChange('none')}
+                      />
                       <span>Pay later (inquire only)</span>
                     </label>
                     <label className="flex items-center gap-2">
-                      <input type="radio" value="now" checked={field.value === 'now'} onChange={() => field.onChange('now')} />
+                      <input
+                        type="radio"
+                        id="payment-now"
+                        name="paymentChoice"
+                        value="now"
+                        checked={field.value === 'now'}
+                        onChange={() => field.onChange('now')}
+                      />
                       <span>Pay deposit now with PayPal</span>
                     </label>
                   </div>
@@ -231,7 +253,9 @@ const       BookingPage: React.FC = () => {
 
             <div className="flex gap-3 pt-4">
               <Button type="button" variant="outline" onClick={() => navigate(-1)} className="flex-1">Cancel</Button>
-              <Button type="submit" className="flex-1 bg-primary hover:bg-primary/90">Submit Inquiry</Button>
+              <Button type="submit" disabled={isSubmitting} className="flex-1 bg-primary hover:bg-primary/90">
+                {isSubmitting ? 'Sending...' : 'Submit Inquiry'}
+              </Button>
             </div>
           </form>
         </Form>
