@@ -50,6 +50,7 @@ import WreckDiver from "./pages/specialty/WreckDiver";
 import EnrichedAirDiver from "./pages/specialty/EnrichedAirDiver";
 import NightDiver from "./pages/specialty/NightDiver";
 import PeakPerformanceBuoyancy from "./pages/specialty/PeakPerformanceBuoyancy";
+import SearchRecovery from "./pages/specialty/SearchRecovery";
 import SelfReliantDiver from "./pages/specialty/SelfReliantDiver";
 import SidemountDiver from "./pages/specialty/SidemountDiver";
 import UnderwaterNavigator from "./pages/specialty/UnderwaterNavigator";
