@@ -287,6 +287,12 @@ const Navigation = () => {
                 {item.name}
               </a>
             ))}
+            <Link to="/login" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium">
+              Login
+            </Link>
+            <Link to="/signup" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium">
+              Sign Up
+            </Link>
             <LanguageSwitcher />
           </div>
 
@@ -420,6 +426,12 @@ const Navigation = () => {
                   {item.name}
                 </a>
               ))}
+              <Link to="/login" className="block px-3 py-2 text-gray-700 hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                Login
+              </Link>
+              <Link to="/signup" className="block px-3 py-2 text-gray-700 hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                Sign Up
+              </Link>
             </div>
           </div>
         )}

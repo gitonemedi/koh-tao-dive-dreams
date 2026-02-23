@@ -20,6 +20,7 @@ const bookingSchema = z.object({
   preferred_date: z.string().optional(),
   experience_level: z.string().optional(),
   message: z.string().trim().max(1000).optional(),
+  paymentChoice: z.enum(['now', 'link', 'none']).optional(),
 });
 
 
@@ -48,7 +49,7 @@ const       BookingPage: React.FC = () => {
 
   const form = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
-    defaultValues: { name: '', email: '', phone: '', preferred_date: '', experience_level: '', message: '' },
+    defaultValues: { name: '', email: '', phone: '', preferred_date: '', experience_level: '', message: '', paymentChoice: 'none' },
   });
 
   const [showPaymentLinks, setShowPaymentLinks] = useState(false);
@@ -92,7 +93,7 @@ const       BookingPage: React.FC = () => {
       if (fnError) console.warn('Email notification failed:', fnError);
 
       toast.success('Inquiry sent! You can now pay your deposit via PayPal below.');
-      if (amountMajor > 0) {
+      if (data.paymentChoice === 'paypal' && amountMajor > 0) {
         setShowPaymentLinks(true);
       } else {
         form.reset();
@@ -203,6 +204,25 @@ const       BookingPage: React.FC = () => {
               <FormItem>
                 <FormLabel className="flex items-center gap-2"><MessageSquare className="h-4 w-4" /> Message</FormLabel>
                 <FormControl><Textarea placeholder="Any special requests or questions?" rows={3} {...field} /></FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+
+            <FormField control={form.control} name="paymentChoice" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Payment Method</FormLabel>
+                <FormControl>
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-2">
+                      <input type="radio" value="none" checked={field.value === 'none'} onChange={() => field.onChange('none')} />
+                      <span>Pay later (inquire only)</span>
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input type="radio" value="paypal" checked={field.value === 'paypal'} onChange={() => field.onChange('paypal')} />
+                      <span>Pay deposit now with PayPal</span>
+                    </label>
+                  </div>
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )} />

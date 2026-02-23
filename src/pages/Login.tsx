@@ -5,10 +5,9 @@ import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { useNavigate, Link } from 'react-router-dom';
 
-const Signup: React.FC = () => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -18,18 +17,14 @@ const Signup: React.FC = () => {
       toast.error('Please provide email and password');
       return;
     }
-    if (password !== confirm) {
-      toast.error('Passwords do not match');
-      return;
-    }
 
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
-        toast.error(error.message || 'Signup failed');
+        toast.error(error.message || 'Login failed');
       } else {
-        toast.success('Check your email for a confirmation link');
+        toast.success('Logged in successfully');
         navigate('/account');
       }
     } catch (err) {
@@ -43,7 +38,7 @@ const Signup: React.FC = () => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center py-16">
       <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold mb-4">Create an account</h2>
+        <h2 className="text-2xl font-bold mb-4">Log in to your account</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
@@ -55,21 +50,16 @@ const Signup: React.FC = () => {
             <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Confirm password</label>
-            <Input value={confirm} onChange={(e) => setConfirm(e.target.value)} type="password" />
-          </div>
-
           <Button type="submit" disabled={isLoading} className="w-full">
-            {isLoading ? 'Creating account...' : 'Sign up'}
+            {isLoading ? 'Logging in...' : 'Log in'}
           </Button>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-muted-foreground">
-            Already have an account?{' '}
-            <Link to="/login" className="text-primary hover:underline">
-              Log in here
+            Don't have an account?{' '}
+            <Link to="/signup" className="text-primary hover:underline">
+              Sign up here
             </Link>
           </p>
         </div>
@@ -78,4 +68,4 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup;
+export default Login;
