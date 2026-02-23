@@ -110,11 +110,16 @@ const       BookingPage: React.FC = () => {
           created_at: new Date().toISOString(),
         };
 
-        const fnRes = await fetch(functionUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-        });
+          const PUBLIC_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+          const fnRes = await fetch(functionUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': PUBLIC_KEY,
+              'Authorization': `Bearer ${PUBLIC_KEY}`,
+            },
+            body: JSON.stringify(body),
+          });
 
         if (!fnRes.ok) {
           const errText = await fnRes.text().catch(() => 'unknown');
