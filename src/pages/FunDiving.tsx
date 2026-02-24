@@ -178,7 +178,7 @@ const FunDiving = () => {
                 </Card>
 
                 <Card className="overflow-hidden">
-                  <img src="/images/sail-rock.avif" alt="Sail Rock Special" className="w-full h-40 object-cover" onError={(e)=>{(e.target as HTMLImageElement).src='/images/photo-1618865181016-a80ad83a06d3.avif'}} />
+                  <img src="/images/sailrock.webp" alt="Sail Rock Special" className="w-full h-40 object-cover" onError={(e)=>{(e.target as HTMLImageElement).src='/images/photo-1618865181016-a80ad83a06d3.avif'}} />
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle>Sail Rock Special</CardTitle>
