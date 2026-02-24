@@ -1,3 +1,12 @@
+import Accommodation from "./pages/Accommodation";
+import ThingsToDo from "./pages/ThingsToDo";
+import BanksKohTao from "./pages/BanksKohTao";
+import BeachesKohTao from "./pages/BeachesKohTao";
+import FoodDrink from "./pages/FoodDrink";
+import MedicalServices from "./pages/MedicalServices";
+import ViewpointsKohTao from "./pages/ViewpointsKohTao";
+import VisasKohTao from "./pages/VisasKohTao";
+import WeatherKohTao from "./pages/WeatherKohTao";
 
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -163,6 +172,16 @@ const App = () => (
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/Accommodation" element={<Accommodation />} />
+          <Route path="/ThingsToDo" element={<ThingsToDo />} />
+          <Route path="/BanksKohTao" element={<BanksKohTao />} />
+          <Route path="/BeachesKohTao" element={<BeachesKohTao />} />
+          <Route path="/FoodDrink" element={<FoodDrink />} />
+          <Route path="/HowToGetHere" element={<HowToGetHere />} />
+          <Route path="/MedicalServices" element={<MedicalServices />} />
+          <Route path="/ViewpointsKohTao" element={<ViewpointsKohTao />} />
+          <Route path="/VisasKohTao" element={<VisasKohTao />} />
+          <Route path="/WeatherKohTao" element={<WeatherKohTao />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         </Layout>
