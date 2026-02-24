@@ -350,7 +350,7 @@ const Navigation = () => {
                 <div className="bg-[#0b1e3d] rounded-lg shadow-2xl border border-[#1a3a5c] min-w-[250px] p-5">
                   <h4 className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">KOH TAO</h4>
                   <ul className="space-y-1">
-                    <li><Link to="/AccommodationsPage" className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150">Accommodation</Link></li>
+                    <li><Link to="/Accommodation" className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150">Accommodation</Link></li>
                     <li><Link to="/WhatToDoHere" className="block py-1.5 text-sm text-cyan-400 hover:text-white hover:pl-1 transition-all duration-150">Things To Do</Link></li>
                     <li><Link to="/BanksKohTao" className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150">Banks Koh Tao</Link></li>
                     <li><Link to="/BeachesKohTao" className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150">Beaches Koh Tao</Link></li>
@@ -547,7 +547,7 @@ const Navigation = () => {
                 </button>
                 {funDivingOpen && (
                   <div className="pl-4 space-y-1 bg-gray-50 rounded-lg mx-2 py-2">
-                    <Link to="/AccommodationsPage" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>Accommodation</Link>
+                    <Link to="/Accommodation" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>Accommodation</Link>
                     <Link to="/WhatToDoHere" className="block px-3 py-1.5 text-sm text-cyan-400 hover:text-blue-600" onClick={() => setIsOpen(false)}>Things To Do</Link>
                     <Link to="/BanksKohTao" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>Banks Koh Tao</Link>
                     <Link to="/BeachesKohTao" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>Beaches Koh Tao</Link>

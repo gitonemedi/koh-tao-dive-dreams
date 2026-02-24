@@ -3,6 +3,7 @@ import ThingsToDo from "./pages/ThingsToDo";
 import BanksKohTao from "./pages/BanksKohTao";
 import BeachesKohTao from "./pages/BeachesKohTao";
 import FoodDrink from "./pages/FoodDrink";
+import HowToGetHere from "./pages/HowToGetHere";
 import MedicalServices from "./pages/MedicalServices";
 import ViewpointsKohTao from "./pages/ViewpointsKohTao";
 import VisasKohTao from "./pages/VisasKohTao";
