@@ -32,7 +32,7 @@ const Whaleshark = () => {
         "Practice buoyancy control to maintain position quietly"
       ]}
       images={[
-        "/images/Screenshot 2026-02-24 at 2.39.30 PM.png",
+        "/images/whale-shark-snorkelling-fos-sustainable-certification-medium-1.webp",
         "/images/photo-1618865181016-a80ad83a06d3.avif",
         "/images/photo-1647825194145-2d94e259c745.avif",
         "/images/photo-1659518893171-b15e20a8e201.avif",
