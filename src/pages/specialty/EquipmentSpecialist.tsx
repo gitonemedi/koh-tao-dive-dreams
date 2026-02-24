@@ -21,7 +21,7 @@ export default function EquipmentSpecialist() {
         {/* Image */}
         <div className="mb-8">
           <img
-            src="/images/photo-1682687982423-295485af248a.avif"
+            src="/images/equipment-specialist.jpg"
             alt="Scuba equipment maintenance"
             className="w-full h-64 object-cover rounded-lg shadow-lg"
           />

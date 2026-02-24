@@ -20,7 +20,7 @@ export default function EnrichedAirDiver() {
         {/* Image */}
         <div className="mb-8">
           <img
-            src="/images/photo-1613853250147-2f73e55c1561.avif"
+            src="/images/enrich.jpg"
             alt="Enriched air diving equipment"
             className="w-full h-64 object-cover rounded-lg shadow-lg"
           />

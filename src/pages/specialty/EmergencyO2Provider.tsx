@@ -21,7 +21,7 @@ export default function EmergencyO2Provider() {
         {/* Image */}
         <div className="mb-8">
           <img
-            src="/images/photo-1659518893171-b15e20a8e201.avif"
+            src="/images/o2-cylinder.png"
             alt="Emergency oxygen equipment"
             className="w-full h-64 object-cover rounded-lg shadow-lg"
           />

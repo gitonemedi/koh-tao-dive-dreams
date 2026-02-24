@@ -20,7 +20,7 @@ export default function SidemountDiver() {
         {/* Image */}
         <div className="mb-8">
           <img
-            src="/images/photo-1618865181016-a80ad83a06d3.avif"
+            src="/images/sidemount-diver-underwater.jpg"
             alt="Sidemount diving configuration"
             className="w-full h-64 object-cover rounded-lg shadow-lg"
           />
