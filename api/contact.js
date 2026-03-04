@@ -3,7 +3,8 @@
 export default async function handler(req, res) {
   try {
     if (req.method !== 'POST') {
-      res.status(405).json({ error: 'Method not allowed' });
+      res.status(405).json({ error: 'Method not
+         allowed' });
       return;
     }
 
@@ -18,7 +19,7 @@ export default async function handler(req, res) {
     // Use Web3Forms to send the email
     const payload = {
       access_key: '4ca93aa5-cd42-4902-af87-a08e1ae7c832', // Use your Web3Forms access key
-      to: 'petergreaney@proton.me', // Set your recipient email here
+      to: 'contact@prodivig.asia', // Set your recipient email here
       subject: subject || 'Contact Form Submission',
       name,
       email,
