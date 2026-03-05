@@ -70,7 +70,7 @@ const       BookingPage: React.FC = () => {
     ? (apiBaseRaw.startsWith('http://') || apiBaseRaw.startsWith('https://')
         ? apiBaseRaw
         : `https://${apiBaseRaw}`)
-    : 'https://divinginasia.com';
+    : 'https://koh-tao-dive-dreams.vercel.app';
   const apiBase = apiBaseNormalized.replace(/\/+$/, '');
   const apiUrl = (path: string) => `${apiBase}${path}`;
   const courseSlug = (searchParams.get('course') || '').trim();
