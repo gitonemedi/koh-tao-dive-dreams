@@ -91,7 +91,7 @@ const TripAffiliateStats = () => {
         throw new Error(data?.error || 'Failed to fetch affiliate clicks');
       }
 
-      const rows = extractClickRows(data?.rows ?? data);
+      const rows = extractClickRows(Array.isArray(data) ? data : data?.rows ?? []);
       setRawCount(rows.length);
       setApiTableUsed(data?.meta?.tableUsed || null);
       const filteredRows = rows.filter(isTripClick);
