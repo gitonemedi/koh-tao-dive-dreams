@@ -230,80 +230,61 @@ app.post('/api/bookings', async (req, res) => {
 });
 
 app.get('/api/affiliate-clicks', async (req, res) => {
-  if (!ensureAirtable(res)) return;
   try {
     const affiliateId = req.query?.affiliate_id;
     const limit = Number(req.query?.limit || 500);
+    const safeLimit = Number.isFinite(limit) ? Math.max(1, Math.min(limit, 1000)) : 500;
 
-    const paramsWithSort = new URLSearchParams();
-    paramsWithSort.set('maxRecords', String(Number.isFinite(limit) ? Math.max(1, Math.min(limit, 1000)) : 500));
-    paramsWithSort.set('sort[0][field]', 'clicked_at');
-    paramsWithSort.set('sort[0][direction]', 'desc');
+    let query = supabase
+      .from('affiliate_clicks')
+      .select('*')
+      .order('clicked_at', { ascending: false })
+      .limit(safeLimit);
 
     if (affiliateId) {
-      paramsWithSort.set('filterByFormula', `{affiliate_id}='${escapeFormulaValue(affiliateId)}'`);
+      query = query.eq('affiliate_id', affiliateId);
     }
 
-    let response = await fetch(airtableUrl(AFFILIATE_CLICKS_TABLE, paramsWithSort.toString()), {
-      method: 'GET',
-      headers: airtableHeaders(),
-    });
-    let payload = await response.json();
-
-    if (!response.ok && payload?.error?.message?.includes('Unknown field name: "clicked_at"')) {
-      const paramsNoSort = new URLSearchParams();
-      paramsNoSort.set('maxRecords', String(Number.isFinite(limit) ? Math.max(1, Math.min(limit, 1000)) : 500));
-      if (affiliateId) {
-        paramsNoSort.set('filterByFormula', `{affiliate_id}='${escapeFormulaValue(affiliateId)}'`);
-      }
-
-      response = await fetch(airtableUrl(AFFILIATE_CLICKS_TABLE, paramsNoSort.toString()), {
-        method: 'GET',
-        headers: airtableHeaders(),
-      });
-      payload = await response.json();
+    const { data, error } = await query;
+    if (error) {
+      return res.status(500).json({ error: error.message });
     }
-
-    if (!response.ok) {
-      return res.status(response.status).json({ error: payload?.error?.message || 'Failed to fetch affiliate clicks' });
-    }
-
-    return res.json((payload.records || []).map(mapAffiliateClick));
+    return res.json((data || []).map((r) => ({
+      id: r.id,
+      hotel_name: r.hotel_name || '',
+      hotel_url: r.hotel_url || '',
+      affiliate_id: r.affiliate_id || null,
+      clicked_at: r.clicked_at || null,
+      referrer: r.referrer || null,
+      user_agent: r.user_agent || null,
+    })));
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 });
 
 app.post('/api/affiliate-clicks', async (req, res) => {
-  if (!ensureAirtable(res)) return;
   try {
     const { id, hotel_name, hotel_url, affiliate_id, referrer, user_agent, clicked_at } = req.body || {};
     if (!hotel_name || !hotel_url) {
       return res.status(400).json({ error: 'Missing required fields: hotel_name and hotel_url' });
     }
 
-    const response = await fetch(airtableUrl(AFFILIATE_CLICKS_TABLE), {
-      method: 'POST',
-      headers: airtableHeaders(),
-      body: JSON.stringify({
-        fields: {
-          id: id || (globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`),
-          hotel_name,
-          hotel_url,
-          affiliate_id: affiliate_id || '',
-          referrer: referrer || '',
-          user_agent: user_agent || '',
-          clicked_at: clicked_at || new Date().toISOString(),
-        },
-      }),
-    });
-    const payload = await response.json();
+    const row = {
+      id: id || (globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`),
+      hotel_name,
+      hotel_url,
+      affiliate_id: affiliate_id || null,
+      referrer: referrer || null,
+      user_agent: user_agent || null,
+      clicked_at: clicked_at || new Date().toISOString(),
+    };
 
-    if (!response.ok) {
-      return res.status(response.status).json({ error: payload?.error?.message || 'Failed to create affiliate click' });
+    const { data, error } = await supabase.from('affiliate_clicks').insert([row]).select();
+    if (error) {
+      return res.status(500).json({ error: error.message });
     }
-
-    return res.status(201).json(mapAffiliateClick(payload));
+    return res.status(201).json((data || [])[0]);
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
