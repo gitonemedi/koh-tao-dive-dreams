@@ -4,9 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Star, MapPin, Wifi, UtensilsCrossed, Waves, DollarSign } from 'lucide-react';
 
-// Trip.com affiliate ID
-const AFFILIATE_ID = '295439656';
-
 const hotels = [
   {
     name: "Ban's Diving Resort",
@@ -106,14 +103,14 @@ const BookingAffiliate = () => {
   const handleBookingClick = async (hotel: typeof hotels[0]) => {
     setClicking(hotel.slug);
 
-    const affiliateUrl = `https://www.booking.com/hotel/th/${hotel.slug}.html?aid=${AFFILIATE_ID}&lang=en-gb`;
-    // Open Booking.com in new tab
-    window.open(affiliateUrl, '_blank', 'noopener,noreferrer');
+    const bookingUrl = `https://www.booking.com/hotel/th/${hotel.slug}.html?lang=en-gb`;
+    // Open Booking.com in new tab (no affiliate tracking)
+    window.open(bookingUrl, '_blank', 'noopener,noreferrer');
     setClicking(null);
   };
 
   const handleSearchAll = async () => {
-    const searchUrl = `https://www.booking.com/searchresults.html?aid=${AFFILIATE_ID}&ss=Koh+Tao%2C+Thailand&dest_type=city&lang=en-gb`;
+    const searchUrl = `https://www.booking.com/searchresults.html?ss=Koh+Tao%2C+Thailand&dest_type=city&lang=en-gb`;
     window.open(searchUrl, '_blank', 'noopener,noreferrer');
   };
 
@@ -219,7 +216,7 @@ const BookingAffiliate = () => {
           </div>
         </div>
         <p className="text-xs text-gray-400 text-center mt-6">
-          We may earn a commission when you book through our links — at no extra cost to you.
+          These are independent recommendations — we don&apos;t earn a commission from the links on this page.
         </p>
       </div>
     </div>
