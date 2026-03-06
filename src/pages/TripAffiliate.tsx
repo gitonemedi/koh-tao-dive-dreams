@@ -5,8 +5,9 @@ import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Star, MapPin } from 'lucide-react';
 
 // Trip.com affiliate Alliance ID
-const ALLIANCE_ID = '7864578';
-const SID = 'onemediaasia'; // sub-tracking ID
+const ALLIANCE_ID = '7864578'; // Trip.com account ID for tracking
+const SITE_ID = '295439656'; // Trip.com site ID for outbound links
+const SID = 'onemediaasia'; // sub-tracking ID (optional)
 
 const hotels = [
   {
@@ -94,8 +95,9 @@ const getPriceColor = (price: string) => {
 };
 
 const buildTripUrl = () => {
-  // Always use the provided affiliate link
-  return 'https://www.trip.com/t/rbNBauS6mT2';
+  // Example Trip.com affiliate link with both account and site ID
+  // Replace with the correct Trip.com URL pattern if needed
+  return `https://www.trip.com/?allianceid=${ALLIANCE_ID}&sid=${SITE_ID}`;
 };
 
 const TripAffiliate = () => {
@@ -149,11 +151,11 @@ const TripAffiliate = () => {
 
   const handleHotelClick = async (hotel: typeof hotels[0]) => {
     setClicking(hotel.name);
-    const affiliateUrl = buildTripUrl(); // Always use the provided link
+    const affiliateUrl = buildTripUrl();
     await trackAffiliateClick({
       hotel_name: hotel.name,
       hotel_url: affiliateUrl,
-      affiliate_id: '7864578',
+      affiliate_id: ALLIANCE_ID,
       referrer: document.referrer || null,
       user_agent: navigator.userAgent,
     });
@@ -167,7 +169,7 @@ const TripAffiliate = () => {
     await trackAffiliateClick({
       hotel_name: 'Search All Koh Tao – Trip.com',
       hotel_url: searchUrl,
-      affiliate_id: '7864578',
+      affiliate_id: ALLIANCE_ID,
       referrer: document.referrer || null,
       user_agent: navigator.userAgent,
     });
