@@ -7,6 +7,8 @@
     "dev": "concurrently \"node server.cjs\" \"vite --host\"",
     "dev:web": "vite --host",
     "dev:full": "concurrently \"node server.cjs\" \"vite --host\"",
+    "dev:single": "concurrently \"node server.cjs\" \"vite --host --port 3000\"",
+    "deploy:vercel": "vercel --prod",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
