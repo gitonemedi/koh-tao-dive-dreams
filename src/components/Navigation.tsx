@@ -1,8 +1,12 @@
-  import React, { useState } from 'react';
+  import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import LanguageSwitcher from './LanguageSwitcher';
+import { supabase } from '@/integrations/supabase/client';
+import { hasAdminAccess } from '@/lib/adminAccess';
+import { Badge } from '@/components/ui/badge';
+
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [coursesOpen, setCoursesOpen] = useState(false);
@@ -10,8 +14,21 @@ const Navigation = () => {
   const [diveSitesOpen, setDiveSitesOpen] = useState(false);
   const [marineLifeOpen, setMarineLifeOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+      if (user && hasAdminAccess(user)) {
+        setIsAdmin(true);
+      }
+    };
+    checkAuth();
+  }, []);
 
   const handleAnchorClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
@@ -431,30 +448,72 @@ const Navigation = () => {
             <div className="relative group">
               <button
                 onClick={() => setAccountOpen(!accountOpen)}
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium flex items-center gap-1"
+                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium flex items-center gap-2"
               >
                 Account
+                {isAdmin && <Badge className="bg-green-600">Admin</Badge>}
                 <ChevronRight className="h-4 w-4 transition-transform duration-200 group-hover:rotate-90" />
               </button>
               <div className="absolute right-0 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="bg-[#0b1e3d]/80 rounded-lg shadow-2xl border border-[#1a3a5c] min-w-[150px] p-3">
+                <div className="bg-[#0b1e3d]/80 rounded-lg shadow-2xl border border-[#1a3a5c] min-w-[180px] p-3">
                   <ul className="space-y-1">
-                    <li>
-                      <Link
-                        to="/login"
-                        className="block py-2 px-3 text-sm text-gray-300 hover:text-white hover:bg-[#1a3a5c] transition-all duration-150 rounded"
-                      >
-                        {labels.login}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/signup"
-                        className="block py-2 px-3 text-sm text-gray-300 hover:text-white hover:bg-[#1a3a5c] transition-all duration-150 rounded"
-                      >
-                        {labels.signup}
-                      </Link>
-                    </li>
+                    {user ? (
+                      <>
+                        <li className="text-xs text-gray-400 px-3 py-2 border-b border-[#1a3a5c]">
+                          {user.email}
+                        </li>
+                        <li>
+                          <Link
+                            to="/account"
+                            className="block py-2 px-3 text-sm text-gray-300 hover:text-white hover:bg-[#1a3a5c] transition-all duration-150 rounded"
+                          >
+                            My Account
+                          </Link>
+                        </li>
+                        {isAdmin && (
+                          <li>
+                            <Link
+                              to="/clicks-dashboard"
+                              className="block py-2 px-3 text-sm text-cyan-400 hover:text-cyan-300 hover:bg-[#1a3a5c] transition-all duration-150 rounded font-medium"
+                            >
+                              📊 Analytics
+                            </Link>
+                          </li>
+                        )}
+                        <li>
+                          <button
+                            onClick={async () => {
+                              await supabase.auth.signOut();
+                              setUser(null);
+                              setIsAdmin(false);
+                              navigate('/');
+                            }}
+                            className="w-full text-left py-2 px-3 text-sm text-gray-300 hover:text-white hover:bg-[#1a3a5c] transition-all duration-150 rounded"
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </>
+                    ) : (
+                      <>
+                        <li>
+                          <Link
+                            to="/login"
+                            className="block py-2 px-3 text-sm text-gray-300 hover:text-white hover:bg-[#1a3a5c] transition-all duration-150 rounded"
+                          >
+                            {labels.login}
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/signup"
+                            className="block py-2 px-3 text-sm text-gray-300 hover:text-white hover:bg-[#1a3a5c] transition-all duration-150 rounded"
+                          >
+                            {labels.signup}
+                          </Link>
+                        </li>
+                      </>
+                    )}
                   </ul>
                 </div>
               </div>
@@ -628,21 +687,50 @@ const Navigation = () => {
                   onClick={() => setAccountOpen(!accountOpen)}
                   className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-blue-600"
                 >
-                  <span>Account</span>
+                  <div className="flex items-center gap-2">
+                    <span>Account</span>
+                    {isAdmin && <Badge className="bg-green-600 text-xs">Admin</Badge>}
+                  </div>
                   <ChevronRight
                     className={`h-4 w-4 transition-transform duration-200 ${accountOpen ? 'rotate-90' : ''}`}
                   />
                 </button>
                 {accountOpen && (
                   <div className="pl-4 space-y-1 bg-gray-50 rounded-lg mx-2 py-2">
-                    <Link to="/login" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                      {labels.login}
-                    </Link>
-                    {/* Sign up mobile menu item restored but hidden */}
-                    {false && (
-                      <Link to="/signup" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                        {labels.signup}
-                      </Link>
+                    {user ? (
+                      <>
+                        <div className="text-xs text-gray-400 px-3 py-2 border-b border-gray-200">
+                          {user.email}
+                        </div>
+                        <Link to="/account" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                          My Account
+                        </Link>
+                        {isAdmin && (
+                          <Link to="/clicks-dashboard" className="block px-3 py-1.5 text-sm text-cyan-600 hover:text-blue-600 font-medium" onClick={() => setIsOpen(false)}>
+                            📊 Analytics
+                          </Link>
+                        )}
+                        <button
+                          onClick={async () => {
+                            await supabase.auth.signOut();
+                            setUser(null);
+                            setIsAdmin(false);
+                            setIsOpen(false);
+                          }}
+                          className="w-full text-left px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600"
+                        >
+                          Logout
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/login" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                          {labels.login}
+                        </Link>
+                        <Link to="/signup" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                          {labels.signup}
+                        </Link>
+                      </>
                     )}
                   </div>
                 )}
