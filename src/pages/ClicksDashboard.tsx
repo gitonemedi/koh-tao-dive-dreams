@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { RefreshCw, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
+import { supabase } from '@/integrations/supabase/client';
+import { hasAdminAccess } from '@/lib/adminAccess';
 
 type Provider = 'agoda' | 'booking' | 'trip' | 'unknown';
 
@@ -42,10 +45,25 @@ const buildEndpoint = (provider: string) => {
 };
 
 const ClicksDashboard = () => {
+  const navigate = useNavigate();
   const [providerFilter, setProviderFilter] = useState<'all' | 'agoda' | 'booking' | 'trip'>('all');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<ClicksResponse>({ total: 0, byProvider: {}, recent: [] });
+
+  // Check admin access on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user || !hasAdminAccess(user)) {
+        navigate('/admin/login');
+        return;
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
 
   const fetchClicks = async (provider: 'all' | 'agoda' | 'booking' | 'trip') => {
     setLoading(true);
