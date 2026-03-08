@@ -15,6 +15,3 @@ export const handleOptions = (req, res) => {
   }
   return false;
 };
-  if (req.method === 'OPTIONS') {
-
-    applyCors(res);
