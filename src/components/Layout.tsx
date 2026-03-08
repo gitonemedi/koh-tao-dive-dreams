@@ -6,6 +6,20 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 
+const TRIP_ALLIANCE_ID = import.meta.env.VITE_TRIP_ALLIANCE_ID as string | undefined;
+const TRIP_SITE_ID = import.meta.env.VITE_TRIP_SITE_ID as string | undefined;
+
+const buildTripFooterUrl = () => {
+  const baseUrl = 'https://www.trip.com/';
+  const params = new URLSearchParams();
+
+  if (TRIP_ALLIANCE_ID) params.set('allianceid', TRIP_ALLIANCE_ID);
+  if (TRIP_SITE_ID) params.set('sid', TRIP_SITE_ID);
+
+  const query = params.toString();
+  return query ? `${baseUrl}?${query}` : baseUrl;
+};
+
 const Footer: React.FC = () => {
   const { i18n } = useTranslation();
   const isDutch = i18n.language.startsWith('nl');
@@ -62,6 +76,11 @@ const Footer: React.FC = () => {
             <li><Link to="/VisasKohTao" className="hover:text-white transition">Visas</Link></li>
             <li><Link to="/MedicalServices" className="hover:text-white transition">{isDutch ? 'Medisch' : 'Medical'}</Link></li>
             <li><Link to="/accommodation-booking" className="hover:text-white transition">Booking.com</Link></li>
+            <li>
+              <a href={buildTripFooterUrl()} target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                Trip.com
+              </a>
+            </li>
             <li><Link to="/agoda-hotels" className="hover:text-white transition">Agoda</Link></li>
             <li><Link to="/#contact" className="hover:text-white transition">Contact</Link></li>
           </ul>
