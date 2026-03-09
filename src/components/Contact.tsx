@@ -38,11 +38,20 @@ const Contact = () => {
       };
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(payload),
       });
-      const data = await response.json().catch(() => ({}));
-      if (response.ok && data.success) {
+      
+      if (!response.ok) {
+        throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.success) {
         toast.success("Message sent successfully! We'll get back to you soon.");
         setFormData({
           firstName: '',
@@ -52,13 +61,14 @@ const Contact = () => {
           message: ''
         });
       } else {
-        const errMsg = data?.error || `HTTP ${response.status}`;
+        const errMsg = data?.message || data?.error || 'Submission failed';
         console.error('Web3Forms error:', errMsg, data);
-        toast.error(`Send failed: ${errMsg}. Please try again.`);
+        toast.error(`Failed: ${errMsg}. Please try again or email us directly.`);
       }
     } catch (error) {
       console.error('Contact form submission failed:', error);
-      toast.error(`Send failed: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`);
+      const message = error instanceof Error ? error.message : 'Network error';
+      toast.error(`Failed to save contact: ${message}. Please try again or email us at contact@divinginasia.com`);
     } finally {
       setIsSubmitting(false);
     }
