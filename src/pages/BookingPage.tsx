@@ -261,12 +261,13 @@ const       BookingPage: React.FC = () => {
         <p className="text-sm text-muted-foreground mb-6">Select options and submit your booking or inquiry.</p>
 
         {!hasDirectBookingContext && (
-          <div className="mb-6 p-4 border rounded-lg bg-blue-50 border-blue-200">
-            <h3 className="font-semibold mb-3">What would you like to book?</h3>
+          <div className="mb-6 p-4 border rounded-lg bg-blue-700 border-blue-600 text-white">
+            <h3 className="font-semibold mb-3 text-white">What would you like to book?</h3>
             <div className="flex flex-wrap gap-2">
               <Button
                 type="button"
                 variant={isCourseBooking ? 'default' : 'outline'}
+                className={isCourseBooking ? 'bg-blue-900 hover:bg-blue-950 text-white border-blue-900' : 'bg-white/10 hover:bg-white/20 text-white border-white/40'}
                 onClick={() => navigate(`/booking?source=${encodeURIComponent(bookingSource)}&bookingKind=course`)}
               >
                 Course
@@ -274,6 +275,7 @@ const       BookingPage: React.FC = () => {
               <Button
                 type="button"
                 variant={isDiveBooking ? 'default' : 'outline'}
+                className={isDiveBooking ? 'bg-blue-500 hover:bg-blue-400 text-white border-blue-500' : 'bg-white/10 hover:bg-white/20 text-white border-white/40'}
                 onClick={() => navigate(`/booking?source=${encodeURIComponent(bookingSource)}&bookingKind=dive`)}
               >
                 Fun Dives
@@ -367,8 +369,8 @@ const       BookingPage: React.FC = () => {
         </div>
 
         {(isCourseBooking || isDiveBooking) && (
-          <div className="mb-6 p-3 border rounded-lg bg-amber-50 border-amber-200 text-amber-900 text-sm">
-            If you choose alternative accommodation, please give us the details so we can arrange all necessary arangements.
+          <div className="mb-6 p-3 border rounded-lg bg-blue-700 border-blue-600 text-white text-sm">
+            If you choose alternative accommodation, please give us the details so we can arrange all necessary arrangements.
           </div>
         )}
 

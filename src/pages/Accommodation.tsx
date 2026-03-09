@@ -462,8 +462,8 @@ const Accommodation = () => {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Alternative Accommodation</AlertDialogTitle>
-            <AlertDialogDescription>
-              If you choose alternative accommodation, please give us the details so we can arrange all necessary arangements.
+            <AlertDialogDescription className="text-white">
+              If you choose alternative accommodation, please give us the details so we can arrange all necessary arrangements.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex-col sm:flex-row gap-2">

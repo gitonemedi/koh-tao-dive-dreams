@@ -55,7 +55,9 @@ export default function ContactForm() {
         onChange={handleChange}
         required
       />
-      <button type="submit">Send</button>
+      <button type="submit" className="bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors">
+        Send
+      </button>
       <div>{status}</div>
     </form>
   );

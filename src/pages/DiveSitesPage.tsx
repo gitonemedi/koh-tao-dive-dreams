@@ -607,19 +607,20 @@ const DiveSitesPage = () => {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-2 border-blue-200 bg-blue-50">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <DollarSign className="w-5 h-5 text-green-600" />
+                  <DollarSign className="w-5 h-5 text-blue-600" />
                   <CardTitle className="text-lg">
                     <Link to="/dive-sites/sail-rock" className="hover:text-blue-600">
                       Sail Rock Special Trip
                     </Link>
                   </CardTitle>
                 </div>
+                <CardDescription>{isDutch ? 'Volledige dagtrip premium pakket' : 'Full-day premium trip package'}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold text-green-600 mb-2">฿2,900</p>
+                <p className="text-3xl font-bold text-blue-600 mb-2">฿2,900</p>
                 <p className="text-sm text-muted-foreground mb-4">
                   {isDutch ? 'Volledige dag excursie (3 duiken)' : 'Full day excursion (3 dives)'}
                 </p>
@@ -630,8 +631,7 @@ const DiveSitesPage = () => {
                   <li>• {isDutch ? 'Walvishaai kansen' : 'Whale shark opportunities'}</li>
                 </ul>
                 <Button 
-                  className="w-full" 
-                  variant="outline"
+                  className="w-full"
                   onClick={() => navigate(`/booking?item=${encodeURIComponent('Sail Rock Special')}&type=dive&price=2900&currency=THB`)}
                 >
                   {isDutch ? 'Boek Sail Rock' : 'Book Sail Rock'}
