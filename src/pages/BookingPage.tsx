@@ -92,11 +92,13 @@ const       BookingPage: React.FC = () => {
     searchParams.get('price') ||
     fallbackCourse
   );
-  const itemTitle = searchParams.get('item') || fallbackCourse?.item || (hasDirectBookingContext ? 'Booking' : 'Fun Dive');
+  const selectedBookingKind = (searchParams.get('bookingKind') || '').trim();
   const rawType = (searchParams.get('type') || '').trim();
+  const genericType: BookingItemType = selectedBookingKind === 'course' ? 'course' : 'dive';
   const itemType: BookingItemType = rawType === 'dive' || rawType === 'stay' || rawType === 'course'
     ? rawType
-    : (hasDirectBookingContext ? 'course' : 'dive');
+    : (hasDirectBookingContext ? 'course' : genericType);
+  const itemTitle = searchParams.get('item') || fallbackCourse?.item || (itemType === 'course' ? 'Course Booking' : 'Fun Dive');
   const isDiveBooking = itemType === 'dive';
   const isCourseBooking = itemType === 'course';
   const isStayBooking = itemType === 'stay';
@@ -104,7 +106,7 @@ const       BookingPage: React.FC = () => {
   const parsedPrice = rawPrice ? Number(rawPrice) : NaN;
   const baseCourseCostMajor = Number.isFinite(parsedPrice)
     ? parsedPrice
-    : (fallbackCourse?.price || (!hasDirectBookingContext ? 2000 : 0));
+    : (fallbackCourse?.price || (!hasDirectBookingContext && itemType === 'dive' ? 2000 : 0));
   const parsedDeposit = Number(searchParams.get('deposit') || '0');
   const depositFromQuery = Number.isFinite(parsedDeposit) ? parsedDeposit : 0;
   const depositCurrency = searchParams.get('currency') || fallbackCourse?.currency || 'THB';
@@ -256,6 +258,28 @@ const       BookingPage: React.FC = () => {
           <h1 className="text-2xl font-bold mb-2">Book: {itemTitle}</h1>
         </div>
         <p className="text-sm text-muted-foreground mb-6">Select options and submit your booking or inquiry.</p>
+
+        {!hasDirectBookingContext && (
+          <div className="mb-6 p-4 border rounded-lg bg-blue-50 border-blue-200">
+            <h3 className="font-semibold mb-3">What would you like to book?</h3>
+            <div className="flex flex-wrap gap-2">
+              <Button
+                type="button"
+                variant={isCourseBooking ? 'default' : 'outline'}
+                onClick={() => navigate('/booking?source=widget&bookingKind=course')}
+              >
+                Course
+              </Button>
+              <Button
+                type="button"
+                variant={isDiveBooking ? 'default' : 'outline'}
+                onClick={() => navigate('/booking?source=widget&bookingKind=dive')}
+              >
+                Fun Dives
+              </Button>
+            </div>
+          </div>
+        )}
 
         {/* Special Packages Banner */}
         {!hasDirectBookingContext && (

@@ -181,6 +181,22 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <Button variant="outline" onClick={handleLogout}>{isDutch ? 'Uitloggen' : 'Logout'}</Button>
         </div>
       )}
+      <Link
+        to="/booking?source=widget"
+        className="fixed left-0 top-1/2 z-40 hidden -translate-y-1/2 rounded-r-full bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-cyan-700 md:block"
+        aria-label={isDutch ? 'Boek nu' : 'Book now'}
+        title={isDutch ? 'Boek nu' : 'Book now'}
+      >
+        {isDutch ? 'Boek nu' : 'Book now'}
+      </Link>
+      <Link
+        to="/booking?source=widget"
+        className="fixed bottom-24 left-1/2 z-40 -translate-x-1/2 rounded-full bg-cyan-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-cyan-700 md:hidden"
+        aria-label={isDutch ? 'Boek nu' : 'Book now'}
+        title={isDutch ? 'Boek nu' : 'Book now'}
+      >
+        {isDutch ? 'Boek nu' : 'Book now'}
+      </Link>
       <main className="flex-1">{children}</main>
       <CookieConsent />
       <a
