@@ -556,7 +556,13 @@ const DiveSitesPage = () => {
           <p className="text-lg text-muted-foreground mb-8">
             {pageContent.bookingText}
           </p>
-          <BookingForm isOpen={false} onClose={() => {}} itemType="dive" itemTitle={isDutch ? 'Duiklocaties' : 'Dive Sites'} />
+          <Button 
+            size="lg" 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg"
+            onClick={() => navigate(`/booking?item=${encodeURIComponent('Fun Dive')}&type=dive&price=1800&currency=THB&dives=2`)}
+          >
+            {pageContent.bookDive}
+          </Button>
         </div>
       </section>
     </div>

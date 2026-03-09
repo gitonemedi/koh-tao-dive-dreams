@@ -280,7 +280,7 @@ const FunDiving = () => {
                       <li>Premium equipment</li>
                       <li>Max 4 divers per guide</li>
                     </ul>
-                          <Button variant="secondary" onClick={() => { navigate(`/booking?item=${encodeURIComponent('Fun Dive')}&type=dive&price=2000&currency=THB`); }}>Inquire / Book</Button>
+                          <Button variant="secondary" onClick={() => { navigate(`/booking?item=${encodeURIComponent('Fun Dive')}&type=dive&price=1800&currency=THB&dives=2`); }}>Inquire / Book</Button>
                   </CardContent>
                 </Card>
 
@@ -801,7 +801,7 @@ const FunDiving = () => {
                 </div>
                 <Button
                   size="lg"
-                  onClick={() => navigate('/booking?item=Fun%20Dive&type=dive&price=2000&currency=THB&dives=2')}
+                  onClick={() => navigate('/booking?item=Fun%20Dive&type=dive&price=1800&currency=THB&dives=2')}
                 >
                   Send Booking Request
                 </Button>

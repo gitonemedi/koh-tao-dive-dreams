@@ -66,7 +66,7 @@ const DiveSiteDetail: React.FC<DiveSiteDetailProps> = ({
   };
   
   const confirmBooking = () => {
-    navigate(`/booking?item=${encodeURIComponent(name)}&type=dive`);
+    navigate(`/booking?item=${encodeURIComponent('Fun Dive')}&type=dive&price=1800&currency=THB&dives=2`);
   };
   
   const getDifficultyColor = (difficulty: string) => {

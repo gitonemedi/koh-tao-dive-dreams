@@ -280,7 +280,7 @@ const FunDiving = () => {
                       <li>Premium uitrusting</li>
                       <li>Maximaal 4 duikers per gids</li>
                     </ul>
-                          <Button variant="secondary" onClick={() => { navigate(`/booking?item=${encodeURIComponent('Fun Dive')}&type=dive&price=2000&currency=THB`); }}>Informatie / Boeken</Button>
+                          <Button variant="secondary" onClick={() => { navigate(`/booking?item=${encodeURIComponent('Fun Dive')}&type=dive&price=1800&currency=THB&dives=2`); }}>Informatie / Boeken</Button>
                   </CardContent>
                 </Card>
 
