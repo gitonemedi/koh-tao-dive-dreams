@@ -265,7 +265,7 @@ const FunDiving = () => {
               <h2 className="text-4xl font-bold text-center mb-8">Trips & programma's</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 <Card className="overflow-hidden">
-                  <img src="/images/fun-dsd/fun.png" alt="Fun Dive" className="w-full h-40 object-cover" />
+                  <img src="/images/fun.png" alt="Fun Dive" className="w-full h-40 object-cover" />
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle>Fun Dive</CardTitle>
