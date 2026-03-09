@@ -235,7 +235,6 @@ const       BookingPage: React.FC = () => {
         if (data.paymentChoice === 'now' && amountMajor > 0) {
           setShowPaymentLinks(true);
         } else {
-          form.reset();
           setShowSkipPaymentPopup(true);
         }
       } else {
@@ -595,7 +594,11 @@ const       BookingPage: React.FC = () => {
                 </Button>
               </a>
             </div>
-            <p className="text-sm text-muted-foreground">Or <button className="underline" onClick={() => { form.reset(); setShowPaymentLinks(false); navigate('/'); }}>skip payment for now</button></p>
+            <p className="text-sm text-muted-foreground">Or <button className="underline" onClick={() => { 
+              form.reset(); 
+              setShowPaymentLinks(false); 
+              setShowSkipPaymentPopup(true); 
+            }}>skip payment for now</button></p>
           </div>
         )}
       </div>
@@ -620,7 +623,10 @@ const       BookingPage: React.FC = () => {
         open={showSkipPaymentPopup}
         onOpenChange={(open) => {
           setShowSkipPaymentPopup(open);
-          if (!open) navigate('/');
+          if (!open) {
+            form.reset();
+            navigate('/');
+          }
         }}
       >
         <AlertDialogContent>
@@ -629,7 +635,10 @@ const       BookingPage: React.FC = () => {
             <AlertDialogDescription>{SKIP_PAYMENT_MESSAGE}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction onClick={() => navigate('/')}>OK</AlertDialogAction>
+            <AlertDialogAction onClick={() => {
+              form.reset();
+              navigate('/');
+            }}>OK</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
