@@ -20,7 +20,7 @@ export default function NightDiver() {
         {/* Image */}
         <div className="mb-8">
           <img
-            src="/images/photo-1682687982423-295485af248a.avif"
+            src="/images/night/nightr.jpg"
             alt="Night diving scene"
             className="w-full h-64 object-cover rounded-lg shadow-lg"
           />
