@@ -93,6 +93,7 @@ const       BookingPage: React.FC = () => {
     fallbackCourse
   );
   const selectedBookingKind = (searchParams.get('bookingKind') || '').trim();
+  const bookingSource = (searchParams.get('source') || 'direct').trim();
   const rawType = (searchParams.get('type') || '').trim();
   const genericType: BookingItemType = selectedBookingKind === 'course' ? 'course' : 'dive';
   const itemType: BookingItemType = rawType === 'dive' || rawType === 'stay' || rawType === 'course'
@@ -184,6 +185,7 @@ const       BookingPage: React.FC = () => {
       const addonsText = isDiveBooking
         ? (availableAddons.filter(a => selectedAddons[a.id]).map(a => a.label).join(', ') || 'None')
         : 'N/A (course booking)';
+      const messageWithSource = `${data.message || 'No additional message'}\n\nBooking Source: ${bookingSource}`;
 
       // Prepare Web3Forms payload
       const payload = {
@@ -207,7 +209,8 @@ const       BookingPage: React.FC = () => {
           : (isDiveBooking ? (stayWithUs ? 'Yes - accommodation requested with dive booking' : 'No') : 'N/A'),
         deposit_amount: amountMajor > 0 ? `฿${amountMajor}` : 'Quote on request',
         addons: addonsText,
-        message: data.message || 'No additional message',
+        booking_source: bookingSource,
+        message: messageWithSource,
       };
 
       console.log('Sending booking payload to Web3Forms', payload);
@@ -266,14 +269,14 @@ const       BookingPage: React.FC = () => {
               <Button
                 type="button"
                 variant={isCourseBooking ? 'default' : 'outline'}
-                onClick={() => navigate('/booking?source=widget&bookingKind=course')}
+                onClick={() => navigate(`/booking?source=${encodeURIComponent(bookingSource)}&bookingKind=course`)}
               >
                 Course
               </Button>
               <Button
                 type="button"
                 variant={isDiveBooking ? 'default' : 'outline'}
-                onClick={() => navigate('/booking?source=widget&bookingKind=dive')}
+                onClick={() => navigate(`/booking?source=${encodeURIComponent(bookingSource)}&bookingKind=dive`)}
               >
                 Fun Dives
               </Button>

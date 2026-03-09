@@ -15,6 +15,34 @@ const WHATSAPP_LINK = 'https://wa.me/66612345678';
 const FACEBOOK_LINK = 'https://www.facebook.com/profile.php?id=61553713498498';
 const INSTAGRAM_LINK = 'https://www.instagram.com/pro_diving_asia/';
 
+const trackBookingWidgetClick = (source: 'left-widget' | 'mobile-sticky') => {
+  try {
+    const key = `booking-widget-clicks:${source}`;
+    const current = Number(window.localStorage.getItem(key) || '0');
+    window.localStorage.setItem(key, String(current + 1));
+
+    const payload = {
+      event: 'booking_widget_click',
+      source,
+      path: window.location.pathname,
+      clicked_at: new Date().toISOString(),
+    };
+
+    if (Array.isArray((window as any).dataLayer)) {
+      (window as any).dataLayer.push(payload);
+    }
+
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'booking_widget_click', {
+        source,
+        page_path: window.location.pathname,
+      });
+    }
+  } catch {
+    // Tracking should never block navigation.
+  }
+};
+
 const buildTripFooterUrl = () => {
   const baseUrl = 'https://www.trip.com/';
   const params = new URLSearchParams();
@@ -182,16 +210,18 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </div>
       )}
       <Link
-        to="/booking?source=widget"
-        className="fixed left-0 top-1/2 z-40 hidden -translate-y-1/2 rounded-r-full bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-cyan-700 md:block"
+        to="/booking?source=left-widget"
+        onClick={() => trackBookingWidgetClick('left-widget')}
+        className="fixed left-0 top-1/2 z-40 hidden -translate-y-1/2 rounded-r-full bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-cyan-700 motion-safe:animate-pulse md:block"
         aria-label={isDutch ? 'Boek nu' : 'Book now'}
         title={isDutch ? 'Boek nu' : 'Book now'}
       >
         {isDutch ? 'Boek nu' : 'Book now'}
       </Link>
       <Link
-        to="/booking?source=widget"
-        className="fixed bottom-24 left-1/2 z-40 -translate-x-1/2 rounded-full bg-cyan-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-cyan-700 md:hidden"
+        to="/booking?source=mobile-sticky"
+        onClick={() => trackBookingWidgetClick('mobile-sticky')}
+        className="fixed bottom-24 left-1/2 z-40 -translate-x-1/2 rounded-full bg-cyan-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-cyan-700 motion-safe:animate-pulse md:hidden"
         aria-label={isDutch ? 'Boek nu' : 'Book now'}
         title={isDutch ? 'Boek nu' : 'Book now'}
       >
