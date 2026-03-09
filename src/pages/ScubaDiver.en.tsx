@@ -10,7 +10,7 @@ const ScubaDiver: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <section className="instructor-hero-bg relative h-72 md:h-96 flex items-center overflow-hidden">
+      <section className="scuba-diver-hero-bg relative h-72 md:h-96 flex items-center overflow-hidden">
         <div className="container mx-auto px-4 text-white z-10">
           <h1 className="text-4xl md:text-5xl font-bold">PADI Scuba Diver Course</h1>
           <p className="mt-4 max-w-2xl">Experience the underwater world with confidence. The PADI Scuba Diver course is perfect for those who want to try scuba diving before committing to full certification.</p>

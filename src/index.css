@@ -108,3 +108,10 @@
   background-size: cover;
   background-position: center;
 }
+
+.scuba-diver-hero-bg {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    url('/images/fun-dsd/fun.png');
+  background-size: cover;
+  background-position: center;
+}
