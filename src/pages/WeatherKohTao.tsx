@@ -69,7 +69,7 @@ const WeatherKohTao = () => {
     </section>
 
     {/* Main Content */}
-    <section className="bg-white rounded-lg shadow p-6 md:p-10 mb-8">
+    <section className="bg-background rounded-lg shadow p-6 md:p-10 mb-8">
       <h2 className="text-2xl font-semibold mb-4">{pageContent.climateTitle}</h2>
       <ul className="list-disc pl-6 mb-4">
         {pageContent.climate.map((item) => (
@@ -79,12 +79,12 @@ const WeatherKohTao = () => {
       <p className="mb-4">{pageContent.paragraph}</p>
       <div className="flex flex-wrap gap-4 mb-4">
         <a href="/ThingsToDo" className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">{pageContent.planActivities}</a>
-        <a href="/fun-diving-koh-tao" className="inline-block bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700 transition">{pageContent.goDiving}</a>
+        <a href="/fun-diving-koh-tao" className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">{pageContent.goDiving}</a>
       </div>
     </section>
 
     {/* Packing Tips Section */}
-    <section className="bg-gray-50 rounded-lg shadow p-6 md:p-10">
+    <section className="bg-muted rounded-lg shadow p-6 md:p-10">
       <h3 className="text-xl font-semibold mb-2">{pageContent.packingTitle}</h3>
       <ul className="list-disc pl-6 mb-2">
         {pageContent.packing.map((item) => (

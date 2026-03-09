@@ -175,7 +175,7 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 w-full bg-white/70 backdrop-blur-md z-50 shadow-sm">
+    <nav className="fixed top-0 w-full bg-background/70 backdrop-blur-md z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 border-solid border-0">
           <div className="flex items-center">
@@ -201,7 +201,7 @@ const Navigation = () => {
                 <div className="bg-[#0b1e3d]/80 rounded-lg shadow-2xl border border-[#1a3a5c] min-w-[1100px] p-6 flex gap-8">
                   {courseCategories.map((cat) => (
                     <div key={cat.label} className="flex-1">
-                      <h4 className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">
+                      <h4 className="text-blue-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">
                         {cat.label}
                       </h4>
                       <ul className="space-y-1">
@@ -244,7 +244,7 @@ const Navigation = () => {
               </a>
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="bg-[#0b1e3d]/80 rounded-lg shadow-2xl border border-[#1a3a5c] min-w-[300px] p-5">
-                  <h4 className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">
+                  <h4 className="text-blue-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">
                     {labels.diveSitesTitle}
                   </h4>
                   <ul className="space-y-1">
@@ -328,7 +328,7 @@ const Navigation = () => {
               </Link>
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="bg-[#0b1e3d]/80 rounded-lg shadow-2xl border border-[#1a3a5c] min-w-[300px] p-5">
-                  <h4 className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">
+                  <h4 className="text-blue-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">
                     {labels.marineLifeTitle}
                   </h4>
                   <ul className="space-y-1">
@@ -358,7 +358,7 @@ const Navigation = () => {
               </Link>
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="bg-[#0b1e3d]/80 rounded-lg shadow-2xl border border-[#1a3a5c] min-w-[250px] p-5">
-                  <h4 className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">
+                  <h4 className="text-blue-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">
                     Fun diving
                   </h4>
                   <ul className="space-y-1">
@@ -436,10 +436,10 @@ const Navigation = () => {
               </button>
               <div className="absolute left-0 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="bg-[#0b1e3d]/80 rounded-lg shadow-2xl border border-[#1a3a5c] min-w-[250px] p-5">
-                  <h4 className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">KOH TAO</h4>
+                  <h4 className="text-blue-400 text-xs font-bold uppercase tracking-wider mb-3 border-b border-[#1a3a5c] pb-2">KOH TAO</h4>
                   <ul className="space-y-1">
                     <li><Link to="/Accommodation" className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150">{labels.accommodation}</Link></li>
-                    <li><Link to="/ThingsToDo" className="block py-1.5 text-sm text-cyan-400 hover:text-white hover:pl-1 transition-all duration-150">{labels.thingsToDo}</Link></li>
+                    <li><Link to="/ThingsToDo" className="block py-1.5 text-sm text-blue-400 hover:text-white hover:pl-1 transition-all duration-150">{labels.thingsToDo}</Link></li>
                     <li><Link to="/BanksKohTao" className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150">{labels.banksKohTao}</Link></li>
                     <li><Link to="/BeachesKohTao" className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150">{labels.beachesKohTao}</Link></li>
                     <li><Link to="/FoodDrink" className="block py-1.5 text-sm text-gray-300 hover:text-white hover:pl-1 transition-all duration-150">{labels.foodDrink}</Link></li>
@@ -492,7 +492,7 @@ const Navigation = () => {
                           <li>
                             <Link
                               to="/clicks-dashboard"
-                              className="block py-2 px-3 text-sm text-cyan-400 hover:text-cyan-300 hover:bg-[#1a3a5c] transition-all duration-150 rounded font-medium"
+                              className="block py-2 px-3 text-sm text-blue-400 hover:text-blue-300 hover:bg-[#1a3a5c] transition-all duration-150 rounded font-medium"
                             >
                               📊 Analytics
                             </Link>
@@ -551,7 +551,7 @@ const Navigation = () => {
 
         {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200">
+          <div className="md:hidden bg-background border-t border-gray-200">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link to="/" className="block px-3 py-2 text-gray-700 hover:text-blue-600" onClick={() => setIsOpen(false)}>
                 {t('nav.home')}
@@ -566,7 +566,7 @@ const Navigation = () => {
                   <ChevronRight className={`h-4 w-4 transition-transform duration-200 ${coursesOpen ? 'rotate-90' : ''}`} />
                 </button>
                 {coursesOpen && (
-                  <div className="pl-4 space-y-1 bg-gray-50 rounded-lg mx-2 py-2">
+                  <div className="pl-4 space-y-1 bg-muted rounded-lg mx-2 py-2">
                     {courseCategories.map((cat) => (
                       <div key={cat.label} className="mb-2">
                         <span className="block px-3 py-1 text-xs font-bold text-blue-600 uppercase tracking-wider">{cat.label}</span>
@@ -601,7 +601,7 @@ const Navigation = () => {
                   <ChevronRight className={`h-4 w-4 transition-transform duration-200 ${diveSitesOpen ? 'rotate-90' : ''}`} />
                 </button>
                 {diveSitesOpen && (
-                  <div className="pl-4 space-y-1 bg-gray-50 rounded-lg mx-2 py-2">
+                  <div className="pl-4 space-y-1 bg-muted rounded-lg mx-2 py-2">
                     <Link to="/koh-tao-dive-sites" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>
                       {labels.diveSitesOverview}
                     </Link>
@@ -648,7 +648,7 @@ const Navigation = () => {
                   />
                 </Link>
                 {funDivingOpen && (
-                  <div className="pl-4 space-y-1 bg-gray-50 rounded-lg mx-2 py-2">
+                  <div className="pl-4 space-y-1 bg-muted rounded-lg mx-2 py-2">
                     <Link to="/fun-diving-koh-tao" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>
                       Fun diving Koh Tao
                     </Link>
@@ -685,9 +685,9 @@ const Navigation = () => {
                   <ChevronRight className={`h-4 w-4 transition-transform duration-200 ${funDivingOpen ? 'rotate-90' : ''}`} />
                 </button>
                 {funDivingOpen && (
-                  <div className="pl-4 space-y-1 bg-gray-50 rounded-lg mx-2 py-2">
+                  <div className="pl-4 space-y-1 bg-muted rounded-lg mx-2 py-2">
                     <Link to="/Accommodation" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>{labels.accommodation}</Link>
-                    <Link to="/ThingsToDo" className="block px-3 py-1.5 text-sm text-cyan-400 hover:text-blue-600" onClick={() => setIsOpen(false)}>{labels.thingsToDo}</Link>
+                    <Link to="/ThingsToDo" className="block px-3 py-1.5 text-sm text-blue-400 hover:text-blue-600" onClick={() => setIsOpen(false)}>{labels.thingsToDo}</Link>
                     <Link to="/BanksKohTao" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>{labels.banksKohTao}</Link>
                     <Link to="/BeachesKohTao" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>{labels.beachesKohTao}</Link>
                     <Link to="/FoodDrink" className="block px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600" onClick={() => setIsOpen(false)}>{labels.foodDrink}</Link>
@@ -720,7 +720,7 @@ const Navigation = () => {
                   />
                 </button>
                 {accountOpen && (
-                  <div className="pl-4 space-y-1 bg-gray-50 rounded-lg mx-2 py-2">
+                  <div className="pl-4 space-y-1 bg-muted rounded-lg mx-2 py-2">
                     {user ? (
                       <>
                         <div className="text-xs text-gray-400 px-3 py-2 border-b border-gray-200">
@@ -730,7 +730,7 @@ const Navigation = () => {
                           My Account
                         </Link>
                         {isAdmin && (
-                          <Link to="/clicks-dashboard" className="block px-3 py-1.5 text-sm text-cyan-600 hover:text-blue-600 font-medium" onClick={() => setIsOpen(false)}>
+                          <Link to="/clicks-dashboard" className="block px-3 py-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium" onClick={() => setIsOpen(false)}>
                             📊 Analytics
                           </Link>
                         )}

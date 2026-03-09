@@ -305,7 +305,7 @@ const MarineLifePage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-background">
       {/* Hero Section */}
       <div className="relative min-h-[calc(100vh-4rem)] text-white flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-[url('/images/marine.png')] bg-cover bg-center" />

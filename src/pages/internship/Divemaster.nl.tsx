@@ -171,7 +171,7 @@ export default function DivemasterInternship() {
           <p className="text-gray-700 mb-4">
             Het internship-pakket dekt alle training, PADI-materialen, certificeringskosten en uitrusting. Extra kosten zijn onder andere accommodatie, eten, telefoon, activiteiten en algemene leefkosten.
           </p>
-          <div className="bg-gray-50 p-4 rounded">
+          <div className="bg-muted p-4 rounded">
             <p className="text-gray-700 font-semibold">Geschat maandbudget:</p>
             <p className="text-gray-700 text-lg">฿25,000 per maand (comfortabel leven)</p>
             <p className="text-sm text-gray-600 mt-2">

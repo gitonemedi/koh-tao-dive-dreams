@@ -114,15 +114,15 @@ const MarineLifeDetail: React.FC<MarineLifeDetailProps> = ({
       case 'not evaluated':
       case 'niet geëvalueerd':
         return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-gray-800';
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-background">
       {/* Hero Section */}
       <div className={`relative overflow-hidden ${fullHeightHero ? 'min-h-[calc(100vh-4rem)]' : 'h-96'}`}>
-        {!noOverlay && <div className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-teal-600/80 z-10" />}
+        {!noOverlay && <div className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-blue-500/80 z-10" />}
         <img
           src={images[0] || "/images/photo-1613853250147-2f73e55c1561.avif"}
           alt={name}

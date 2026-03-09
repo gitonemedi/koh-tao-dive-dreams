@@ -75,7 +75,7 @@ const ThingsToDo = () => {
     </section>
 
     {/* Main Content */}
-    <section className="bg-white rounded-lg shadow p-6 md:p-10 mb-8">
+    <section className="bg-background rounded-lg shadow p-6 md:p-10 mb-8">
       <h2 className="text-2xl font-semibold mb-4">{pageContent.activitiesTitle}</h2>
       <ul className="list-disc pl-6 mb-4">
         {pageContent.activities.map((item) => (
@@ -83,7 +83,7 @@ const ThingsToDo = () => {
         ))}
       </ul>
       <div className="flex flex-wrap gap-4 mb-4">
-        <a href="/fun-diving-koh-tao" className="inline-block bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700 transition">{pageContent.goFunDive}</a>
+        <a href="/fun-diving-koh-tao" className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">{pageContent.goFunDive}</a>
         <a href="/BeachesKohTao" className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">{pageContent.discoverBeaches}</a>
         <a href="/ViewpointsKohTao" className="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">{pageContent.viewpoints}</a>
       </div>
@@ -91,7 +91,7 @@ const ThingsToDo = () => {
     </section>
 
     {/* Inspiration Section */}
-    <section className="bg-gray-50 rounded-lg shadow p-6 md:p-10">
+    <section className="bg-muted rounded-lg shadow p-6 md:p-10">
       <h3 className="text-xl font-semibold mb-2">{pageContent.ideasTitle}</h3>
       <ul className="list-disc pl-6 mb-2">
         {pageContent.ideas.map((item) => (

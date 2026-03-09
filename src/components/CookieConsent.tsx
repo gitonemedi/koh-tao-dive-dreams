@@ -22,14 +22,14 @@ const CookieConsent: React.FC = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-6 left-6 right-24 z-50 rounded-xl border border-gray-200 bg-white p-4 shadow-xl md:right-auto md:max-w-md">
+    <div className="fixed bottom-6 left-6 right-24 z-50 rounded-xl border border-gray-200 bg-background p-4 shadow-xl md:right-auto md:max-w-md">
       <p className="text-sm text-gray-700">
         {isDutch
           ? 'We gebruiken cookies om je ervaring te verbeteren. Door op Accepteren te klikken ga je akkoord met ons gebruik van cookies.'
           : 'We use cookies to improve your experience. By clicking Accept, you agree to our use of cookies.'}
       </p>
       <div className="mt-3 flex justify-end">
-        <Button onClick={acceptCookies} className="bg-cyan-600 hover:bg-cyan-700">
+        <Button onClick={acceptCookies} className="bg-blue-600 hover:bg-blue-700">
           {isDutch ? 'Accepteren' : 'Accept'}
         </Button>
       </div>

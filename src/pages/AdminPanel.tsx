@@ -53,7 +53,7 @@ const AdminPanel: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background p-8">
-      <div className="max-w-6xl mx-auto bg-white rounded-lg p-6 shadow">
+      <div className="max-w-6xl mx-auto bg-background rounded-lg p-6 shadow">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-2xl font-bold">Admin — Bookings</h1>
           <div>{loading ? 'Loading...' : `${bookings.length} bookings`}</div>

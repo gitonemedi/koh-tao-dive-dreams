@@ -77,12 +77,12 @@ const CourseRecommender = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-cyan-600 to-blue-700 rounded-2xl p-8 text-white mb-16">
+    <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-8 text-white mb-16">
       <div className="flex items-center gap-3 mb-6">
         <Sparkles className="h-8 w-8" />
         <h3 className="text-2xl font-bold">AI Course Recommender</h3>
       </div>
-      <p className="text-cyan-100 mb-8">
+      <p className="text-blue-100 mb-8">
         Not sure which course is right for you? Let our AI guide you to the perfect certification!
       </p>
 
@@ -100,7 +100,7 @@ const CourseRecommender = () => {
                 }}
                 className={`p-4 rounded-lg text-left transition-all flex items-center gap-3 ${
                   experience === option.value
-                    ? 'bg-white text-blue-700'
+                    ? 'bg-background text-blue-700'
                     : 'bg-white/10 hover:bg-white/20'
                 }`}
               >
@@ -124,7 +124,7 @@ const CourseRecommender = () => {
                 onClick={() => toggleInterest(interest)}
                 className={`px-4 py-2 rounded-full transition-all ${
                   interests.includes(interest)
-                    ? 'bg-white text-blue-700'
+                    ? 'bg-background text-blue-700'
                     : 'bg-white/10 hover:bg-white/20'
                 }`}
               >
@@ -141,7 +141,7 @@ const CourseRecommender = () => {
             </button>
             <button
               onClick={() => setStep(3)}
-              className="px-6 py-3 bg-white text-blue-700 rounded-lg hover:bg-cyan-50 transition-colors font-semibold"
+              className="px-6 py-3 bg-background text-blue-700 rounded-lg hover:bg-blue-50 transition-colors font-semibold"
             >
               Continue
             </button>
@@ -157,7 +157,7 @@ const CourseRecommender = () => {
             value={goals}
             onChange={(e) => setGoals(e.target.value)}
             placeholder="e.g., I want to explore Koh Tao's famous dive sites and maybe see whale sharks..."
-            className="w-full p-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-white/50 resize-none"
+            className="w-full p-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50 resize-none"
             rows={3}
           />
           <div className="flex gap-3">
@@ -170,7 +170,7 @@ const CourseRecommender = () => {
             <button
               onClick={getRecommendation}
               disabled={isLoading}
-              className="px-6 py-3 bg-white text-blue-700 rounded-lg hover:bg-cyan-50 transition-colors font-semibold flex items-center gap-2 disabled:opacity-70"
+              className="px-6 py-3 bg-background text-blue-700 rounded-lg hover:bg-blue-50 transition-colors font-semibold flex items-center gap-2 disabled:opacity-70"
             >
               {isLoading ? (
                 <>
@@ -197,7 +197,7 @@ const CourseRecommender = () => {
               Your Personalized Recommendation
             </h4>
             <div className="prose prose-invert max-w-none">
-              <p className="text-cyan-50 leading-relaxed whitespace-pre-line">{recommendation}</p>
+              <p className="text-blue-50 leading-relaxed whitespace-pre-line">{recommendation}</p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -209,7 +209,7 @@ const CourseRecommender = () => {
             </button>
             <a
               href="#contact"
-              className="px-6 py-3 bg-white text-blue-700 rounded-lg hover:bg-cyan-50 transition-colors font-semibold"
+              className="px-6 py-3 bg-background text-blue-700 rounded-lg hover:bg-blue-50 transition-colors font-semibold"
             >
               Book This Course
             </a>

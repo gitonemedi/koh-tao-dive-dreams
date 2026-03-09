@@ -94,7 +94,7 @@ const getPriceColor = (price: string) => {
     case '$$': return 'bg-blue-100 text-blue-800';
     case '$$$': return 'bg-orange-100 text-orange-800';
     case '$$$$': return 'bg-red-100 text-red-800';
-    default: return 'bg-gray-100 text-gray-800';
+    default: return 'bg-muted text-gray-800';
   }
 };
 
@@ -127,7 +127,7 @@ const BookingAffiliate = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-background">
       {/* Hero */}
       <div
         className="relative min-h-[50vh] flex items-center justify-center"

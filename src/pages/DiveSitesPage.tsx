@@ -300,7 +300,7 @@ const DiveSitesPage = () => {
       case 'Beginner-Gemiddeld': return 'bg-blue-100 text-blue-800';
       case 'Gemiddeld': return 'bg-yellow-100 text-yellow-800';
       case 'Gevorderd': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-gray-800';
     }
   };
 
@@ -589,7 +589,7 @@ const DiveSitesPage = () => {
                     </span>
                   </div>
                 </div>
-                <div className="bg-white p-4 rounded-lg mb-4">
+                <div className="bg-background p-4 rounded-lg mb-4">
                   <p className="font-semibold mb-2">{isDutch ? 'Inclusief:' : 'Includes:'}</p>
                   <ul className="space-y-1 text-sm">
                     <li>✓ {isDutch ? 'Gecertificeerde duikgids' : 'Certified scuba dive guide'}</li>

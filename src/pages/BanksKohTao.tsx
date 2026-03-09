@@ -12,7 +12,7 @@ const BanksKohTao = () => (
     </section>
 
     {/* Main Content */}
-    <section className="bg-white rounded-lg shadow p-6 md:p-10 mb-8">
+    <section className="bg-background rounded-lg shadow p-6 md:p-10 mb-8">
       <h2 className="text-2xl font-semibold mb-4">Banking Services</h2>
       <p className="mb-4">You'll find ATMs and currency exchange booths in all main villages. Major Thai banks have branches in Mae Haad, and most international cards are accepted. Note that withdrawal fees may apply.</p>
       <ul className="list-disc pl-6 mb-4">
@@ -29,7 +29,7 @@ const BanksKohTao = () => (
     </section>
 
     {/* Tips Section */}
-    <section className="bg-gray-50 rounded-lg shadow p-6 md:p-10">
+    <section className="bg-muted rounded-lg shadow p-6 md:p-10">
       <h3 className="text-xl font-semibold mb-2">Money-Saving Tips</h3>
       <ul className="list-disc pl-6 mb-2">
         <li>Withdraw larger amounts when possible to avoid repeated ATM fees</li>

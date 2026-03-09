@@ -181,7 +181,7 @@ const Courses = () => {
   };
 
   return (
-    <section id="courses" className="py-20 bg-gray-50 scroll-mt-24">
+    <section id="courses" className="py-20 bg-muted scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 lg:px-8 sm:px-[24px]">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -199,7 +199,7 @@ const Courses = () => {
             <div
               key={index}
               id={`course-${course.key}`}
-              className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 scroll-mt-20"
+              className="bg-background rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 scroll-mt-20"
             >
               <div className="flex items-start justify-between mb-6">
                 <div>
@@ -324,7 +324,7 @@ const Courses = () => {
                 <span className="text-emerald-200 line-through text-lg">฿24,000</span>
               </div>
               <Button 
-                className="w-full mt-4 bg-white text-emerald-600 hover:bg-emerald-50"
+                className="w-full mt-4 bg-background text-emerald-600 hover:bg-emerald-50"
                 onClick={() => navigate('/booking?item=3%20Specialty%20Bundle&type=course&price=18000&currency=THB')}
               >
                 {isDutch ? 'Boek Bundel' : 'Book Bundle'}

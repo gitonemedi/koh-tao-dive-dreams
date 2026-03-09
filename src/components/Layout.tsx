@@ -76,17 +76,17 @@ const Footer: React.FC = () => {
 
         {/* Brand */}
         <div className="col-span-2 md:col-span-1">
-          <div className="text-xl font-bold text-cyan-400 mb-3">Pro Diving Asia</div>
+          <div className="text-xl font-bold text-blue-400 mb-3">Pro Diving Asia</div>
           <p className="text-gray-400 text-sm leading-relaxed mb-4">
             {isDutch
               ? 'De toonaangevende duikschool van Koh Tao. PADI-cursussen, fun dives en onvergetelijke onderwateravonturen.'
               : 'Koh Tao’s leading dive school. PADI courses, fun dives, and unforgettable underwater adventures.'}
           </p>
-          <a href="/#contact" className="inline-block bg-cyan-500 hover:bg-cyan-600 text-white text-xs font-semibold px-4 py-2 rounded-full transition">
+          <a href="/#contact" className="inline-block bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold px-4 py-2 rounded-full transition">
             {isDutch ? 'Boek nu' : 'Book now'}
           </a>
           <div className="mt-4">
-            <div className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-2">{isDutch ? 'Volg ons' : 'Follow us'}</div>
+            <div className="text-blue-400 text-xs font-bold uppercase tracking-wider mb-2">{isDutch ? 'Volg ons' : 'Follow us'}</div>
             <div className="flex items-center gap-3">
               <a
                 href={FACEBOOK_LINK}
@@ -124,7 +124,7 @@ const Footer: React.FC = () => {
 
         {/* Diving */}
         <div>
-          <h4 className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-4">{isDutch ? 'Duiken' : 'Diving'}</h4>
+          <h4 className="text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">{isDutch ? 'Duiken' : 'Diving'}</h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li><Link to="/courses/open-water" className="hover:text-white transition">Open Water</Link></li>
             <li><Link to="/courses/discover-scuba" className="hover:text-white transition">{isDutch ? 'Discover Scuba (DSD)' : 'Discover Scuba (DSD)'}</Link></li>
@@ -139,7 +139,7 @@ const Footer: React.FC = () => {
 
         {/* Koh Tao */}
         <div>
-          <h4 className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-4">Koh Tao</h4>
+          <h4 className="text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">Koh Tao</h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li><Link to="/koh-tao-info" className="hover:text-white transition">{isDutch ? 'Over Koh Tao' : 'About Koh Tao'}</Link></li>
             <li><Link to="/Accommodation" className="hover:text-white transition">{isDutch ? 'Accommodatie' : 'Accommodation'}</Link></li>
@@ -152,7 +152,7 @@ const Footer: React.FC = () => {
 
         {/* Info */}
         <div>
-          <h4 className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-4">{isDutch ? 'Informatie' : 'Information'}</h4>
+          <h4 className="text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">{isDutch ? 'Informatie' : 'Information'}</h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li><Link to="/WeatherKohTao" className="hover:text-white transition">{isDutch ? 'Weer' : 'Weather'}</Link></li>
             <li><Link to="/VisasKohTao" className="hover:text-white transition">Visas</Link></li>
@@ -179,7 +179,7 @@ const Footer: React.FC = () => {
       {/* Bottom bar */}
       <div className="border-t border-[#1a3a5c] pt-6 text-center text-xs text-gray-500">
         © {new Date().getFullYear()} Pro Diving Asia — All rights reserved | Powered By{' '}
-        <a href="https://www.onemedia.asia" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 transition font-medium">
+        <a href="https://www.onemedia.asia" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition font-medium">
           One Media Asia
         </a>
       </div>
@@ -212,7 +212,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Link
         to="/booking?source=left-widget"
         onClick={() => trackBookingWidgetClick('left-widget')}
-        className="fixed left-0 top-1/2 z-40 hidden -translate-y-1/2 rounded-r-full bg-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-cyan-700 motion-safe:animate-pulse md:block"
+        className="fixed left-0 top-1/2 z-40 hidden -translate-y-1/2 rounded-r-full bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-700 motion-safe:animate-pulse md:block"
         aria-label={isDutch ? 'Boek nu' : 'Book now'}
         title={isDutch ? 'Boek nu' : 'Book now'}
       >
@@ -221,7 +221,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Link
         to="/booking?source=mobile-sticky"
         onClick={() => trackBookingWidgetClick('mobile-sticky')}
-        className="fixed bottom-24 left-1/2 z-40 -translate-x-1/2 rounded-full bg-cyan-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-cyan-700 motion-safe:animate-pulse md:hidden"
+        className="fixed bottom-24 left-1/2 z-40 -translate-x-1/2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-700 motion-safe:animate-pulse md:hidden"
         aria-label={isDutch ? 'Boek nu' : 'Book now'}
         title={isDutch ? 'Boek nu' : 'Book now'}
       >

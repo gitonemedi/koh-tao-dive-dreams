@@ -171,7 +171,7 @@ export default function DivemasterInternship() {
           <p className="text-gray-700 mb-4">
             The internship package covers all training, PADI materials, certification costs, and equipment. Additional costs include accommodation, food, phone, activities, and living expenses.
           </p>
-          <div className="bg-gray-50 p-4 rounded">
+          <div className="bg-muted p-4 rounded">
             <p className="text-gray-700 font-semibold">Estimated Monthly Budget:</p>
             <p className="text-gray-700 text-lg">฿25,000 per month (comfortable living)</p>
             <p className="text-sm text-gray-600 mt-2">

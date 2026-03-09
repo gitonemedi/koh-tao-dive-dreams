@@ -276,20 +276,20 @@ const Accommodation = () => {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-background">
       <section className="relative h-[65vh] min-h-[460px] overflow-hidden">
         <div className="absolute inset-0 bg-[url('/images/acc-head.jpg')] bg-cover bg-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/45 to-black/25" />
         <div className="relative z-10 h-full max-w-6xl mx-auto px-4 flex items-center">
           <div className="max-w-3xl text-white">
-            <p className="uppercase tracking-[0.2em] text-sm text-cyan-200 mb-4">Accommodation</p>
+            <p className="uppercase tracking-[0.2em] text-sm text-blue-200 mb-4">Accommodation</p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">{labels.heroTitle}</h1>
             <p className="mt-5 text-lg md:text-xl text-white/90">{labels.heroSubtitle}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#rooms" className="inline-block bg-white text-slate-900 px-5 py-3 rounded-md font-semibold hover:bg-slate-100 transition">
+              <a href="#rooms" className="inline-block bg-background text-slate-900 px-5 py-3 rounded-md font-semibold hover:bg-slate-100 transition">
                 {labels.viewRooms}
               </a>
-              <Button onClick={openOurAccommodationForm} className="bg-cyan-600 hover:bg-cyan-700 text-white">
+              <Button onClick={openOurAccommodationForm} className="bg-blue-600 hover:bg-blue-700 text-white">
                 {labels.bookStay}
               </Button>
             </div>
@@ -305,7 +305,7 @@ const Accommodation = () => {
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-3 mb-6">
-              <Button type="button" className="bg-cyan-600 hover:bg-cyan-700 text-white" onClick={openOurAccommodationForm}>
+              <Button type="button" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={openOurAccommodationForm}>
                 {labels.bookOurAccommodation}
               </Button>
               <Button type="button" variant="outline" onClick={() => openAlternativeAccommodationPopup('trip')}>
@@ -317,7 +317,7 @@ const Accommodation = () => {
             </div>
 
             {bookingSource === 'our' && (
-              <div className="grid md:grid-cols-2 gap-4 p-4 rounded-lg border bg-slate-50">
+              <div className="grid md:grid-cols-2 gap-4 p-4 rounded-lg border bg-muted">
                 <div>
                   <label htmlFor="accommodationType" className="block text-sm font-medium mb-2">{labels.accommodationType}</label>
                   <select
@@ -325,7 +325,7 @@ const Accommodation = () => {
                     title={labels.accommodationType}
                     value={accommodationType}
                     onChange={(e) => setAccommodationType(e.target.value as 'family' | 'basic' | 'bungalow')}
-                    className="w-full h-10 rounded-md border px-3 bg-white"
+                    className="w-full h-10 rounded-md border px-3 bg-background"
                   >
                     <option value="family">Family Bungalow</option>
                     <option value="basic">Basic Room</option>
@@ -342,7 +342,7 @@ const Accommodation = () => {
                     max={20}
                     value={peopleCount}
                     onChange={(e) => setPeopleCount(Math.max(1, Number(e.target.value) || 1))}
-                    className="w-full h-10 rounded-md border px-3 bg-white"
+                    className="w-full h-10 rounded-md border px-3 bg-background"
                   />
                 </div>
                 <div>
@@ -355,7 +355,7 @@ const Accommodation = () => {
                     max={60}
                     value={nightCount}
                     onChange={(e) => setNightCount(Math.max(1, Number(e.target.value) || 1))}
-                    className="w-full h-10 rounded-md border px-3 bg-white"
+                    className="w-full h-10 rounded-md border px-3 bg-background"
                   />
                 </div>
                 <div className="md:col-span-2">
@@ -367,11 +367,11 @@ const Accommodation = () => {
                     value={accommodationDetails}
                     onChange={(e) => setAccommodationDetails(e.target.value)}
                     placeholder="Arrival date, room preferences, child bed request, etc."
-                    className="w-full rounded-md border px-3 py-2 bg-white"
+                    className="w-full rounded-md border px-3 py-2 bg-background"
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <Button type="button" className="bg-cyan-600 hover:bg-cyan-700 text-white" onClick={continueToBookingForm}>
+                  <Button type="button" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={continueToBookingForm}>
                     {labels.continueBooking}
                   </Button>
                 </div>
@@ -407,7 +407,7 @@ const Accommodation = () => {
                   <Button type="button" variant="outline" className="flex-1" onClick={() => openRoomGallery(room)}>
                     {labels.viewPictures}
                   </Button>
-                  <Button type="button" className="flex-1 bg-cyan-600 hover:bg-cyan-700" onClick={openOurAccommodationForm}>
+                  <Button type="button" className="flex-1 bg-blue-600 hover:bg-blue-700" onClick={openOurAccommodationForm}>
                     {labels.bookStay}
                   </Button>
                 </div>
@@ -450,7 +450,7 @@ const Accommodation = () => {
           <p className="text-slate-300 mb-7">{labels.ctaBody}</p>
           <Button
             size="lg"
-            className="bg-cyan-500 hover:bg-cyan-600 text-white"
+            className="bg-blue-500 hover:bg-blue-600 text-white"
             onClick={openOurAccommodationForm}
           >
             {labels.ctaButton}
@@ -491,7 +491,7 @@ const Accommodation = () => {
                 <button
                   key={img}
                   type="button"
-                  className={`rounded-md overflow-hidden border-2 ${img === currentPhoto ? 'border-cyan-500' : 'border-transparent'}`}
+                  className={`rounded-md overflow-hidden border-2 ${img === currentPhoto ? 'border-blue-500' : 'border-transparent'}`}
                   onClick={() => setSelectedPhoto(img)}
                 >
                   <img src={img} alt={selectedRoomName} className="h-24 w-full object-cover" />

@@ -260,7 +260,7 @@ const FunDiving = () => {
 
         {/* Trips & Programs */}
         <TabsContent value="trips" className="transition-none">
-          <section className="py-12 px-4 bg-white">
+          <section className="py-12 px-4 bg-background">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-4xl font-bold text-center mb-8">Trips & programma's</h2>
               <div className="grid md:grid-cols-3 gap-6">
@@ -376,7 +376,7 @@ const FunDiving = () => {
                     <Link
                       key={site.path}
                       to={site.path}
-                      className="inline-flex items-center rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50"
+                      className="inline-flex items-center rounded-full border border-blue-200 bg-background px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50"
                     >
                       {site.name}
                     </Link>
@@ -492,7 +492,7 @@ const FunDiving = () => {
                             <span className="text-xl font-bold text-green-600">฿800 <span className="text-sm text-muted-foreground">/duik</span></span>
                           </div>
                         </div>
-                        <div className="bg-white p-4 rounded-lg">
+                        <div className="bg-background p-4 rounded-lg">
                           <p className="font-semibold mb-2">Inbegrepen:</p>
                           <ul className="space-y-1 text-sm">
                             <li>✓ Gecertificeerde duikgids</li>

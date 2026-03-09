@@ -36,7 +36,7 @@ type BookingFormData = z.infer<typeof bookingSchema>;
 
 const PAYPAL_LINK = 'https://paypal.me/divinginasia';
 const COURSE_DEPOSIT_RATE = 0.2;
-const SKIP_PAYMENT_MESSAGE = 'Inquiry sent! We will contact you to arrange your deposit which ca be paid via Paypal or Stripe or Visa or Bank Transfer.';
+const SKIP_PAYMENT_MESSAGE = 'You have chosen not to pay right now, no problem! We will contact you soon to arrange bookings and payment. Thank You, Pro Diving Asia Team.';
 
 const COURSE_FALLBACKS: Record<string, { item: string; price?: number; currency?: string }> = {
   'wreck-diver': { item: 'PADI Wreck Diver Specialty', price: 8000, currency: 'THB' },
@@ -254,7 +254,7 @@ const       BookingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background py-16">
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+      <div className="max-w-4xl mx-auto bg-background rounded-xl shadow-lg p-8">
         <div className="flex items-start justify-between gap-4">
           <h1 className="text-2xl font-bold mb-2">Book: {itemTitle}</h1>
         </div>
@@ -381,7 +381,7 @@ const       BookingPage: React.FC = () => {
                   key={count}
                   type="button"
                   onClick={() => setCourseFunDiveCount(count)}
-                  className={`px-3 py-2 rounded border text-sm font-medium transition ${courseFunDiveCount === count ? 'bg-blue-600 text-white border-blue-600' : 'bg-white hover:bg-blue-50 border-border'}`}
+                  className={`px-3 py-2 rounded border text-sm font-medium transition ${courseFunDiveCount === count ? 'bg-blue-600 text-white border-blue-600' : 'bg-background hover:bg-blue-50 border-border'}`}
                 >
                   {count}
                 </button>
@@ -430,7 +430,7 @@ const       BookingPage: React.FC = () => {
                   key={count}
                   type="button"
                   onClick={() => setFunDiveCount(count)}
-                  className={`px-3 py-2 rounded border text-sm font-medium transition ${funDiveCount === count ? 'bg-blue-600 text-white border-blue-600' : 'bg-white hover:bg-blue-50 border-border'}`}
+                  className={`px-3 py-2 rounded border text-sm font-medium transition ${funDiveCount === count ? 'bg-blue-600 text-white border-blue-600' : 'bg-background hover:bg-blue-50 border-border'}`}
                 >
                   {count} {count === 1 ? 'dive' : 'dives'}
                 </button>

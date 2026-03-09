@@ -178,7 +178,7 @@ const BeachesKohTao = () => {
   };
 
   return (
-  <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+  <main className="min-h-screen bg-gradient-to-b from-blue-50 to-background">
     {/* Hero Section */}
     <section className="relative h-64 md:h-[70vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-[url('/images/sexy.png')] bg-cover bg-center" />
@@ -202,7 +202,7 @@ const BeachesKohTao = () => {
     {/* Beach Cards */}
     <section className="max-w-5xl mx-auto px-4 pb-16 space-y-10">
       {beaches.map((beach, i) => (
-        <div key={beach.name} className={`bg-white rounded-2xl shadow-md overflow-hidden flex flex-col md:flex-row ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+        <div key={beach.name} className={`bg-background rounded-2xl shadow-md overflow-hidden flex flex-col md:flex-row ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
           <div className="md:w-2/5 relative min-h-[280px] md:min-h-full bg-gradient-to-br from-blue-500 to-teal-500">
             <img src={beach.image} alt={beach.name} className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
@@ -238,7 +238,7 @@ const BeachesKohTao = () => {
       <h2 className="text-3xl font-bold mb-3">{pageContent.ctaTitle}</h2>
       <p className="text-blue-100 max-w-xl mx-auto mb-8">{pageContent.ctaText}</p>
       <div className="flex flex-wrap justify-center gap-4">
-        <a href="/koh-tao-dive-sites" className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 transition">{pageContent.ctaSites}</a>
+        <a href="/koh-tao-dive-sites" className="bg-background text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 transition">{pageContent.ctaSites}</a>
         <a href="/marine-life" className="bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg border border-blue-400 hover:bg-blue-400 transition">{pageContent.ctaMarineLife}</a>
         <a href="/#contact" className="bg-teal-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-teal-400 transition">{pageContent.ctaBook}</a>
       </div>

@@ -75,7 +75,7 @@ const getPriceColor = (price: string) => {
     case '$$$$':
       return 'bg-red-100 text-red-800';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-muted text-gray-800';
   }
 };
 
@@ -118,7 +118,7 @@ const AgodaHotels = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-background">
       <div
         className="relative min-h-[50vh] flex items-center justify-center bg-cover bg-center"
         style={{

@@ -69,7 +69,7 @@ const FoodDrink = () => {
     </section>
 
     {/* Main Content */}
-    <section className="bg-white rounded-lg shadow p-6 md:p-10 mb-8">
+    <section className="bg-background rounded-lg shadow p-6 md:p-10 mb-8">
       <h2 className="text-2xl font-semibold mb-4">{pageContent.highlightsTitle}</h2>
       <ul className="list-disc pl-6 mb-4">
         {pageContent.highlights.map((item) => (
@@ -85,7 +85,7 @@ const FoodDrink = () => {
     </section>
 
     {/* Inspiration Section */}
-    <section className="bg-gray-50 rounded-lg shadow p-6 md:p-10">
+    <section className="bg-muted rounded-lg shadow p-6 md:p-10">
       <h3 className="text-xl font-semibold mb-2">{pageContent.tasteTitle}</h3>
       <ul className="list-disc pl-6 mb-2">
         {pageContent.tastes.map((item) => (
