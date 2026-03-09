@@ -298,7 +298,7 @@ const Courses = () => {
 
         <div className="bg-blue-600 rounded-xl p-8 text-white text-center">
           <h3 className="text-2xl font-bold mb-4">{t('courses.specialOffers.title')}</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             <div className="bg-blue-700 rounded-lg p-6">
               <h4 className="font-bold text-xl mb-2">{t('courses.specialOffers.combo.title')}</h4>
               <p className="text-blue-200 mb-3">{t('courses.specialOffers.combo.description')}</p>
@@ -311,6 +311,24 @@ const Courses = () => {
               <h4 className="font-bold text-xl mb-2">{t('courses.specialOffers.group.title')}</h4>
               <p className="text-blue-200 mb-3">{t('courses.specialOffers.group.description')}</p>
               <div className="text-2xl font-bold">{t('courses.specialOffers.group.discount')}</div>
+            </div>
+            <div className="bg-emerald-600 rounded-lg p-6 border-2 border-emerald-400">
+              <h4 className="font-bold text-xl mb-2">🎓 {isDutch ? '3 Specialties Bundel!' : '3 Specialty Bundle!'}</h4>
+              <p className="text-emerald-100 mb-3">
+                {isDutch 
+                  ? 'Schrijf in voor drie PADI Specialty duikcursussen en betaal minder. Verken verschillende aspecten van duiken, van zeeleven herkenning tot onderwaterfotografie.'
+                  : 'Enroll in three PADI Specialty Dive Courses and pay less. Explore various aspects of scuba diving, from marine life identification to underwater photography.'}
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-3xl font-bold">฿18,000</span>
+                <span className="text-emerald-200 line-through text-lg">฿24,000</span>
+              </div>
+              <Button 
+                className="w-full mt-4 bg-white text-emerald-600 hover:bg-emerald-50"
+                onClick={() => navigate('/booking?item=3%20Specialty%20Bundle&type=course&price=18000&currency=THB')}
+              >
+                {isDutch ? 'Boek Bundel' : 'Book Bundle'}
+              </Button>
             </div>
           </div>
         </div>

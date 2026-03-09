@@ -255,6 +255,33 @@ const       BookingPage: React.FC = () => {
         </div>
         <p className="text-sm text-muted-foreground mb-6">Select options and submit your booking or inquiry.</p>
 
+        {/* Special Packages Banner */}
+        {!hasDirectBookingContext && (
+          <div className="mb-6 p-6 border-2 border-emerald-500 rounded-lg bg-emerald-50">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 text-4xl">🎓</div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-emerald-900 mb-2">3 Specialty Bundle - Save ฿6,000!</h3>
+                <p className="text-emerald-800 mb-3">
+                  Enroll in three PADI Specialty Dive Courses and pay less. It's a unique opportunity to explore various aspects of scuba diving, from marine life identification to underwater photography.
+                </p>
+                <div className="flex items-center gap-4 mb-3">
+                  <span className="text-3xl font-bold text-emerald-900">฿18,000</span>
+                  <span className="text-emerald-700 line-through text-xl">฿24,000</span>
+                  <span className="text-sm text-emerald-700">(3 courses of your choice)</span>
+                </div>
+                <Button 
+                  variant="default"
+                  className="bg-emerald-600 hover:bg-emerald-700"
+                  onClick={() => window.location.href = '/booking?item=3%20Specialty%20Bundle&type=course&price=18000&currency=THB'}
+                >
+                  Book 3 Specialty Bundle
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="mb-6">
           <div className="flex items-center justify-between">
             <div>

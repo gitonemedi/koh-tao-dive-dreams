@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Waves, Fish, Anchor, Eye, Clock } from 'lucide-react';
+import { MapPin, Waves, Fish, Anchor, Eye, Clock, DollarSign } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -551,18 +551,94 @@ const DiveSitesPage = () => {
 
       {/* Booking Section */}
       <section className="py-16 px-4 bg-muted/50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-8">{pageContent.bookingTitle}</h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            {pageContent.bookingText}
-          </p>
-          <Button 
-            size="lg" 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg"
-            onClick={() => navigate(`/booking?item=${encodeURIComponent('Fun Dive')}&type=dive&price=1800&currency=THB&dives=2`)}
-          >
-            {pageContent.bookDive}
-          </Button>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">{pageContent.bookingTitle}</h2>
+            <p className="text-lg text-muted-foreground">
+              {pageContent.bookingText}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="border-2 border-blue-200 bg-blue-50">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-green-600" />
+                  <CardTitle className="text-lg">{isDutch ? 'Fun Diving Pakketten' : 'Fun Diving Packages'}</CardTitle>
+                </div>
+                <CardDescription>{isDutch ? 'Volumekortingen beschikbaar' : 'Volume discounts available'}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3 mb-4">
+                  <div className="flex justify-between items-center pb-2 border-b">
+                    <span className="font-medium">{isDutch ? '1 Duik' : '1 Dive'}</span>
+                    <span className="text-xl font-bold text-blue-600">
+                      ฿1,000 <span className="text-sm text-muted-foreground">/{isDutch ? 'duik' : 'dive'}</span>
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center pb-2 border-b">
+                    <span className="font-medium">{isDutch ? '2-9 Duiken' : '2-9 Dives'}</span>
+                    <span className="text-xl font-bold text-blue-600">
+                      ฿900 <span className="text-sm text-muted-foreground">/{isDutch ? 'duik' : 'dive'}</span>
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center pb-2 border-b bg-green-50 p-2 rounded">
+                    <span className="font-medium">{isDutch ? '10+ Duiken' : '10+ Dives'}</span>
+                    <span className="text-xl font-bold text-green-600">
+                      ฿800 <span className="text-sm text-muted-foreground">/{isDutch ? 'duik' : 'dive'}</span>
+                    </span>
+                  </div>
+                </div>
+                <div className="bg-white p-4 rounded-lg mb-4">
+                  <p className="font-semibold mb-2">{isDutch ? 'Inclusief:' : 'Includes:'}</p>
+                  <ul className="space-y-1 text-sm">
+                    <li>✓ {isDutch ? 'Gecertificeerde duikgids' : 'Certified scuba dive guide'}</li>
+                    <li>✓ {isDutch ? 'Gebruik van alle duikuitrusting' : 'Use of all scuba equipment'}</li>
+                    <li>✓ {isDutch ? 'Maximaal 4 duikers per gids' : 'Maximum 4 divers per guide'}</li>
+                    <li>✓ {isDutch ? 'Zoetwaterdouches' : 'Freshwater showers'}</li>
+                  </ul>
+                </div>
+                <Button 
+                  className="w-full"
+                  onClick={() => navigate(`/booking?item=${encodeURIComponent('Fun Dive')}&type=dive&price=1800&currency=THB&dives=2`)}
+                >
+                  {pageContent.bookDive}
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-green-600" />
+                  <CardTitle className="text-lg">
+                    <Link to="/dive-sites/sail-rock" className="hover:text-blue-600">
+                      Sail Rock Special Trip
+                    </Link>
+                  </CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-bold text-green-600 mb-2">฿2,900</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {isDutch ? 'Volledige dag excursie (3 duiken)' : 'Full day excursion (3 dives)'}
+                </p>
+                <ul className="space-y-2 text-sm mb-4">
+                  <li>• {isDutch ? 'Ontbijt & lunch inbegrepen' : 'Breakfast & lunch included'}</li>
+                  <li>• {isDutch ? 'Premium uitrusting' : 'Premium equipment'}</li>
+                  <li>• {isDutch ? 'Expert gids' : 'Expert guide'}</li>
+                  <li>• {isDutch ? 'Walvishaai kansen' : 'Whale shark opportunities'}</li>
+                </ul>
+                <Button 
+                  className="w-full" 
+                  variant="outline"
+                  onClick={() => navigate(`/booking?item=${encodeURIComponent('Sail Rock Special')}&type=dive&price=2900&currency=THB`)}
+                >
+                  {isDutch ? 'Boek Sail Rock' : 'Book Sail Rock'}
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
     </div>
