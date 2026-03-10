@@ -10,7 +10,32 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.1"
+    PostgrestVersion: "14.4"
+  }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
   }
   public: {
     Tables: {
@@ -32,6 +57,39 @@ export type Database = {
           setting_key?: string
           setting_value?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      affiliate_clicks: {
+        Row: {
+          affiliate_id: string | null
+          clicked_at: string | null
+          hotel_name: string
+          hotel_url: string
+          id: string
+          ip_address: string | null
+          referrer: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          affiliate_id?: string | null
+          clicked_at?: string | null
+          hotel_name: string
+          hotel_url: string
+          id?: string
+          ip_address?: string | null
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          affiliate_id?: string | null
+          clicked_at?: string | null
+          hotel_name?: string
+          hotel_url?: string
+          id?: string
+          ip_address?: string | null
+          referrer?: string | null
+          user_agent?: string | null
         }
         Relationships: []
       }
@@ -68,6 +126,238 @@ export type Database = {
           name?: string
           phone?: string | null
           preferred_date?: string | null
+        }
+        Relationships: []
+      }
+      page_content: {
+        Row: {
+          content_type: string
+          content_value: string
+          created_at: string
+          id: string
+          locale: string
+          page_slug: string
+          section_key: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          content_type?: string
+          content_value: string
+          created_at?: string
+          id?: string
+          locale?: string
+          page_slug: string
+          section_key: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          content_type?: string
+          content_value?: string
+          created_at?: string
+          id?: string
+          locale?: string
+          page_slug?: string
+          section_key?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      page_metadata: {
+        Row: {
+          created_at: string | null
+          has_seo: boolean | null
+          id: string
+          is_secured: boolean | null
+          page_slug: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          has_seo?: boolean | null
+          id?: string
+          is_secured?: boolean | null
+          page_slug: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          has_seo?: boolean | null
+          id?: string
+          is_secured?: boolean | null
+          page_slug?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      page_security: {
+        Row: {
+          allowed_roles: string[] | null
+          content_security_policy: string | null
+          created_at: string | null
+          csrf_protection: boolean | null
+          id: string
+          ip_whitelist: string | null
+          is_secured: boolean | null
+          page_slug: string
+          rate_limit_enabled: boolean | null
+          rate_limit_requests: number | null
+          rate_limit_window: number | null
+          require_admin: boolean | null
+          require_auth: boolean | null
+          updated_at: string | null
+          updated_by: string | null
+          xss_protection: boolean | null
+        }
+        Insert: {
+          allowed_roles?: string[] | null
+          content_security_policy?: string | null
+          created_at?: string | null
+          csrf_protection?: boolean | null
+          id?: string
+          ip_whitelist?: string | null
+          is_secured?: boolean | null
+          page_slug: string
+          rate_limit_enabled?: boolean | null
+          rate_limit_requests?: number | null
+          rate_limit_window?: number | null
+          require_admin?: boolean | null
+          require_auth?: boolean | null
+          updated_at?: string | null
+          updated_by?: string | null
+          xss_protection?: boolean | null
+        }
+        Update: {
+          allowed_roles?: string[] | null
+          content_security_policy?: string | null
+          created_at?: string | null
+          csrf_protection?: boolean | null
+          id?: string
+          ip_whitelist?: string | null
+          is_secured?: boolean | null
+          page_slug?: string
+          rate_limit_enabled?: boolean | null
+          rate_limit_requests?: number | null
+          rate_limit_window?: number | null
+          require_admin?: boolean | null
+          require_auth?: boolean | null
+          updated_at?: string | null
+          updated_by?: string | null
+          xss_protection?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_page_metadata"
+            columns: ["page_slug"]
+            isOneToOne: true
+            referencedRelation: "page_metadata"
+            referencedColumns: ["page_slug"]
+          },
+        ]
+      }
+      page_seo: {
+        Row: {
+          canonical_url: string | null
+          created_at: string | null
+          id: string
+          meta_description: string | null
+          meta_keywords: string | null
+          meta_title: string | null
+          og_description: string | null
+          og_image: string | null
+          og_title: string | null
+          og_type: string | null
+          page_slug: string
+          robots: string | null
+          schema_json: Json | null
+          schema_type: string | null
+          twitter_card: string | null
+          twitter_description: string | null
+          twitter_image: string | null
+          twitter_title: string | null
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          canonical_url?: string | null
+          created_at?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
+          og_type?: string | null
+          page_slug: string
+          robots?: string | null
+          schema_json?: Json | null
+          schema_type?: string | null
+          twitter_card?: string | null
+          twitter_description?: string | null
+          twitter_image?: string | null
+          twitter_title?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          canonical_url?: string | null
+          created_at?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_image?: string | null
+          og_title?: string | null
+          og_type?: string | null
+          page_slug?: string
+          robots?: string | null
+          schema_json?: Json | null
+          schema_type?: string | null
+          twitter_card?: string | null
+          twitter_description?: string | null
+          twitter_image?: string | null
+          twitter_title?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_page_metadata"
+            columns: ["page_slug"]
+            isOneToOne: true
+            referencedRelation: "page_metadata"
+            referencedColumns: ["page_slug"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          experience_level: string | null
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          experience_level?: string | null
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          experience_level?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -232,6 +522,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       app_role: ["admin", "user"],

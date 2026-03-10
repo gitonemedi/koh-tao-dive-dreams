@@ -36,7 +36,7 @@ interface SEOData {
   
   // Structured Data
   schema_type: string;
-  schema_json: string;
+  schema_json: string | null;
 }
 
 const DEFAULT_SEO: SEOData = {
@@ -54,7 +54,7 @@ const DEFAULT_SEO: SEOData = {
   twitter_description: '',
   twitter_image: '',
   schema_type: 'WebPage',
-  schema_json: '',
+  schema_json: null,
 };
 
 export const SEOMetaEditor: React.FC<SEOMetaEditorProps> = ({ pageSlug, onClose }) => {
@@ -76,7 +76,10 @@ export const SEOMetaEditor: React.FC<SEOMetaEditorProps> = ({ pageSlug, onClose 
         .single();
 
       if (!error && data) {
-        setSeoData(data);
+        setSeoData({
+          ...data,
+          schema_json: typeof data.schema_json === 'string' ? data.schema_json : JSON.stringify(data.schema_json, null, 2)
+        });
       }
     } catch (err) {
       console.error('Failed to load SEO data:', err);
