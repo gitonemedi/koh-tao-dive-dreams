@@ -17,6 +17,7 @@ import BookingAffiliate from './pages/BookingAffiliate';
 import AgodaHotels from './pages/AgodaHotels';
 import ClicksDashboard from './pages/ClicksDashboard';
 import BookingPage from './pages/BookingPage';
+import Admin from './pages/Admin';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Account from './pages/Account';
@@ -164,7 +165,7 @@ const App = () => (
             <Route path="/clicks-dashboard" element={<ClicksDashboard />} />
 
             <Route path="/booking" element={<BookingPage />} />
-            {/* Admin routes removed */}
+            <Route path="/admin" element={<RequireAdmin><Admin /></RequireAdmin>} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
