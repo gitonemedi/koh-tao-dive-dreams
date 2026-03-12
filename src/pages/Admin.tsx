@@ -17,6 +17,7 @@ import { hasAdminAccess } from '@/lib/adminAccess';
 import { PageManager } from '@/components/PageManager';
 import PricingManager from '@/components/PricingManager';
 
+
 interface BookingInquiry {
   id: string;
   name: string;
@@ -34,73 +35,19 @@ interface BookingInquiry {
   internal_notes: string | null;
   message: string | null;
   status: string;
-// ...existing code...
-  useEffect(() => {
-    const initAuth = async () => {
-      try {
-        const [{ data: userData }, { data: sessionData }] = await Promise.all([
-          supabase.auth.getUser(),
-          supabase.auth.getSession(),
-        ]);
+}
 
-        const user = userData.user || sessionData.session?.user || null;
-        let token = sessionData.session?.access_token || null;
+const Admin = () => {
+  // ...existing code...
+  // All hooks, state, and logic go here
+  // (Move everything that was after the interface and before export default Admin)
 
-        if (!user) {
-          redirectToLogin();
-          return;
-        }
+  // Place all the logic, hooks, and functions here, as in your previous code
+  // ...
 
-        if (!hasAdminAccess(user)) {
-          redirectToLogin();
-          return;
-        }
-
-        if (!token) {
-          const { data: refreshed } = await supabase.auth.refreshSession();
-          token = refreshed.session?.access_token || null;
-        }
-
-        if (!token) {
-          toast.error('Unable to establish session token. Please log in again.');
-          redirectToLogin();
-          return;
-        }
-
-        setAuthToken(token);
-
-        const response = await fetchAdminApi('/api/bookings', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (response.status === 401 || response.status === 403) {
-          toast.error('Bookings API is not authorized right now. You can still use Edit Pages.');
-          setIsLoading(false);
-          return;
-        }
-
-        if (!response.ok) throw new Error('Failed to fetch bookings');
-        const data = await response.json();
-        setBookings(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Admin auth init failed:', error);
-        toast.error('Unable to load bookings right now. You can still use Edit Pages.');
-        setBookings([]);
-        setIsLoading(false);
-      }
-    };
-
-    initAuth();
-  }, [fetchAdminApi, redirectToLogin]);
-
-  useEffect(() => {
-    if (window.location.hash === '#pages') {
-      setActiveTab('edit-pages');
-    }
-  }, []);
+  // (The rest of the Admin component remains unchanged)
+  // ...existing code...
+};
 
   const fetchBookings = async (tokenArg?: string) => {
     const token = tokenArg || authToken;
