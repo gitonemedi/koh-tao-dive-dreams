@@ -15,7 +15,7 @@ const OpenWaterEn: React.FC = () => {
         price_eur: '290',
         duration: '3-4 days',
       }}
-      heroImage="/images/openwater/openwater.jpg"
+      heroImage="/images/openwater/openwater.png"
       images={['/images/downline.png', '/images/photo-1682686580849-3e7f67df4015.avif', '/images/photo-1647825194145-2d94e259c745.avif']}
       level="Beginner"
       sections={[
