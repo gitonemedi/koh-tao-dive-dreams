@@ -6,12 +6,39 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Fish, Waves, MapPin, Clock, DollarSign, Users } from 'lucide-react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { tryAutoScroll, scrollToWithOffset } from '@/lib/scroll';
 
 const FunDiving = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
+  const locale = 'nl';
+  const fallbackContent = useMemo(() => ({
+    fun_diving_hero_title: 'Fun Diving Koh Tao',
+    fun_diving_hero_subtitle: 'Beleef het beste van de onderwaterwereld van Koh Tao met onze professioneel begeleide fun dive trips. Ontdek kleurrijke koraalriffen, ontmoet bijzonder onderwaterleven en maak onvergetelijke herinneringen.',
+    fun_diving_hero_cta: 'Ga fun diven op Koh Tao',
+    fun_diving_hero_cta2: 'Boek een cursus',
+    fun_diving_overview_title: 'Van adembenemende scheepswrakken tot exotisch onderwaterleven',
+    fun_diving_overview_body: "Koh Tao's fun dives hebben het allemaal! We zijn trots op het bieden van een persoonlijke, ontspannen en plezierige fun dive-ervaring. We tonen je de mooiste onderwaterwereld afgestemd op jouw trainingsniveau en ervaring, zodat je duiken perfect aansluiten bij je specifieke interesses.",
+    fun_diving_world_class_title: 'Wereldklasse duiklocaties',
+    fun_diving_world_class_body: 'Onder het turquoise water rond Koh Tao ligt een wereld van kleurrijke koraalriffen, bruisend onderwaterleven van macro-wezens tot schildpadden en als je geluk hebt, de majestueuze walvishaai. Met meer dan 25 fascinerende duiklocaties is er eindeloze diversiteit.',
+    fun_diving_expert_title: 'Expert duikprofessionals',
+    fun_diving_expert_body: 'Ons duikteam bestaat uit ervaren en zeer deskundige duikprofessionals die zich volledig hebben verdiept in de lokale rifecologie en duiklocaties. Hun expertise zorgt voor een veilige en verrijkende duikervaring.',
+    fun_diving_marine_life_title: 'Divers onderwaterleven',
+    fun_diving_marine_life_body: 'Van enorme walvishaaien en sierlijke zeeschildpadden tot kleurrijke rifvissen en fascinerend macro-leven, de wateren van Koh Tao herbergen een ongelooflijke variëteit aan mariene soorten. Elke duik brengt nieuwe ontdekkingen en onvergetelijke ontmoetingen.',
+    fun_diving_flexible_title: 'Flexibel schema',
+    fun_diving_flexible_body: 'We organiseren twee duiktrips per dag - ochtend en middag - op onze ruime, aangepaste duikboten. Na een spannende dag duiken kun je ontspannen met verfrissende drankjes en je ongelooflijke onderwaterervaringen delen tijdens een prachtige zonsondergang.',
+    fun_diving_ready_title: 'Klaar om te verkennen?',
+    fun_diving_ready_body: 'Of je nu een pas gecertificeerde Open Water duiker bent of een ervaren technisch duiker, we hebben de perfecte duiklocaties en pakketten voor jou. Boek vandaag nog je fun diving-avontuur!',
+    fun_diving_ready_cta1: 'Bekijk prijzen & schema',
+    fun_diving_ready_cta2: 'Ontdek duiklocaties',
+    fun_diving_trips_title: "Trips & programma's",
+    fun_diving_sites_title: 'Beste fun diving-trips op Koh Tao',
+    fun_diving_all_sites_title: 'Alle duiklocaties',
+    fun_diving_marine_tab_title: 'Ontdek de onderwaterwereld',
+    // ...add more as needed for other tabs
+  }), []);
+  const { content } = usePageContent({ pageSlug: 'fun-diving', locale, fallbackContent });
   const diveSites = [
     {
       name: "Sail Rock",
@@ -117,17 +144,13 @@ const FunDiving = () => {
         <div className="absolute inset-0 bg-[url('/images/photo-1682687982423-295485af248a.avif')] bg-cover bg-center" />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">Fun Diving Koh Tao</h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            Beleef het beste van de onderwaterwereld van Koh Tao met onze professioneel begeleide fun dive trips.
-            Ontdek kleurrijke koraalriffen, ontmoet bijzonder onderwaterleven en maak onvergetelijke herinneringen.
-          </p>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">{content.fun_diving_hero_title}</h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">{content.fun_diving_hero_subtitle}</p>
           <div className="flex flex-col md:flex-row gap-4 justify-center mb-4">
             <Button
               size="lg"
               className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg"
               onClick={() => {
-                // If already on this page, smooth scroll with offset. Otherwise request anchor and navigate here.
                 const el = document.getElementById('fun-dive-tabs');
                 if (el) {
                   scrollToWithOffset('fun-dive-tabs');
@@ -137,9 +160,9 @@ const FunDiving = () => {
                 }
               }}
             >
-              Ga fun diven op Koh Tao
+              {content.fun_diving_hero_cta}
             </Button>
-            <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg" onClick={() => { try{ sessionStorage.setItem('scrollTo','course-openWater') }catch(_){ } ; navigate('/courses'); }}>Boek een cursus</Button>
+            <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg" onClick={() => { try{ sessionStorage.setItem('scrollTo','course-openWater') }catch(_){ } ; navigate('/courses'); }}>{content.fun_diving_hero_cta2}</Button>
           </div>
         </div>
       </section>
@@ -148,7 +171,7 @@ const FunDiving = () => {
         <div id="fun-dive-tabs" className="max-w-6xl mx-auto px-4 py-8">
           <TabsList className="grid w-full grid-cols-3 lg:grid-cols-9">
             <TabsTrigger value="overview">Overzicht</TabsTrigger>
-            <TabsTrigger value="trips">Trips</TabsTrigger>
+            <TabsTrigger value="trips">{content.fun_diving_trips_title || 'Trips'}</TabsTrigger>
             <TabsTrigger value="sites">Locaties</TabsTrigger>
             <TabsTrigger value="marine">Marien</TabsTrigger>
             <TabsTrigger value="schedule">Schema</TabsTrigger>
@@ -164,12 +187,9 @@ const FunDiving = () => {
           <section id="fun-dive-main" className="py-16 px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold mb-6">Van adembenemende scheepswrakken tot exotisch onderwaterleven</h2>
+                <h2 className="text-4xl font-bold mb-6">{content.fun_diving_overview_title}</h2>
                 <p className="text-lg text-muted-foreground max-w-4xl mx-auto mb-8">
-                  Koh Tao's fun dives hebben het allemaal! We zijn trots op het bieden van een persoonlijke,
-                  ontspannen en plezierige fun dive-ervaring. We tonen je de mooiste onderwaterwereld
-                  afgestemd op jouw trainingsniveau en ervaring, zodat je duiken perfect aansluiten bij
-                  je specifieke interesses.
+                  {content.fun_diving_overview_body}
                 </p>
               </div>
 
@@ -178,14 +198,12 @@ const FunDiving = () => {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Waves className="w-5 h-5 text-blue-600" />
-                      Wereldklasse duiklocaties
+                      {content.fun_diving_world_class_title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Onder het turquoise water rond Koh Tao ligt een wereld van kleurrijke koraalriffen,
-                      bruisend onderwaterleven van macro-wezens tot schildpadden en als je geluk hebt, de
-                      majestueuze walvishaai. Met meer dan 25 fascinerende duiklocaties is er eindeloze diversiteit.
+                      {content.fun_diving_world_class_body}
                     </p>
                   </CardContent>
                 </Card>
@@ -194,14 +212,12 @@ const FunDiving = () => {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Users className="w-5 h-5 text-green-600" />
-                      Expert duikprofessionals
+                      {content.fun_diving_expert_title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Ons duikteam bestaat uit ervaren en zeer deskundige duikprofessionals die zich volledig
-                      hebben verdiept in de lokale rifecologie en duiklocaties. Hun expertise zorgt voor
-                      een veilige en verrijkende duikervaring.
+                      {content.fun_diving_expert_body}
                     </p>
                   </CardContent>
                 </Card>
@@ -210,14 +226,12 @@ const FunDiving = () => {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Fish className="w-5 h-5 text-orange-600" />
-                      Divers onderwaterleven
+                      {content.fun_diving_marine_life_title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Van enorme walvishaaien en sierlijke zeeschildpadden tot kleurrijke rifvissen en
-                      fascinerend macro-leven, de wateren van Koh Tao herbergen een ongelooflijke variëteit
-                      aan mariene soorten. Elke duik brengt nieuwe ontdekkingen en onvergetelijke ontmoetingen.
+                      {content.fun_diving_marine_life_body}
                     </p>
                   </CardContent>
                 </Card>
@@ -226,31 +240,28 @@ const FunDiving = () => {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Clock className="w-5 h-5 text-purple-600" />
-                      Flexibel schema
+                      {content.fun_diving_flexible_title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      We organiseren twee duiktrips per dag - ochtend en middag - op onze ruime, aangepaste
-                      duikboten. Na een spannende dag duiken kun je ontspannen met verfrissende drankjes en
-                      je ongelooflijke onderwaterervaringen delen tijdens een prachtige zonsondergang.
+                      {content.fun_diving_flexible_body}
                     </p>
                   </CardContent>
                 </Card>
               </div>
 
               <div className="bg-blue-50 p-8 rounded-lg text-center">
-                <h3 className="text-2xl font-bold mb-4">Klaar om te verkennen?</h3>
+                <h3 className="text-2xl font-bold mb-4">{content.fun_diving_ready_title}</h3>
                 <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                  Of je nu een pas gecertificeerde Open Water duiker bent of een ervaren technisch duiker,
-                  we hebben de perfecte duiklocaties en pakketten voor jou. Boek vandaag nog je fun diving-avontuur!
+                  {content.fun_diving_ready_body}
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center">
                   <Button size="lg" onClick={() => setActiveTab('schedule')} className="bg-blue-600 hover:bg-blue-700">
-                    Bekijk prijzen & schema
+                    {content.fun_diving_ready_cta1}
                   </Button>
                   <Button size="lg" variant="outline" onClick={() => setActiveTab('sites')}>
-                    Ontdek duiklocaties
+                    {content.fun_diving_ready_cta2}
                   </Button>
                 </div>
               </div>
@@ -262,7 +273,7 @@ const FunDiving = () => {
         <TabsContent value="trips" className="transition-none">
           <section className="py-12 px-4 bg-background">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-4xl font-bold text-center mb-8">Trips & programma's</h2>
+              <h2 className="text-4xl font-bold text-center mb-8">{content.fun_diving_trips_title}</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 <Card className="overflow-hidden">
                   <img src="/images/fun.png" alt="Fun Dive" className="w-full h-40 object-cover" />
@@ -337,7 +348,7 @@ const FunDiving = () => {
         <TabsContent value="sites" className="transition-none">
           <section id="world-class-dive-sites" className="py-16 px-4 bg-muted/50">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-4xl font-bold text-center mb-12">Beste fun diving-trips op Koh Tao</h2>
+              <h2 className="text-4xl font-bold text-center mb-12">{content.fun_diving_sites_title}</h2>
               <div className="grid md:grid-cols-2 gap-8">
                 {diveSites.map((site, index) => (
                   <Card key={index} className="overflow-hidden">
@@ -370,7 +381,7 @@ const FunDiving = () => {
               </div>
 
               <div className="mt-10">
-                <h3 className="text-2xl font-bold text-center mb-4">Alle duiklocaties</h3>
+                <h3 className="text-2xl font-bold text-center mb-4">{content.fun_diving_all_sites_title}</h3>
                 <div className="flex flex-wrap justify-center gap-2">
                   {allDiveSites.map((site) => (
                     <Link
@@ -391,7 +402,7 @@ const FunDiving = () => {
         <TabsContent value="marine" className="transition-none">
           <section className="py-16 px-4">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-4xl font-bold text-center mb-12">Ontdek de onderwaterwereld</h2>
+              <h2 className="text-4xl font-bold text-center mb-12">{content.fun_diving_marine_tab_title}</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {marineLife.map((animal, index) => (
                   <Card key={index} className="text-center">
