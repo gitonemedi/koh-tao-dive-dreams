@@ -34,25 +34,6 @@ const getErrorMessage = (err: unknown) => {
 
 const PAGE_DEFINITIONS: Record<string, ContentItem[]> = {
   'home': [
-    // ...existing EN content...
-  ],
-  'home_nl': [
-    { section_key: 'hero_title', content_value: 'Duik Koh Tao met Pro Diving Asia', content_type: 'text', label: 'Hero Titel' },
-    { section_key: 'hero_subtitle', content_value: 'Ontdek wereldklasse duiken, vriendelijke instructeurs en onvergetelijke onderwateravonturen op Koh Tao.', content_type: 'textarea', label: 'Hero Subtitel' },
-    { section_key: 'hero_primary_cta', content_value: 'Boek Nu', content_type: 'text', label: 'Hero Primaire CTA' },
-    { section_key: 'hero_secondary_cta', content_value: 'Cursussen', content_type: 'text', label: 'Hero Secundaire CTA' },
-    { section_key: 'about_headline', content_value: 'Klein eiland, 21 km², weelderig en omgeven door meer dan 15 duiklocaties.', content_type: 'textarea', label: 'Over Headline' },
-    { section_key: 'about_sites_line', content_value: 'WHITE ROCK - TWINS - GREEN ROCK - CHUMPHON PINNACLE - SAIL ROCK - SOUTHWEST PINNACLE - EN MEER', content_type: 'textarea', label: 'Over Duiklocaties Lijn' },
-    { section_key: 'about_map_alt', content_value: 'Kaart van Koh Tao en duiklocaties', content_type: 'text', label: 'Over Kaart Alt Tekst' },
-    { section_key: 'about_title', content_value: 'Van PADI Open Water certificeringen tot PADI Divemaster stages', content_type: 'textarea', label: 'Over Titel' },
-    { section_key: 'about_paragraph_1', content_value: 'Koh Tao is niet alleen een topbestemming in Thailand voor je duikvakantie, maar ook ideaal voor het behalen van bijna alle PADI-duikcertificeringen, voor zowel beginners als ervaren duikers.', content_type: 'textarea', label: 'Over Paragraaf 1' },
-    { section_key: 'about_paragraph_2', content_value: 'Levenslange certificeringen wereldwijd geldig, tegen een verrassend lage prijs. Haal je PADI-duikbrevet hier voor 9000 baht, nu inclusief 4 nachten accommodatie in de cursusprijs.', content_type: 'textarea', label: 'Over Paragraaf 2' },
-    { section_key: 'courses_section_title', content_value: 'Onze Duikcursussen', content_type: 'text', label: 'Cursussen Sectie Titel' },
-    { section_key: 'courses_section_subtitle', content_value: 'Kies uit beginnerservaringen tot professionele duiktraining op Koh Tao.', content_type: 'textarea', label: 'Cursussen Sectie Subtitel' },
-    { section_key: 'gallery_headline', content_value: 'Bekijk de fotografie van onze blije klanten.', content_type: 'text', label: 'Galerij Headline' },
-    { section_key: 'gallery_subtitle', content_value: 'Beleef de adembenemende schoonheid van de onderwaterwereld van Koh Tao in onze fotogalerij', content_type: 'textarea', label: 'Galerij Subtitel' },
-    // ...repeat for all other keys in EN, translating content/labels to Dutch...
-  ],
     { section_key: 'hero_title', content_value: 'Dive Koh Tao with Pro Diving Asia', content_type: 'text', label: 'Hero Title' },
     { section_key: 'hero_subtitle', content_value: 'Discover world-class diving, friendly instructors, and unforgettable underwater adventures on Koh Tao.', content_type: 'textarea', label: 'Hero Subtitle' },
     { section_key: 'hero_primary_cta', content_value: 'Book Now', content_type: 'text', label: 'Hero Primary CTA' },
@@ -78,6 +59,24 @@ const PAGE_DEFINITIONS: Record<string, ContentItem[]> = {
     { section_key: 'course_advanced_title', content_value: 'Advanced Open Water', content_type: 'text', label: 'Advanced Card Title' },
     { section_key: 'course_advanced_level', content_value: 'Intermediate', content_type: 'text', label: 'Advanced Card Level' },
     { section_key: 'course_advanced_duration', content_value: '2 days', content_type: 'text', label: 'Advanced Card Duration' },
+  ],
+  'home_nl': [
+    { section_key: 'hero_title', content_value: 'Duik Koh Tao met Pro Diving Asia', content_type: 'text', label: 'Hero Titel' },
+    { section_key: 'hero_subtitle', content_value: 'Ontdek wereldklasse duiken, vriendelijke instructeurs en onvergetelijke onderwateravonturen op Koh Tao.', content_type: 'textarea', label: 'Hero Subtitel' },
+    { section_key: 'hero_primary_cta', content_value: 'Boek Nu', content_type: 'text', label: 'Hero Primaire CTA' },
+    { section_key: 'hero_secondary_cta', content_value: 'Cursussen', content_type: 'text', label: 'Hero Secundaire CTA' },
+    { section_key: 'about_headline', content_value: 'Klein eiland, 21 km², weelderig en omgeven door meer dan 15 duiklocaties.', content_type: 'textarea', label: 'Over Headline' },
+    { section_key: 'about_sites_line', content_value: 'WHITE ROCK - TWINS - GREEN ROCK - CHUMPHON PINNACLE - SAIL ROCK - SOUTHWEST PINNACLE - EN MEER', content_type: 'textarea', label: 'Over Duiklocaties Lijn' },
+    { section_key: 'about_map_alt', content_value: 'Kaart van Koh Tao en duiklocaties', content_type: 'text', label: 'Over Kaart Alt Tekst' },
+    { section_key: 'about_title', content_value: 'Van PADI Open Water certificeringen tot PADI Divemaster stages', content_type: 'textarea', label: 'Over Titel' },
+    { section_key: 'about_paragraph_1', content_value: 'Koh Tao is niet alleen een topbestemming in Thailand voor je duikvakantie, maar ook ideaal voor het behalen van bijna alle PADI-duikcertificeringen, voor zowel beginners als ervaren duikers.', content_type: 'textarea', label: 'Over Paragraaf 1' },
+    { section_key: 'about_paragraph_2', content_value: 'Levenslange certificeringen wereldwijd geldig, tegen een verrassend lage prijs. Haal je PADI-duikbrevet hier voor 9000 baht, nu inclusief 4 nachten accommodatie in de cursusprijs.', content_type: 'textarea', label: 'Over Paragraaf 2' },
+    { section_key: 'courses_section_title', content_value: 'Onze Duikcursussen', content_type: 'text', label: 'Cursussen Sectie Titel' },
+    { section_key: 'courses_section_subtitle', content_value: 'Kies uit beginnerservaringen tot professionele duiktraining op Koh Tao.', content_type: 'textarea', label: 'Cursussen Sectie Subtitel' },
+    { section_key: 'gallery_headline', content_value: 'Bekijk de fotografie van onze blije klanten.', content_type: 'text', label: 'Galerij Headline' },
+    { section_key: 'gallery_subtitle', content_value: 'Beleef de adembenemende schoonheid van de onderwaterwereld van Koh Tao in onze fotogalerij', content_type: 'textarea', label: 'Galerij Subtitel' },
+    // ...repeat for all other keys in EN, translating content/labels to Dutch...
+  ],
     { section_key: 'course_advanced_max_depth', content_value: '30m', content_type: 'text', label: 'Advanced Card Max Depth' },
     { section_key: 'course_advanced_price', content_value: '฿9,500', content_type: 'text', label: 'Advanced Card Price' },
     { section_key: 'course_advanced_price_usd', content_value: '275', content_type: 'text', label: 'Advanced Card Price USD' },
