@@ -11,7 +11,7 @@ serve(async (req) => {
     }
     const data = await res.json();
     return new Response(JSON.stringify({
-      rates: data.rates,
+      rates: { THB: 1, ...data.rates },
       date: data.date,
     }), {
       headers: { 'Content-Type': 'application/json' },

@@ -11,8 +11,6 @@ const ScubaReviewNl: React.FC = () => {
         hero_subtitle: 'Fris je duikvaardigheden en kennis op met onze complete opfriscursus.',
         course_overview: 'De Scuba Review-cursus is bedoeld voor gebrevetteerde duikers die hun vaardigheden willen opfrissen, hun kennis willen bijwerken of zich willen voorbereiden op gevorderde trainingen. Deze cursus behandelt essentiele duikprincipes, veiligheidsprocedures en praktische vaardigheden zodat je weer zelfverzekerd en bekwaam onder water bent.',
         price_thb: '2500',
-        price_usd: '72',
-        price_eur: '66',
         duration: '1-2 dagen',
       }}
       heroImage="/images/scubareview.png"

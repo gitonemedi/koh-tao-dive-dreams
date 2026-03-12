@@ -11,8 +11,6 @@ const ScubaReviewEn: React.FC = () => {
         hero_subtitle: 'Refresh your scuba skills and confidence with our complete refresher program.',
         course_overview: 'The Scuba Review course is designed for certified divers who want to refresh skills, update knowledge, or prepare for advanced training. It covers core dive principles, safety procedures, and practical drills so you can return to the water with confidence.',
         price_thb: '2500',
-        price_usd: '72',
-        price_eur: '66',
         duration: '1-2 days',
       }}
       heroImage="/images/scubareview.png"

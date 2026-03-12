@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { usePageContent } from '@/hooks/usePageContent';
+import { useCurrencyRates } from '@/hooks/useCurrencyRates';
 
 const Courses = () => {
   const { t, i18n } = useTranslation();
@@ -118,6 +119,8 @@ const Courses = () => {
       currency,
       maximumFractionDigits: 0,
     }).format(amount);
+
+  const { rates, lastUpdate, loading: ratesLoading, error: ratesError } = useCurrencyRates();
 
   const courses = [
     {
@@ -322,7 +325,21 @@ const Courses = () => {
                 </div>
                 <div className="text-right">
                   <div className="text-3xl font-bold text-blue-600">{formatCurrency(parsePriceMajor(course.price), 'THB')}</div>
-                  <div className="text-sm text-gray-500">{formatCurrency(parsePriceMajor(course.priceUsd), 'USD')} / {formatCurrency(parsePriceMajor(course.priceEur), 'EUR')}</div>
+                  {ratesLoading ? (
+                    <div className="text-sm text-gray-500">Loading live rates...</div>
+                  ) : ratesError ? (
+                    <div className="text-sm text-red-500">Live rates unavailable</div>
+                  ) : (
+                    <>
+                      <div className="text-sm text-gray-500">{formatCurrency(Number(course.priceUsd) || 0, 'USD')} / {formatCurrency(Number(course.priceEur) || 0, 'EUR')}</div>
+                      {lastUpdate && (
+                        <div className="text-xs text-gray-400 mt-1">
+                          {isDutch ? 'Laatste koersupdate: ' : 'Last rate update: '}
+                          {new Date(lastUpdate).toLocaleString(localeTag, { dateStyle: 'medium', timeStyle: 'short' })}
+                        </div>
+                      )}
+                    </>
+                  )}
                   <div className="text-sm text-gray-500">{t('courses.perPerson')}</div>
                 </div>
               </div>

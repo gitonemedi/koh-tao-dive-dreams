@@ -11,8 +11,6 @@ const ScubaDiverEn: React.FC = () => {
         hero_subtitle: 'Experience the underwater world with confidence. The PADI Scuba Diver course is perfect for those who want to try scuba diving before committing to full certification.',
         course_overview: "The PADI Scuba Diver course introduces you to the underwater world in a fun and relaxed way. You'll learn basic scuba diving skills and explore shallow reefs, giving you the confidence to continue your diving journey. This course serves as an introduction to scuba diving and can lead to full Open Water certification.",
         price_thb: '8500',
-        price_usd: '245',
-        price_eur: '225',
         duration: '2-3 days',
       }}
       heroImage="/images/scubadiver-hero.png"

@@ -432,10 +432,7 @@ export const PageContentEditor: React.FC<PageContentEditorProps> = ({ pageSlug, 
   const [isAdmin, setIsAdmin] = useState(false);
   const [contentItems, setContentItems] = useState<ContentItem[]>([]);
   const [isSaving, setIsSaving] = useState(false);
-  const [isPublishing, setIsPublishing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [draftStatus, setDraftStatus] = useState<DraftStatus>('published');
-  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
 
   useEffect(() => {
     const checkAdmin = async () => {
@@ -455,36 +452,19 @@ export const PageContentEditor: React.FC<PageContentEditorProps> = ({ pageSlug, 
       const template = PAGE_DEFINITIONS[pageSlug] || [];
       
       try {
-        // @ts-expect-error - page_metadata table will be available after migration
-        const { data: metadata } = await supabase
-          .from('page_metadata')
-          .select('draft_status, updated_at')
-          .eq('page_slug', pageSlug)
-          .maybeSingle();
-
-        setDraftStatus((metadata?.draft_status as DraftStatus) || 'published');
-        setLastUpdated(metadata?.updated_at || null);
-
-        // @ts-expect-error - page_content table will be available after migration
-        const { data: publishedData, error } = await supabase
+        const { data, error } = await supabase
           .from('page_content')
           .select('section_key, content_value, content_type')
           .eq('page_slug', pageSlug)
           .eq('locale', locale);
-
         if (error) throw error;
-
-        // @ts-expect-error - page_content_drafts table will be available after migration
-        const sourceData = publishedData;
-
         const loadedItems = template.map((item) => {
-          const dbItem = sourceData?.find((d: any) => d.section_key === item.section_key);
+          const dbItem = data?.find((d: any) => d.section_key === item.section_key);
           return {
             ...item,
             content_value: dbItem?.content_value || item.content_value,
           };
         });
-
         setContentItems(loadedItems);
       } catch (err) {
         console.error('Failed to load content:', err);
@@ -498,39 +478,12 @@ export const PageContentEditor: React.FC<PageContentEditorProps> = ({ pageSlug, 
     loadContent();
   }, [pageSlug, locale]);
 
-  const ensureMetadata = async (status: DraftStatus) => {
-    // @ts-expect-error - page_metadata table will be available after migration
-    const { error } = await supabase
-      .from('page_metadata')
-      .upsert({
-        page_slug: pageSlug,
-        draft_status: status,
-        updated_at: new Date().toISOString(),
-      }, { onConflict: 'page_slug' });
+  // Removed: ensureMetadata, handleSaveDraft, handlePublish
 
-    if (!error) return;
-
-    const message = getErrorMessage(error);
-    const missingDraftColumns = message.includes('draft_status') || message.includes('published_at');
-    if (!missingDraftColumns) throw error;
-
-    // Backward-compatible fallback when draft columns do not exist yet.
-    // @ts-expect-error - page_metadata table will be available after migration
-    const { error: legacyError } = await supabase
-      .from('page_metadata')
-      .upsert({
-        page_slug: pageSlug,
-        updated_at: new Date().toISOString(),
-      }, { onConflict: 'page_slug' });
-
-    if (legacyError) throw legacyError;
-  };
-
-  const handleSaveDraft = async () => {
+  const handleSave = async () => {
     setIsSaving(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      await ensureMetadata('published');
       const upserts = contentItems.map((item) => ({
         page_slug: pageSlug,
         locale,
@@ -543,45 +496,12 @@ export const PageContentEditor: React.FC<PageContentEditorProps> = ({ pageSlug, 
         .from('page_content')
         .upsert(upserts, { onConflict: 'page_slug,locale,section_key' });
       if (error) throw error;
-      setDraftStatus('published');
-      setLastUpdated(new Date().toISOString());
       toast.success('Content saved successfully');
     } catch (err) {
       console.error('Failed to save content:', err);
       toast.error('Failed to save content');
     } finally {
       setIsSaving(false);
-    }
-  };
-
-  const handlePublish = async () => {
-    setIsSaving(true);
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      await ensureMetadata('published');
-      const upserts = contentItems.map((item) => ({
-        page_slug: pageSlug,
-        locale,
-        section_key: item.section_key,
-        content_type: item.content_type,
-        content_value: item.content_value,
-        updated_by: user?.email || null,
-      }));
-      // Debug: log locale and upsert payload
-      // eslint-disable-next-line no-console
-      console.log('[DEBUG] Publishing content with locale:', locale, 'upserts:', upserts);
-      const { error } = await supabase
-        .from('page_content')
-        .upsert(upserts, { onConflict: 'page_slug,locale,section_key' });
-      if (error) throw error;
-      setDraftStatus('published');
-      setLastUpdated(new Date().toISOString());
-      toast.success('Changes published successfully');
-    } catch (err) {
-      console.error('Failed to publish content:', err);
-      toast.error('Failed to publish changes');
-    } finally {
-      setIsPublishing(false);
     }
   };
 
@@ -606,9 +526,6 @@ export const PageContentEditor: React.FC<PageContentEditorProps> = ({ pageSlug, 
         <CardDescription>
           Admin-only: Edit page content for {pageSlug} ({locale})
         </CardDescription>
-        <CardDescription>
-          Status: {draftStatus === 'draft' ? 'Draft' : 'Published'}{lastUpdated ? ` • Last updated ${new Date(lastUpdated).toLocaleString()}` : ''}
-        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {contentItems.map((item) => (
@@ -632,14 +549,9 @@ export const PageContentEditor: React.FC<PageContentEditorProps> = ({ pageSlug, 
             )}
           </div>
         ))}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <Button onClick={handleSaveDraft} disabled={isSaving || isPublishing} variant="outline">
-            <Save className="w-4 h-4 mr-2" />
-            {isSaving ? 'Saving Draft...' : 'Save Draft'}
-          </Button>
-          <Button onClick={handlePublish} disabled={isSaving || isPublishing}>
-            <Upload className="w-4 h-4 mr-2" />
-            {isPublishing ? 'Publishing...' : 'Publish Live'}
+        <div className="flex gap-2 p-4">
+          <Button onClick={handleSave} disabled={isSaving} variant="default">
+            <Save className="w-4 h-4 mr-1" /> Save
           </Button>
         </div>
       </CardContent>
