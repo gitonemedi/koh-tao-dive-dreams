@@ -28,6 +28,8 @@ const Courses = () => {
     course_open_water_duration: t('courses.openWater.duration'),
     course_open_water_max_depth: t('courses.openWater.maxDepth'),
     course_open_water_price: t('courses.openWater.price'),
+    course_open_water_price_usd: '320',
+    course_open_water_price_eur: '290',
     course_open_water_description: t('courses.openWater.description'),
 
     course_advanced_title: t('courses.advanced.title'),
@@ -35,6 +37,8 @@ const Courses = () => {
     course_advanced_duration: t('courses.advanced.duration'),
     course_advanced_max_depth: t('courses.advanced.maxDepth'),
     course_advanced_price: t('courses.advanced.price'),
+    course_advanced_price_usd: '275',
+    course_advanced_price_eur: '250',
     course_advanced_description: t('courses.advanced.description'),
 
     course_efr_title: t('courses.efr.title'),
@@ -42,6 +46,8 @@ const Courses = () => {
     course_efr_duration: t('courses.efr.duration'),
     course_efr_max_depth: t('courses.efr.maxDepth'),
     course_efr_price: t('courses.efr.price'),
+    course_efr_price_usd: '130',
+    course_efr_price_eur: '120',
     course_efr_description: t('courses.efr.description'),
 
     course_rescue_title: t('courses.rescue.title'),
@@ -49,6 +55,8 @@ const Courses = () => {
     course_rescue_duration: t('courses.rescue.duration'),
     course_rescue_max_depth: t('courses.rescue.maxDepth'),
     course_rescue_price: t('courses.rescue.price'),
+    course_rescue_price_usd: '290',
+    course_rescue_price_eur: '265',
     course_rescue_description: t('courses.rescue.description'),
 
     course_divemaster_title: t('courses.divemaster.title'),
@@ -56,6 +64,8 @@ const Courses = () => {
     course_divemaster_duration: t('courses.divemaster.duration'),
     course_divemaster_max_depth: t('courses.divemaster.maxDepth'),
     course_divemaster_price: t('courses.divemaster.price'),
+    course_divemaster_price_usd: '1190',
+    course_divemaster_price_eur: '1090',
     course_divemaster_description: t('courses.divemaster.description'),
 
     course_instructor_title: t('courses.instructor.title'),
@@ -63,6 +73,8 @@ const Courses = () => {
     course_instructor_duration: t('courses.instructor.duration'),
     course_instructor_max_depth: t('courses.instructor.maxDepth'),
     course_instructor_price: t('courses.instructor.price'),
+    course_instructor_price_usd: '1710',
+    course_instructor_price_eur: '1560',
     course_instructor_description: t('courses.instructor.description'),
 
     course_discover_scuba_title: 'Discover Scuba Diving (DSD)',
@@ -70,6 +82,8 @@ const Courses = () => {
     course_discover_scuba_duration: isDutch ? '1 dag' : '1 day',
     course_discover_scuba_max_depth: '12m',
     course_discover_scuba_price: '฿2,500',
+    course_discover_scuba_price_usd: '72',
+    course_discover_scuba_price_eur: '66',
     course_discover_scuba_description: isDutch
       ? 'Geen brevet nodig. De ideale eerste stap om veilig kennis te maken met duiken.'
       : 'No certification required. The perfect first step to experience scuba diving safely.',
@@ -79,6 +93,8 @@ const Courses = () => {
     course_discover_scuba_deluxe_duration: isDutch ? '1-2 dagen' : '1-2 days',
     course_discover_scuba_deluxe_max_depth: '12m',
     course_discover_scuba_deluxe_price: '฿5,000',
+    course_discover_scuba_deluxe_price_usd: '144',
+    course_discover_scuba_deluxe_price_eur: '132',
     course_discover_scuba_deluxe_description: isDutch
       ? 'Uitgebreide DSD met 3 duiken voor meer onderwatertijd en een relaxter tempo.'
       : 'Extended DSD with 3 dives for more underwater time and a more relaxed pace.',
@@ -91,9 +107,17 @@ const Courses = () => {
   });
 
   const parsePriceMajor = (priceLabel: string) => {
-    const digits = priceLabel.replace(/[^\d]/g, '');
+    const digits = String(priceLabel || '').replace(/[^\d.-]/g, '');
     return digits ? Number(digits) : 0;
   };
+
+  const localeTag = isDutch ? 'nl-NL' : 'en-US';
+  const formatCurrency = (amount: number, currency: 'THB' | 'USD' | 'EUR') =>
+    new Intl.NumberFormat(localeTag, {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 0,
+    }).format(amount);
 
   const courses = [
     {
@@ -104,6 +128,8 @@ const Courses = () => {
       duration: homeContent.course_open_water_duration,
       maxDepth: homeContent.course_open_water_max_depth,
       price: homeContent.course_open_water_price,
+      priceUsd: homeContent.course_open_water_price_usd,
+      priceEur: homeContent.course_open_water_price_eur,
       description: homeContent.course_open_water_description,
       fullDescription: t('courses.openWater.fullDescription'),
       includes: t('courses.openWater.includes', { returnObjects: true }),
@@ -121,6 +147,8 @@ const Courses = () => {
       duration: homeContent.course_advanced_duration,
       maxDepth: homeContent.course_advanced_max_depth,
       price: homeContent.course_advanced_price,
+      priceUsd: homeContent.course_advanced_price_usd,
+      priceEur: homeContent.course_advanced_price_eur,
       description: homeContent.course_advanced_description,
       fullDescription: t('courses.advanced.fullDescription'),
       includes: t('courses.advanced.includes', { returnObjects: true }),
@@ -137,6 +165,8 @@ const Courses = () => {
       duration: homeContent.course_efr_duration,
       maxDepth: homeContent.course_efr_max_depth,
       price: homeContent.course_efr_price,
+      priceUsd: homeContent.course_efr_price_usd,
+      priceEur: homeContent.course_efr_price_eur,
       description: homeContent.course_efr_description,
       fullDescription: t('courses.efr.fullDescription'),
       includes: t('courses.efr.includes', { returnObjects: true }),
@@ -153,6 +183,8 @@ const Courses = () => {
       duration: homeContent.course_rescue_duration,
       maxDepth: homeContent.course_rescue_max_depth,
       price: homeContent.course_rescue_price,
+      priceUsd: homeContent.course_rescue_price_usd,
+      priceEur: homeContent.course_rescue_price_eur,
       description: homeContent.course_rescue_description,
       fullDescription: t('courses.rescue.fullDescription'),
       includes: t('courses.rescue.includes', { returnObjects: true }),
@@ -169,6 +201,8 @@ const Courses = () => {
       duration: homeContent.course_divemaster_duration,
       maxDepth: homeContent.course_divemaster_max_depth,
       price: homeContent.course_divemaster_price,
+      priceUsd: homeContent.course_divemaster_price_usd,
+      priceEur: homeContent.course_divemaster_price_eur,
       description: homeContent.course_divemaster_description,
       fullDescription: t('courses.divemaster.fullDescription'),
       includes: t('courses.divemaster.includes', { returnObjects: true }),
@@ -185,6 +219,8 @@ const Courses = () => {
       duration: homeContent.course_instructor_duration,
       maxDepth: homeContent.course_instructor_max_depth,
       price: homeContent.course_instructor_price,
+      priceUsd: homeContent.course_instructor_price_usd,
+      priceEur: homeContent.course_instructor_price_eur,
       description: homeContent.course_instructor_description,
       fullDescription: t('courses.instructor.fullDescription'),
       includes: t('courses.instructor.includes', { returnObjects: true }),
@@ -201,6 +237,8 @@ const Courses = () => {
       duration: homeContent.course_discover_scuba_duration,
       maxDepth: homeContent.course_discover_scuba_max_depth,
       price: homeContent.course_discover_scuba_price,
+      priceUsd: homeContent.course_discover_scuba_price_usd,
+      priceEur: homeContent.course_discover_scuba_price_eur,
       description: homeContent.course_discover_scuba_description,
       fullDescription: isDutch
         ? 'Discover Scuba Diving is ontworpen voor beginners. Je leert basisvaardigheden in een veilige omgeving en maakt daarna je eerste buitenwaterduik met een professional.'
@@ -222,6 +260,8 @@ const Courses = () => {
       duration: homeContent.course_discover_scuba_deluxe_duration,
       maxDepth: homeContent.course_discover_scuba_deluxe_max_depth,
       price: homeContent.course_discover_scuba_deluxe_price,
+      priceUsd: homeContent.course_discover_scuba_deluxe_price_usd,
+      priceEur: homeContent.course_discover_scuba_deluxe_price_eur,
       description: homeContent.course_discover_scuba_deluxe_description,
       fullDescription: isDutch
         ? 'DSD Deluxe bevat zwembad/confined training plus een kustduik en twee bootduiken rond Koh Tao. Perfect als je meer ervaring wilt voordat je beslist over Open Water.'
@@ -281,7 +321,8 @@ const Courses = () => {
                   </span>
                 </div>
                 <div className="text-right">
-                  <div className="text-3xl font-bold text-blue-600">{course.price}</div>
+                  <div className="text-3xl font-bold text-blue-600">{formatCurrency(parsePriceMajor(course.price), 'THB')}</div>
+                  <div className="text-sm text-gray-500">{formatCurrency(parsePriceMajor(course.priceUsd), 'USD')} / {formatCurrency(parsePriceMajor(course.priceEur), 'EUR')}</div>
                   <div className="text-sm text-gray-500">{t('courses.perPerson')}</div>
                 </div>
               </div>

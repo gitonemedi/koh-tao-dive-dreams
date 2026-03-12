@@ -62,13 +62,28 @@ const CoursePageTemplate: React.FC<CoursePageProps> = ({
     return <div className="min-h-screen bg-background flex items-center justify-center">Loading...</div>;
   }
 
+  const localeTag = locale === 'nl' ? 'nl-NL' : 'en-US';
+  const parseAmount = (value: string) => {
+    const digits = String(value || '').replace(/[^\d.-]/g, '');
+    return Number(digits || 0);
+  };
+  const formatCurrency = (amount: number, currency: 'THB' | 'USD' | 'EUR') =>
+    new Intl.NumberFormat(localeTag, {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 0,
+    }).format(amount);
+
   const priceThb = content.price_thb || fallbackContent.price_thb || '0';
   const priceUsd = content.price_usd || fallbackContent.price_usd || '0';
   const priceEur = content.price_eur || fallbackContent.price_eur || '0';
   const duration = content.duration || fallbackContent.duration || 'Contact us';
+  const thbAmount = parseAmount(priceThb);
+  const usdAmount = parseAmount(priceUsd);
+  const eurAmount = parseAmount(priceEur);
   
   const bookingName = bookingItemName || content.hero_title;
-  const bookingUrl = `/booking?item=${encodeURIComponent(bookingName)}&type=${bookingType}&price=${priceThb}&currency=THB`;
+  const bookingUrl = `/booking?item=${encodeURIComponent(bookingName)}&type=${bookingType}&price=${thbAmount}&currency=THB`;
 
   const heroImageUrl = heroImage || images[0];
 
@@ -153,8 +168,8 @@ const CoursePageTemplate: React.FC<CoursePageProps> = ({
                     {locale === 'nl' ? 'Prijs' : 'Price'}
                   </div>
                   <div className="space-y-1">
-                    <p className="text-2xl font-bold text-sky-600">฿{Number(priceThb).toLocaleString()}</p>
-                    <p className="text-sm text-muted-foreground">${priceUsd} USD / €{priceEur} EUR</p>
+                    <p className="text-2xl font-bold text-sky-600">{formatCurrency(thbAmount, 'THB')}</p>
+                    <p className="text-sm text-muted-foreground">{formatCurrency(usdAmount, 'USD')} / {formatCurrency(eurAmount, 'EUR')}</p>
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePageContent } from '@/hooks/usePageContent';
 
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -9,6 +10,22 @@ const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const { i18n } = useTranslation();
   const isDutch = i18n.language.startsWith('nl');
+  const locale = isDutch ? 'nl' : 'en';
+
+  const fallbackContent = useMemo(() => ({
+    gallery_headline: isDutch
+      ? 'Bekijk de fotografie van onze blije klanten.'
+      : 'Check out the photography of our happy customers.',
+    gallery_subtitle: isDutch
+      ? 'Ervaar de adembenemende schoonheid van de onderwaterwereld van Koh Tao in onze fotogalerij'
+      : 'Experience the breathtaking beauty of Koh Tao’s underwater world in our photo gallery',
+  }), [isDutch]);
+
+  const { content } = usePageContent({
+    pageSlug: 'home',
+    locale,
+    fallbackContent,
+  });
 
   const images = isDutch ? [
     {
@@ -211,12 +228,10 @@ const Gallery = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Check out the photography of our happy customers.
+            {content.gallery_headline}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {isDutch
-              ? 'Ervaar de adembenemende schoonheid van de onderwaterwereld van Koh Tao in onze fotogalerij'
-              : 'Experience the breathtaking beauty of Koh Tao’s underwater world in our photo gallery'}
+            {content.gallery_subtitle}
           </p>
         </div>
 

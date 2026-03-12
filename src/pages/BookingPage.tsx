@@ -189,6 +189,35 @@ const       BookingPage: React.FC = () => {
         : 'N/A (course booking)';
       const messageWithSource = `${data.message || 'No additional message'}\n\nBooking Source: ${bookingSource}`;
 
+      const apiBookingPayload = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone || null,
+        item_type: itemType,
+        course_title: bookingItemTitle,
+        preferred_date: data.preferred_date || null,
+        experience_level: data.experience_level || null,
+        addons: addonsText,
+        addons_json: JSON.stringify(selectedAddonsList),
+        addons_total: totalAddons,
+        subtotal_amount: totalItemCostMajor > 0 ? totalItemCostMajor : null,
+        total_payable_now: amountMajor > 0 ? amountMajor : null,
+        message: messageWithSource,
+        status: 'pending',
+      };
+
+      let persisted = false;
+      try {
+        const dbRes = await fetch(apiUrl('/api/bookings'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(apiBookingPayload),
+        });
+        persisted = dbRes.ok;
+      } catch (dbErr) {
+        console.warn('Booking persistence failed; continuing with email flow.', dbErr);
+      }
+
       // Prepare Web3Forms payload
       const payload = {
         access_key: '4ca93aa5-cd42-4902-af87-a08e1ae7c832',
@@ -226,10 +255,6 @@ const       BookingPage: React.FC = () => {
       const responseData = await res.json().catch(() => ({}));
       console.log('Web3Forms response:', res.status, responseData);
 
-      // Persist booking via local API
-      let persisted = false;
-      // No CRM/DB persistence, only email and Web3Forms
-
       // Notify user based on Web3Forms result, but booking is already persisted
       if (res.ok && responseData.success) {
         if (data.paymentChoice === 'now' && amountMajor > 0) {
@@ -240,7 +265,16 @@ const       BookingPage: React.FC = () => {
       } else {
         const errMsg = responseData?.message || responseData?.error || `HTTP ${res.status}`;
         console.error('Web3Forms error:', errMsg, responseData);
-        toast.error(`Submission failed: ${errMsg}. Please retry.`);
+        if (persisted) {
+          toast.error(`Inquiry saved, but email notification failed: ${errMsg}`);
+          if (data.paymentChoice === 'now' && amountMajor > 0) {
+            setShowPaymentLinks(true);
+          } else {
+            setShowSkipPaymentPopup(true);
+          }
+        } else {
+          toast.error(`Submission failed: ${errMsg}. Please retry.`);
+        }
       }
     } catch (err) {
       console.error('Form submission error:', err);

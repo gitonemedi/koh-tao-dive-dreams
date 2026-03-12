@@ -1,9 +1,22 @@
 import { handleOptions, applyCors } from '../../_lib/cors.js';
 import { createClient } from '@supabase/supabase-js';
+import { requireAdmin } from '../../_lib/auth.js';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY ? createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY) : null;
+const BOOKING_TABLE = 'bookings';
+const LEGACY_BOOKING_TABLE = 'booking_inquiries';
+
+const findBookingTable = async (id) => {
+  const primary = await supabase.from(BOOKING_TABLE).select('id').eq('id', id).limit(1);
+  if (!primary.error && primary.data?.length) return BOOKING_TABLE;
+
+  const fallback = await supabase.from(LEGACY_BOOKING_TABLE).select('id').eq('id', id).limit(1);
+  if (!fallback.error && fallback.data?.length) return LEGACY_BOOKING_TABLE;
+
+  return null;
+};
 
 export default async function handler(req, res) {
   if (handleOptions(req, res)) return;
@@ -11,15 +24,29 @@ export default async function handler(req, res) {
 
   try {
     if (!supabase) return res.status(500).json({ error: 'Supabase not configured' });
+    const adminUser = await requireAdmin(req, res);
+    if (!adminUser) return;
 
     const id = req.query?.id || req.url?.split('/')?.pop();
     if (!id) return res.status(400).json({ error: 'Missing booking id' });
+
+    const targetTable = await findBookingTable(id);
+    if (!targetTable) return res.status(404).json({ error: 'Booking not found' });
 
     if (req.method === 'PUT' || req.method === 'PATCH') {
       const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
       const { status } = body;
       if (!status) return res.status(400).json({ error: 'Missing status' });
-      const { data, error } = await supabase.from('bookings').update({ status, updated_at: new Date().toISOString() }).eq('id', id).select();
+
+      if (targetTable !== BOOKING_TABLE) {
+        return res.status(409).json({ error: 'Status updates are not supported for legacy booking_inquiries rows.' });
+      }
+
+      const { data, error } = await supabase
+        .from(targetTable)
+        .update({ status, updated_at: new Date().toISOString() })
+        .eq('id', id)
+        .select();
       if (error) return res.status(500).json({ error: error.message });
       return res.json((data || [])[0] || null);
     }
