@@ -10,7 +10,6 @@ import { Edit, Globe, Shield, Search, Plus, Eye, Lock, Unlock } from 'lucide-rea
 import { SEOMetaEditor } from './SEOMetaEditor';
 import { SecurityScanner } from './SecurityScanner';
 import { PageContentEditor } from './PageContentEditor';
-import PricingManager from './PricingManager';
 
 interface PageInfo {
   slug: string;
@@ -398,22 +397,7 @@ export const PageManager: React.FC = () => {
             No pages found matching your criteria
           </div>
         )}
-        <div className="mt-10">
-          <PricingManager />
-        </div>
       </CardContent>
     </Card>
   );
 };
-
-INSERT INTO course_prices (course, price_thb, price_usd, price_eur)
-VALUES
-  ('Open Water', '11000', '320', '290'),
-  ('Advanced', '9500', '275', '250'),
-  ('Rescue', '10000', '290', '265'),
-  ('Divemaster', '41000', '1190', '1090'),
-  ('Instructor', '68900', '1710', '1560'),
-  ('Scuba Review', '2500', '72', '66'),
-  ('Discover Scuba', '2500', '72', '66'),
-  ('Discover Scuba Deluxe', '5000', '144', '132'),
-  ('EFR', '3500', '130', '120');
