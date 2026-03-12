@@ -10,6 +10,7 @@ import { Edit, Globe, Shield, Search, Plus, Eye, Lock, Unlock } from 'lucide-rea
 import { SEOMetaEditor } from './SEOMetaEditor';
 import { SecurityScanner } from './SecurityScanner';
 import { PageContentEditor } from './PageContentEditor';
+import PricingManager from './PricingManager';
 
 interface PageInfo {
   slug: string;
@@ -397,6 +398,9 @@ export const PageManager: React.FC = () => {
             No pages found matching your criteria
           </div>
         )}
+        <div className="mt-10">
+          <PricingManager />
+        </div>
       </CardContent>
     </Card>
   );
