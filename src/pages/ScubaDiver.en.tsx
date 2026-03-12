@@ -15,7 +15,7 @@ const ScubaDiverEn: React.FC = () => {
         price_eur: '225',
         duration: '2-3 days',
       }}
-      heroImage="/images/scubadiver-hero.jpg"
+      heroImage="/images/scubadiver-hero.png"
       level="Entry Level"
       bookingItemName="PADI Scuba Diver Course"
       sections={[
