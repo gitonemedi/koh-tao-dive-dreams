@@ -17,6 +17,7 @@ import { hasAdminAccess } from '@/lib/adminAccess';
 import { PageManager } from '@/components/PageManager';
 import PricingManager from '../components/PricingManager';
 
+// ...imports...
 
 interface BookingInquiry {
   id: string;
@@ -36,7 +37,6 @@ interface BookingInquiry {
   message: string | null;
   status: string;
 }
-
 
 const Admin = () => {
   // --- STATE & HOOKS ---
@@ -113,7 +113,7 @@ const Admin = () => {
     };
     initAuth();
   }, [fetchAdminApi, redirectToLogin]);
-          return `
+  useEffect(() => {
     if (window.location.hash === '#pages') {
       setActiveTab('edit-pages');
     }
@@ -283,6 +283,65 @@ const Admin = () => {
           return `<tr><td style="padding:8px;border-bottom:1px solid #e5e7eb;">${label}</td><td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:right;">฿${amount}</td></tr>`;
         }).join('')
       : '<tr><td style="padding:8px;border-bottom:1px solid #e5e7eb;">No add-ons</td><td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:right;">฿0</td></tr>';
-    return `\n      <html>\n        <head>\n          <title>${invoiceNo}</title>\n          <meta charset=\"utf-8\" />\n        </head>\n        <body style=\"font-family:Arial,sans-serif;color:#111827;padding:24px;max-width:800px;margin:0 auto;\">\n          <div style=\"display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;\">\n            <div>\n              <img src=\"/images/logo.avif\" alt=\"Pro Diving Asia\" style=\"height:56px;width:auto;display:block;margin-bottom:10px;\" />\n              <h1 style=\"margin:0;font-size:26px;\">Pro Diving Asia</h1>\n              <div style=\"color:#6b7280;margin-top:4px;\">Koh Tao, Thailand</div>\n            </div>\n            <div style=\"text-align:right;\">\n              <div style=\"font-size:22px;font-weight:700;\">Invoice</div>\n              <div style=\"color:#6b7280;\">${invoiceNo}</div>\n              <div style=\"color:#6b7280;\">Date: ${issueDate}</div>\n            </div>\n          </div>\n\n          <div style=\"margin-bottom:20px;\">\n            <div style=\"font-weight:600;\">Bill To</div>\n            <div>${booking.name}</div>\n            <div>${booking.email}</div>\n            <div>${booking.phone || '-'}...</string>
+    return `
+      <html>
+        <head>
+          <title>${invoiceNo}</title>
+          <meta charset="utf-8" />
+        </head>
+        <body style="font-family:Arial,sans-serif;color:#111827;padding:24px;max-width:800px;margin:0 auto;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;">
+            <div>
+              <img src="/images/logo.avif" alt="Pro Diving Asia" style="height:56px;width:auto;display:block;margin-bottom:10px;" />
+              <h1 style="margin:0;font-size:26px;">Pro Diving Asia</h1>
+              <div style="color:#6b7280;margin-top:4px;">Koh Tao, Thailand</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:22px;font-weight:700;">Invoice</div>
+              <div style="color:#6b7280;">${invoiceNo}</div>
+              <div style="color:#6b7280;">Date: ${issueDate}</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <div style="font-weight:600;">Bill To</div>
+            <div>${booking.name}</div>
+            <div>${booking.email}</div>
+            <div>${booking.phone || '-'}</div>
+          </div>
+
+          <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding:8px;background:#f3f4f6;border-bottom:1px solid #d1d5db;">Description</th>
+                <th style="text-align:right;padding:8px;background:#f3f4f6;border-bottom:1px solid #d1d5db;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:8px;border-bottom:1px solid #e5e7eb;">${itemName}${booking.item_type ? ` (${booking.item_type})` : ''}</td>
+                <td style="padding:8px;border-bottom:1px solid #e5e7eb;text-align:right;">${subtotal !== null ? `฿${subtotal}` : '-'}</td>
+              </tr>
+              ${addonRows}
+            </tbody>
+          </table>
+
+          <div style="margin-left:auto;max-width:320px;">
+            <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Add-ons total</span><strong>฿${addonsTotal}</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Total payable now</span><strong>฿${dueNow}</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid #d1d5db;margin-top:8px;"><span>Grand total</span><strong>${grandTotal !== null ? `฿${grandTotal}` : '-'}</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:6px 0;"><span>Balance due</span><strong>${balanceDue !== null ? `฿${balanceDue}` : '-'}</strong></div>
+          </div>
+
+          ${payPalLink ? `<div style="margin-top:20px;padding:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;"><div style="font-weight:600;margin-bottom:6px;">Pay online</div><div style="font-size:12px;color:#6b7280;margin-bottom:6px;">Pay securely with PayPal using this link:</div><a href="${payPalLink}" style="word-break:break-all;color:#2563eb;">${payPalLink}</a></div>` : ''}
+
+          <p style="margin-top:24px;color:#6b7280;font-size:12px;">Thank you for booking with Pro Diving Asia.</p>
+        </body>
+      </html>
+    `;
+  };
+
+  // ...rest of Admin component (JSX and handlers)...
+};
 
 export default Admin;
