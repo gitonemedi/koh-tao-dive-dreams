@@ -111,6 +111,7 @@ export const PageManager: React.FC = () => {
       const { data, error } = await supabase
         .from('page_metadata')
         .select('page_slug, has_seo, is_secured, draft_status, updated_at');
+      console.log('[PageManager] Supabase page_metadata:', { data, error });
 
       if (error || !Array.isArray(data)) {
         return;
