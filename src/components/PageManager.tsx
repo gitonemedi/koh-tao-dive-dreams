@@ -108,23 +108,30 @@ export const PageManager: React.FC = () => {
 
   const loadPageMetadata = async () => {
     try {
+      // Only select columns that exist in your Supabase table
       const { data, error } = await supabase
         .from('page_metadata')
-        .select('page_slug, has_seo, is_secured, draft_status, updated_at');
+        .select('page_slug, has_seo, is_secured, updated_at');
       console.log('[PageManager] Supabase page_metadata:', { data, error });
 
-      if (error || !Array.isArray(data)) {
+      if (error) {
+        console.error('Supabase error loading page_metadata:', error);
+        return;
+      }
+      if (!Array.isArray(data)) {
+        console.error('Supabase returned non-array data for page_metadata:', data);
         return;
       }
       setPages(prevPages =>
         prevPages.map(page => {
           const meta = (data as PageMeta[]).find((d) => d.page_slug === page.slug);
-          if (meta && typeof meta === 'object' && !('message' in meta)) {
+          if (meta && typeof meta === 'object') {
             return {
               ...page,
               hasSEO: 'has_seo' in meta ? meta.has_seo || false : false,
               isSecured: 'is_secured' in meta ? meta.is_secured || false : false,
-              draftStatus: 'draft_status' in meta ? (meta.draft_status as 'draft' | 'published') || 'published' : 'published',
+              // draftStatus fallback: always published if not present
+              draftStatus: 'published',
               lastModified: 'updated_at' in meta ? meta.updated_at : undefined,
             };
           }
