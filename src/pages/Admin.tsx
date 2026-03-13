@@ -15,7 +15,7 @@ import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { hasAdminAccess } from '@/lib/adminAccess';
 import { PageManager } from '@/components/PageManager';
-import PricingManager from '@/components/PricingManager';
+import PricingManager from '../components/PricingManager';
 
 
 interface BookingInquiry {
